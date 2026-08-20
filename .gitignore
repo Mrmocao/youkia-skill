@@ -1,0 +1,11 @@
+# Local credentials and generated image outputs
+config.local.json
+**/config.local.json
+test-grok.png
+**/test-grok.png
+
+# Local/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
