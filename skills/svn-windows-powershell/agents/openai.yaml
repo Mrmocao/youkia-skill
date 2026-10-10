@@ -1,0 +1,4 @@
+interface:
+  display_name: "SVN Windows PowerShell"
+  short_description: "Safely manage SVN working copies on Windows"
+  default_prompt: "Use $svn-windows-powershell to inspect and safely operate this Windows SVN working copy."

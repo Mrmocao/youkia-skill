@@ -12,6 +12,7 @@ const DEFAULT_CONFIG_PATH = resolve(dirname(fileURLToPath(import.meta.url)), "..
 function printUsage() {
   console.error(`Usage:
   node scripts/generate-image.mjs --prompt <text> --output <path>
+  node scripts/generate-image.mjs --prompt <text> --savePath <path>
   node scripts/generate-image.mjs --self-test
 
 Options:
@@ -23,6 +24,8 @@ Options:
 
 function parseArgs(argv) {
   const args = {};
+  const valueOptions = new Set(["prompt", "output", "savePath", "api-key", "base-url", "config"]);
+
   for (let index = 0; index < argv.length; index += 1) {
     const token = argv[index];
     if (token === "--self-test") {
@@ -33,9 +36,10 @@ function parseArgs(argv) {
       printUsage();
       process.exit(0);
     }
-    if (!token.startsWith("--")) {
-      throw new Error(`Unexpected argument: ${token}`);
+    if (!token.startsWith("--") || !valueOptions.has(token.slice(2))) {
+      throw new Error(`Unknown argument: ${token}`);
     }
+
     const name = token.slice(2);
     const value = argv[index + 1];
     if (!value || value.startsWith("--")) {
@@ -44,13 +48,16 @@ function parseArgs(argv) {
     args[name] = value;
     index += 1;
   }
+
+  if (args.output && args.savePath && args.output !== args.savePath) {
+    throw new Error("Use either --output or --savePath, not both");
+  }
   return args;
 }
 
-function requireValue(args, name) {
-  const value = args[name];
-  if (!value || !value.trim()) {
-    throw new Error(`Missing required argument: --${name}`);
+function requireValue(value, label) {
+  if (typeof value !== "string" || !value.trim()) {
+    throw new Error(`Missing required value: ${label}`);
   }
   return value.trim();
 }
@@ -60,37 +67,34 @@ function resolveEndpoint(baseUrl) {
   try {
     parsed = new URL(baseUrl);
   } catch {
-    throw new Error("--base-url must be a valid http(s) URL");
+    throw new Error("base_url must be a valid http(s) URL");
   }
   if (!["http:", "https:"].includes(parsed.protocol)) {
-    throw new Error("--base-url must use http or https");
+    throw new Error("base_url must use http or https");
   }
+
   const host = parsed.hostname.toLowerCase();
   if (host === "localhost" || host === "127.0.0.1" || host === "::1" || parsed.port === "15721") {
-    throw new Error("Loopback and cc-switch proxy URLs are not allowed; use the direct SubAPI URL");
+    throw new Error("Loopback and CC-Switch proxy URLs are not allowed");
   }
 
   const pathname = parsed.pathname.replace(/\/+$/, "");
-  if (pathname.endsWith("/images/generations")) {
-    return parsed.toString();
+  if (!pathname.endsWith("/images/generations")) {
+    parsed.pathname = pathname.endsWith("/v1")
+      ? `${pathname}/images/generations`
+      : `${pathname}/v1/images/generations`;
   }
-  parsed.pathname = pathname.endsWith("/v1")
-    ? `${pathname}/images/generations`
-    : `${pathname}/v1/images/generations`;
   parsed.search = "";
   parsed.hash = "";
   return parsed.toString();
 }
 
-function decodeImageValue(value) {
-  if (typeof value !== "string" || !value) {
-    throw new Error("The image response did not contain b64_json or url");
+function decodeDataUrl(value) {
+  if (typeof value !== "string") {
+    return null;
   }
-  const dataUrlMatch = value.match(/^data:([^;,]+)?;base64,(.+)$/s);
-  if (dataUrlMatch) {
-    return Buffer.from(dataUrlMatch[2], "base64");
-  }
-  return null;
+  const match = value.match(/^data:([^;,]+)?;base64,(.+)$/s);
+  return match ? Buffer.from(match[2], "base64") : null;
 }
 
 async function readImage(responseBody) {
@@ -98,15 +102,20 @@ async function readImage(responseBody) {
   if (!image) {
     throw new Error("The API response did not contain data[0]");
   }
-  if (image.b64_json) {
+  if (typeof image.b64_json === "string" && image.b64_json) {
     return Buffer.from(image.b64_json, "base64");
   }
-  const dataUrl = decodeImageValue(image.url);
+
+  const dataUrl = decodeDataUrl(image.url);
   if (dataUrl) {
     return dataUrl;
   }
-  if (image.url) {
-    const imageResponse = await fetch(image.url);
+  if (typeof image.url === "string" && image.url) {
+    const imageUrl = new URL(image.url);
+    if (!["http:", "https:"].includes(imageUrl.protocol)) {
+      throw new Error("The returned image URL must use http or https");
+    }
+    const imageResponse = await fetch(imageUrl, { signal: AbortSignal.timeout(120_000) });
     if (!imageResponse.ok) {
       throw new Error(`Image download failed with HTTP ${imageResponse.status}`);
     }
@@ -115,11 +124,30 @@ async function readImage(responseBody) {
   throw new Error("The image response did not contain b64_json or url");
 }
 
+async function loadConfig(configPath) {
+  let configText;
+  try {
+    configText = await readFile(configPath, "utf8");
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      throw new Error(`Config file not found: ${configPath}`);
+    }
+    throw new Error(`Unable to read config file: ${configPath}`);
+  }
+
+  try {
+    return JSON.parse(configText);
+  } catch {
+    throw new Error(`Config file is not valid JSON: ${configPath}`);
+  }
+}
+
 async function generateImage({ apiKey, baseUrl, prompt, output }) {
   const endpoint = resolveEndpoint(baseUrl);
   const response = await fetch(endpoint, {
     method: "POST",
     headers: {
+      Accept: "application/json",
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
     },
@@ -129,6 +157,7 @@ async function generateImage({ apiKey, baseUrl, prompt, output }) {
       n: 1,
       response_format: "b64_json",
     }),
+    signal: AbortSignal.timeout(120_000),
   });
 
   const responseText = await response.text();
@@ -147,26 +176,7 @@ async function generateImage({ apiKey, baseUrl, prompt, output }) {
   const outputPath = resolve(output);
   await mkdir(dirname(outputPath), { recursive: true });
   await writeFile(outputPath, imageBytes);
-  return { endpoint, output: outputPath, bytes: imageBytes.length, model: MODEL };
-}
-
-async function loadConfig(configPath) {
-  let configText;
-  try {
-    configText = await readFile(configPath, "utf8");
-  } catch (error) {
-    if (error?.code === "ENOENT") {
-      throw new Error(`Config file not found: ${configPath}. Add api_key and base_url to this file.`);
-    }
-    throw new Error(`Unable to read config file: ${configPath}`);
-  }
-  let config;
-  try {
-    config = JSON.parse(configText);
-  } catch {
-    throw new Error(`Config file is not valid JSON: ${configPath}`);
-  }
-  return config;
+  return { endpoint, output: outputPath, bytes: imageBytes.length, model: MODEL, status: response.status };
 }
 
 async function main() {
@@ -174,10 +184,12 @@ async function main() {
     const args = parseArgs(process.argv.slice(2));
     const configPath = resolve(args.config || DEFAULT_CONFIG_PATH);
     const config = await loadConfig(configPath);
-    const apiKey = requireValue({ "api-key": args["api-key"] || config.api_key }, "api-key");
-    const baseUrl = requireValue({ "base-url": args["base-url"] || config.base_url }, "base-url");
-    const prompt = args.selfTest ? SELF_TEST_PROMPT : requireValue(args, "prompt");
-    const output = args.selfTest ? SELF_TEST_OUTPUT : requireValue(args, "output");
+    const apiKey = requireValue(args["api-key"] || config.api_key, "api_key");
+    const baseUrl = requireValue(args["base-url"] || config.base_url, "base_url");
+    const prompt = args.selfTest ? SELF_TEST_PROMPT : requireValue(args.prompt, "--prompt");
+    const output = args.selfTest
+      ? SELF_TEST_OUTPUT
+      : requireValue(args.output || args.savePath, "--output or --savePath");
     const result = await generateImage({ apiKey, baseUrl, prompt, output });
     console.log(JSON.stringify({ success: true, prompt, ...result }, null, 2));
   } catch (error) {

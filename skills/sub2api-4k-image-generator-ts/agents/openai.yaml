@@ -1,0 +1,4 @@
+interface:
+  display_name: "sub2api 4K Image Generator TS"
+  short_description: "Generate 4K images through sub2api"
+  default_prompt: "Use $sub2api-4k-image-generator-ts to generate a 4K image through my sub2api endpoint."

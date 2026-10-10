@@ -1,0 +1,30 @@
+{
+  "name": "sub2api-4k-image-generator-ts",
+  "version": "0.1.0",
+  "description": "TypeScript Codex skill and CLI for 4K image generation through sub2api OpenAI-compatible endpoints.",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "sub2api-4k-image-generator": "./dist/openai_4k_image_generator.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "tsx scripts/test.ts",
+    "dry-run": "tsx scripts/openai_4k_image_generator.ts \"test prompt\" --dry-run"
+  },
+  "keywords": [
+    "codex-skill",
+    "skills-sh",
+    "sub2api",
+    "image-generation",
+    "4k-image-generator",
+    "openai-compatible",
+    "typescript"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.0"
+  }
+}

@@ -1,4 +1,4 @@
 interface:
   display_name: "Grok Imagine SubAPI"
-  short_description: "Generate images with direct SubAPI calls"
-  default_prompt: "Use $grok-imagine-subapi to generate an image from a prompt and save it locally."
+  short_description: "Generate images and videos with direct SubAPI calls"
+  default_prompt: "Use $grok-imagine-subapi to generate media from a prompt and save it locally."

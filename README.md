@@ -2,6 +2,14 @@
 
 Shared Codex skills for the Youkia team.
 
+## Available Skills
+
+| Skill | Version | Purpose |
+| --- | --- | --- |
+| `grok-imagine-subapi` | 1.1.0 | Generate images and short videos through a direct SubAPI-compatible Grok Imagine endpoint. |
+| `sub2api-4k-image-generator-ts` | 0.2.0 | Generate high-resolution images through a Sub2API OpenAI-compatible endpoint with TypeScript tooling. |
+| `svn-windows-powershell` | 1.0.0 | Safely inspect, update, resolve, and commit SVN working copies from Windows PowerShell. |
+
 ## Repository Layout
 
 Each skill lives in its own directory under `skills/`:
