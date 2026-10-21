@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="天上友嘉锦鲤云公共技能平台" />
+    <title>天上友嘉 · 锦鲤云公共技能平台</title>
+    <link rel="icon" href="/favicon.svg?v=2.2.0" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css?v=2.3.0" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand" href="/" aria-label="返回技能平台首页">
+          <span class="brand-mark" aria-hidden="true"><i data-lucide="blocks"></i></span>
+          <span class="brand-copy">
+            <strong class="brand-name">天上友嘉</strong>
+            <span class="brand-label">锦鲤云公共技能平台</span>
+          </span>
+        </a>
+
+        <nav class="nav" aria-label="主导航">
+          <button class="nav-link is-active" data-nav="library" type="button">技能广场</button>
+          <button class="nav-link" data-nav="guide" type="button">安装指南</button>
+          <button class="nav-link" data-nav="mcp" type="button">Agent 接入</button>
+        </nav>
+
+        <div class="topbar-actions">
+          <button class="icon-button mcp-trigger" type="button" data-action="open-mcp" aria-label="查看 Agent 接入" title="Agent 接入">
+            <i data-lucide="plug-zap"></i>
+          </button>
+          <button class="button button-upload" type="button" data-action="open-submit" aria-label="上传技能" title="上传技能">
+            <i data-lucide="upload-cloud"></i>
+            <span>上传技能</span>
+          </button>
+          <button class="icon-button admin-trigger" type="button" data-action="open-admin" aria-label="管理员审核中心" title="管理员审核中心">
+            <i data-lucide="shield-check"></i>
+            <span class="admin-trigger-label">管理</span>
+            <span id="pending-badge" hidden></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="app" class="app-shell" aria-live="polite">
+      <section id="library-view">
+        <header class="library-head">
+          <div class="library-copy">
+            <p class="eyebrow">PUBLIC SKILL CENTER</p>
+            <h1>锦鲤云公共技能平台</h1>
+            <p class="intro">公司共享的 Agent 技能平台，汇集团队可复用的技能、安装包与配置方案。</p>
+          </div>
+          <dl class="catalog-stats" aria-label="技能平台统计">
+            <div><dt>已发布</dt><dd id="skill-count">0</dd></div>
+            <div><dt>技能分类</dt><dd id="category-count">0</dd></div>
+            <div><dt>开放投稿</dt><dd><i data-lucide="check"></i></dd></div>
+          </dl>
+        </header>
+
+        <section class="collaboration-banner" aria-labelledby="collaboration-title">
+          <div class="collaboration-mark"><i data-lucide="users-round"></i></div>
+          <div class="collaboration-copy">
+            <p class="eyebrow">KEEP BUILDING TOGETHER</p>
+            <h2 id="collaboration-title">一起维护公司的共享技能库</h2>
+            <p>这里是公司的共享技能平台，每一位同事都可以参与维护。改进了技能的用法、配置、脚本或教程，欢迎自主提交新版本；提交后联系莫超并提供审核编号，审批通过后更新发布。优化建议也可以直接反馈给莫超。</p>
+          </div>
+          <div class="collaboration-actions">
+            <button class="button button-primary" type="button" data-action="open-submit"><i data-lucide="upload-cloud"></i>提交优化</button>
+            <button class="button button-secondary" type="button" data-action="open-guide">查看协作规则</button>
+          </div>
+        </section>
+
+        <div class="catalog-toolbar">
+          <label class="search-control" for="search-input">
+            <i data-lucide="search"></i>
+            <input id="search-input" type="search" placeholder="搜索技能、用途或标签" autocomplete="off" />
+          </label>
+          <label class="sort-control" for="sort-select">
+            <span>排序方式</span>
+            <select id="sort-select">
+              <option value="featured">推荐优先</option>
+              <option value="updated">最近更新</option>
+              <option value="downloads">下载最多</option>
+              <option value="name">名称</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="catalog-content">
+          <div id="category-tabs" class="category-tabs" role="tablist" aria-label="技能分类"></div>
+          <div id="results-meta" class="results-meta"></div>
+          <div id="skills-grid" class="skills-grid"></div>
+          <div id="empty-state" class="empty-state" hidden>
+            <i data-lucide="search-x"></i>
+            <h2>没有匹配的技能</h2>
+            <p>尝试更换关键词或分类。</p>
+            <button class="button button-secondary" type="button" data-action="clear-filters">清除筛选</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="detail-view" hidden></section>
+      <section id="guide-view" hidden></section>
+      <section id="mcp-view" hidden></section>
+    </main>
+
+    <dialog id="submit-dialog" class="dialog submission-dialog">
+      <div class="dialog-header">
+        <div>
+          <p class="eyebrow">CONTRIBUTE</p>
+          <h2>上传技能</h2>
+          <p>这是公司的共享技能平台。提交新技能或优化版本后，由莫超统一审批并更新发布。</p>
+        </div>
+        <button class="icon-button" type="button" data-action="close-dialog" aria-label="关闭上传窗口">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <form id="submission-form" class="dialog-body upload-form">
+        <input type="hidden" name="baseVersion" />
+        <div id="submission-status" class="submission-status" role="status" hidden></div>
+
+        <div class="agent-submit-option">
+          <span class="agent-submit-icon" aria-hidden="true"><i data-lucide="bot"></i></span>
+          <div>
+            <strong>也可以让 Codex 或 OpenCode 直接投稿</strong>
+            <span>接入平台 MCP 后，把本地 ZIP 路径和技能资料告诉 Agent 即可提交审核。</span>
+          </div>
+          <button class="button button-secondary button-small" type="button" data-action="open-mcp">
+            <i data-lucide="plug-zap"></i>
+            查看接入方式
+          </button>
+        </div>
+
+        <fieldset class="form-section">
+          <legend>基本信息</legend>
+          <div class="form-grid two-columns">
+            <label class="field">
+              <span>技能名称</span>
+              <input name="name" placeholder="例如：Grok Imagine SubAPI" required maxlength="100" />
+            </label>
+            <label class="field">
+              <span>技能 ID</span>
+              <input name="id" placeholder="grok-imagine-subapi" pattern="[a-z0-9]+(-[a-z0-9]+)*" required maxlength="100" />
+            </label>
+            <label class="field">
+              <span>版本</span>
+              <input name="version" value="1.0.0" required maxlength="40" />
+            </label>
+            <label class="field">
+              <span>分类</span>
+              <select name="category">
+                <option>开发工具</option>
+                <option>媒体生成</option>
+                <option>数据分析</option>
+                <option>内容生产</option>
+                <option>团队效率</option>
+                <option>其他</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="field">
+            <span>一句话简介</span>
+            <textarea name="description" rows="3" required maxlength="1000" placeholder="说明技能解决什么问题、适合何时使用"></textarea>
+          </label>
+
+          <div class="form-grid two-columns">
+            <label class="field">
+              <span>作者 / 团队</span>
+              <input name="author" placeholder="你的名字或团队" required maxlength="80" />
+            </label>
+            <label class="field">
+              <span>上传人员 <em>（选填）</em></span>
+              <input name="uploaderName" placeholder="用于技能详情页展示" maxlength="80" />
+            </label>
+            <label class="field">
+              <span>标签</span>
+              <input name="tags" placeholder="Node.js, 图片生成, API" maxlength="300" />
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>教程与配置</legend>
+          <label class="field">
+            <span>本次贡献 / 优化说明</span>
+            <textarea name="changeSummary" rows="3" required maxlength="2000" placeholder="说明解决的问题、改动内容和验证结果；优化已有技能时请沿用技能 ID 并提高版本号。"></textarea>
+          </label>
+          <label class="field">
+            <span>安装与使用教程</span>
+            <textarea name="tutorial" rows="6" required placeholder="每一步使用“标题 | 内容”一行，例如：&#10;安装 | 解压到 ~/.codex/skills/skill-name/&#10;配置 | 复制 config.example.json 为 config.local.json"></textarea>
+          </label>
+
+          <label class="field">
+            <span>配置示例</span>
+            <textarea name="configExample" class="code-input" rows="6" placeholder="仅填写占位符，不要填写真实密钥"></textarea>
+          </label>
+
+          <label class="field">
+            <span>命令示例</span>
+            <textarea name="examples" rows="4" placeholder="每一条使用“名称 | 命令”一行"></textarea>
+          </label>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>提交审核</legend>
+          <div class="form-grid two-columns">
+            <label class="field">
+              <span>提交人</span>
+              <input name="submitter" placeholder="便于审核沟通" required maxlength="80" />
+            </label>
+            <label class="field">
+              <span>联系方式</span>
+              <input name="contact" placeholder="钉钉、邮箱或企业微信" required maxlength="160" />
+            </label>
+          </div>
+
+          <label class="dropzone" for="submission-package-input">
+            <input id="submission-package-input" name="package" type="file" accept=".zip,application/zip" required />
+            <i data-lucide="package-plus"></i>
+            <strong>选择技能 ZIP 包</strong>
+            <span id="submission-package-label">最大 30 MB，包内必须包含 SKILL.md</span>
+          </label>
+
+          <label class="checkbox-field">
+            <input name="secretConfirmed" type="checkbox" required />
+            <span>我已确认技能包不包含 API Key、密码、<code>config.local.json</code>、<code>.env</code> 或其他真实凭据</span>
+          </label>
+        </fieldset>
+
+        <div class="dialog-actions dialog-actions-end">
+          <button class="button button-secondary" type="button" data-action="close-dialog">取消</button>
+          <button class="button button-primary" type="submit">
+            <i data-lucide="send"></i>
+            提交审核
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="admin-dialog" class="dialog admin-dialog">
+      <div class="dialog-header">
+        <div>
+          <p class="eyebrow">ADMIN REVIEW</p>
+          <h2>技能审核中心</h2>
+          <p>下载并检查投稿包，确认后发布到公共技能平台。</p>
+        </div>
+        <button class="icon-button" type="button" data-action="close-dialog" aria-label="关闭审核中心">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <form id="login-form" class="dialog-body compact-form">
+        <p class="form-intro">仅供莫超及内部授权维护人员使用，审批与发布权限不向投稿者开放。</p>
+        <label class="field">
+          <span>管理员密码</span>
+          <input name="password" type="password" autocomplete="current-password" required />
+        </label>
+        <button class="button button-primary" type="submit">
+          <i data-lucide="log-in"></i>
+          登录审核中心
+        </button>
+      </form>
+
+      <section id="review-panel" class="dialog-body review-panel" hidden>
+        <div class="review-toolbar">
+          <div>
+            <strong>待审核投稿</strong>
+            <span id="review-count">0 个待处理</span>
+          </div>
+          <span class="review-toolbar-actions">
+            <button class="button button-primary button-small" type="button" data-action="new-admin-skill"><i data-lucide="plus"></i>新增技能</button>
+            <button class="button button-secondary button-small" type="button" data-action="refresh-reviews"><i data-lucide="refresh-cw"></i>刷新</button>
+          </span>
+        </div>
+        <div id="review-list" class="review-list"></div>
+        <div class="review-toolbar published-toolbar"><div><strong>已发布技能</strong><span id="published-count">0 个</span></div></div>
+        <div id="published-list" class="review-list"></div>
+        <div class="review-toolbar archived-toolbar"><div><strong>已下架归档</strong><span id="archived-count">0 个</span></div></div>
+        <div id="archived-list" class="review-list"></div>
+        <div class="dialog-actions">
+          <button class="button button-secondary" type="button" data-action="logout">
+            <i data-lucide="log-out"></i>
+            退出登录
+          </button>
+        </div>
+      </section>
+    </dialog>
+
+    <dialog id="admin-skill-dialog" class="dialog admin-skill-dialog">
+      <div class="dialog-header">
+        <div>
+          <p class="eyebrow">CATALOG MANAGEMENT</p>
+          <h2 id="admin-skill-dialog-title">新增技能</h2>
+          <p>新增时上传完整 ZIP；编辑已发布技能时只修改展示信息。</p>
+        </div>
+        <button class="icon-button" type="button" data-action="close-dialog" aria-label="关闭技能编辑窗口"><i data-lucide="x"></i></button>
+      </div>
+      <form id="admin-skill-form" class="dialog-body upload-form">
+        <input type="hidden" name="mode" value="create" />
+        <input type="hidden" name="originalId" />
+        <div class="form-grid two-columns">
+          <label class="field"><span>技能名称</span><input name="name" required maxlength="100" /></label>
+          <label class="field"><span>技能 ID</span><input name="id" required pattern="[a-z0-9]+(-[a-z0-9]+)*" maxlength="100" /></label>
+          <label class="field"><span>版本</span><input name="version" value="1.0.0" required maxlength="40" /></label>
+          <label class="field"><span>分类</span><select name="category"><option>开发工具</option><option>媒体生成</option><option>数据分析</option><option>内容生产</option><option>团队效率</option><option>其他</option></select></label>
+          <label class="field"><span>作者 / 团队</span><input name="author" maxlength="80" /></label>
+          <label class="field"><span>上传人员 <em>（选填）</em></span><input name="uploaderName" maxlength="80" /></label>
+        </div>
+        <label class="field"><span>一句话简介</span><textarea name="description" rows="3" required maxlength="1000"></textarea></label>
+        <label class="field"><span>标签</span><input name="tags" maxlength="300" placeholder="Node.js, 图片生成, API" /></label>
+        <label class="checkbox-field"><input name="featured" type="checkbox" /><span>推荐技能（显示在推荐优先排序前列）</span></label>
+        <label class="dropzone admin-package-field" for="admin-package-input"><input id="admin-package-input" name="package" type="file" accept=".zip,application/zip" /><i data-lucide="package-plus"></i><strong>选择完整技能 ZIP 包</strong><span id="admin-package-label">新增技能必填；编辑时可留空</span></label>
+        <div class="dialog-actions dialog-actions-end"><button class="button button-secondary" type="button" data-action="close-dialog">取消</button><button class="button button-primary" type="submit"><i data-lucide="save"></i>保存</button></div>
+      </form>
+    </dialog>
+
+    <div id="toast-region" class="toast-region" aria-live="assertive"></div>
+
+    <script src="/vendor/lucide.min.js"></script>
+    <script type="module" src="/app.js?v=2.3.0"></script>
+  </body>
+</html>

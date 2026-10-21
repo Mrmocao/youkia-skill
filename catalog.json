@@ -1,0 +1,69 @@
+{
+  "snapshot_date": "2026-10-21",
+  "skills": [
+    {
+      "id": "grok-imagine-subapi",
+      "version": "1.2.0",
+      "description": "通过直连 SubAPI 调用 Grok Imagine，生成图片或短视频并保存到本地。",
+      "platform_published_version": "1.1.0",
+      "status": "pending_company_review",
+      "package_sha256": "6bf0d9d8a413da9ce16a88bdf04799a4d49c2fa337b1723ddd3ca89bf6bc2372"
+    },
+    {
+      "id": "sub2api-4k-image-generator-ts",
+      "version": "0.3.1",
+      "description": "通过 Sub2API 的 OpenAI 兼容接口生成高分辨率和 4K 图片，支持 TypeScript/Node、流式响应、超时规避、局部图捕获以及本地 API Key 配置文件。",
+      "platform_published_version": "0.3.1",
+      "status": "published",
+      "package_sha256": "c5836eb3b7fae29a52046a49d6f2c166c16080d8feb9c94450777bdc311a03c8"
+    },
+    {
+      "id": "svn-windows-powershell",
+      "version": "1.0.0",
+      "description": "在 Windows PowerShell 中安全检查、更新、修改、冲突处理和提交 Apache Subversion 工作副本。",
+      "platform_published_version": "1.0.0",
+      "status": "published",
+      "package_sha256": "ea8e9cdabf5336a66223fbf658d30306c5083721e4d80a1dde7a0645f653bb3f"
+    },
+    {
+      "id": "youkia-gm",
+      "version": "0.1.2",
+      "description": "通过 Codex 自然语言操作 youkia GM，支持账号绑定、项目与功能发现、服务器选择、任务预检、执行和结果查询，并内置 Python 运行环境。",
+      "platform_published_version": "0.1.2",
+      "status": "published",
+      "package_sha256": "14a2917e5b038829a22ced3f88b491c42dd2d8ec9c16c0a5ba39d79639fc4e05"
+    },
+    {
+      "id": "youkia-midjourney-mcp",
+      "version": "1.0.0",
+      "description": "在 Codex 桌面版中配置和使用 Midjourney MCP，解决专用 Chrome 登录、确认表单不可见和生成任务重复提交问题，支持只读验收、经授权出图及原图下载。",
+      "platform_published_version": "1.0.0",
+      "status": "published",
+      "package_sha256": "f7f02147d0665bd495b4f9cb65367f8324c04b1c922ad7b3e88e5eeeea2de079"
+    },
+    {
+      "id": "youkia-local-server",
+      "version": "0.1.0",
+      "description": "通过 Codex 对话配置和管理 youkia 本地服务器，支持开启、关闭、重启、清档及清档重启，自动核验 Unity Play 与服务器状态。",
+      "platform_published_version": "0.1.0",
+      "status": "published",
+      "package_sha256": "f3e30c0028cd3d16197adc8455cf443bafc0698b38c4a324652e36c532c6167b"
+    },
+    {
+      "id": "youkia-jira",
+      "version": "0.1.0",
+      "description": "通过 Codex 自然语言查询和操作 Jira，支持账号密码与 Token 登录、任务与 Bug 处理、工作流、报告导出和技能模块抽取，并内置 Python 运行环境。",
+      "platform_published_version": "0.1.0",
+      "status": "published",
+      "package_sha256": "583dbef040df5c074cdf928cde5378a2a70a7f06a362d7a021d8b70bcad82172"
+    },
+    {
+      "id": "youkia-image-codex",
+      "version": "1.0.0",
+      "description": "通过用户自有的 OpenAI 兼容 Sub2API 地址生成或修改高分辨率图片，支持 4K、流式 SSE 解析、本地保存、尺寸检查、错误诊断和安全的离线自测。",
+      "platform_published_version": "1.0.0",
+      "status": "published",
+      "package_sha256": "9f45654f44c51fb6b6bebe000cc0e2d63cb8f454fadce63ac8b9201f791a3664"
+    }
+  ]
+}

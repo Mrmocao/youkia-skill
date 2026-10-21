@@ -1,39 +1,32 @@
 # Youkia Skills
 
-Shared Codex skills for the Youkia team.
+Shared Codex skills and the company skill platform source snapshot.
 
-## Available Skills
+## Skills
 
-| Skill | Version | Purpose |
+Snapshot: 2026-10-21. Published skills are synchronized from the company platform ZIPs. Grok 1.2.0 is the new tested local revision submitted for company review; GitHub availability does not imply company approval.
+
+| Skill | Version | Company platform status |
 | --- | --- | --- |
-| `grok-imagine-subapi` | 1.1.0 | Generate images and short videos through a direct SubAPI-compatible Grok Imagine endpoint. |
-| `sub2api-4k-image-generator-ts` | 0.2.0 | Generate high-resolution images through a Sub2API OpenAI-compatible endpoint with TypeScript tooling. |
-| `svn-windows-powershell` | 1.0.0 | Safely inspect, update, resolve, and commit SVN working copies from Windows PowerShell. |
+| `grok-imagine-subapi` | 1.2.0 | Company review pending |
+| `sub2api-4k-image-generator-ts` | 0.3.1 | Published |
+| `svn-windows-powershell` | 1.0.0 | Published |
+| `youkia-gm` | 0.1.2 | Published |
+| `youkia-midjourney-mcp` | 1.0.0 | Published |
+| `youkia-local-server` | 0.1.0 | Published |
+| `youkia-jira` | 0.1.0 | Published |
+| `youkia-image-codex` | 1.0.0 | Published |
 
-## Repository Layout
+## Layout and installation
 
-Each skill lives in its own directory under `skills/`:
+- `skills/<id>/`: complete installable skill files, including required runtime assets.
+- `catalog.json`: version/status inventory.
+- `platform/`: current workspace platform source and deployment templates; no production database, pending submissions, credentials or account records.
 
-```text
-skills/<skill-name>/
-|-- SKILL.md          # Skill instructions and usage
-|-- agents/           # Optional Codex metadata
-`-- scripts/          # Optional implementation scripts
-```
+Copy a desired skill directory to `~/.codex/skills/` (Windows: `%USERPROFILE%\.codex\skills\`). Create a local configuration from the skill's example if needed. Reload the Agent's skills or start a new session.
 
-## Installing a Skill
+For Grok validation, run `node --test skills/grok-imagine-subapi/tests/generation.test.mjs`. Generation smoke tests use provider credits; `--dry-run` does not. Grok 1.2.0 adds reference images, prompt files, recoverable video jobs, sanitized diagnostics and image/MP4 inspection. Existing output files are protected.
 
-Copy the desired skill directory into your local Codex skills directory:
+For platform deployment see `platform/README.md`. Its data directory starts empty; restore approved catalog data separately. The GitHub skill directory may contain a proposed version still under company review; do not automatically publish it as an approved platform package.
 
-- Windows: `%USERPROFILE%\\.codex\\skills\\`
-- macOS/Linux: `~/.codex/skills/`
-
-Restart or reload Codex after installation. Never commit API keys, tokens, cookies, or generated outputs. Use each skill's configuration example to create a local configuration file when needed.
-
-## Adding a Skill
-
-1. Add a self-contained directory under `skills/`.
-2. Include a complete `SKILL.md` with configuration, usage, and safety notes.
-3. Provide a redacted configuration example instead of real credentials.
-4. Add a focused self-test or verification command when the skill depends on an external service.
-5. Keep generated files and local credentials out of Git.
+Never commit local credentials, browser profiles, job records, generated output or private submission/contact metadata. Third-party runtimes and license files included by published skills are retained.

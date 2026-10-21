@@ -1,0 +1,3054 @@
+{
+  "format": 1,
+  "captured_date": "2026-10-13",
+  "schemas": {
+    "cfg_list_resp": {
+      "fields": {
+        "list": {
+          "rule": "repeated",
+          "type": "tup3_str",
+          "id": 1
+        }
+      }
+    },
+    "cfg_update_req": {
+      "fields": {
+        "name": {
+          "type": "string",
+          "id": 1
+        },
+        "ty": {
+          "type": "int64",
+          "id": 2
+        },
+        "content": {
+          "type": "bytes",
+          "id": 3
+        },
+        "time": {
+          "type": "int64",
+          "id": 4
+        }
+      }
+    },
+    "assemblys": {
+      "fields": {
+        "assemblys": {
+          "rule": "repeated",
+          "type": "assembly",
+          "id": 1
+        }
+      }
+    },
+    "assembly_serializes": {
+      "fields": {
+        "list": {
+          "rule": "repeated",
+          "type": "assembly_serialize",
+          "id": 1
+        }
+      }
+    },
+    "assembly_serialize": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "desc": {
+          "type": "string",
+          "id": 3
+        },
+        "ty": {
+          "type": "string",
+          "id": 4
+        },
+        "unit": {
+          "type": "string",
+          "id": 5
+        },
+        "adata": {
+          "type": "bytes",
+          "id": 6
+        },
+        "kvs": {
+          "rule": "repeated",
+          "type": "kv_string",
+          "id": 7
+        },
+        "childs": {
+          "rule": "repeated",
+          "type": "assembly_serialize",
+          "id": 8
+        }
+      }
+    },
+    "assembly": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "desc": {
+          "type": "string",
+          "id": 3
+        },
+        "ty": {
+          "type": "string",
+          "id": 4
+        },
+        "unit": {
+          "type": "string",
+          "id": 5
+        },
+        "adata": {
+          "type": "int64",
+          "id": 6
+        },
+        "kvs": {
+          "rule": "repeated",
+          "type": "kv_string",
+          "id": 7
+        },
+        "childs": {
+          "rule": "repeated",
+          "type": "assembly",
+          "id": 8
+        }
+      }
+    },
+    "datas": {
+      "fields": {
+        "datas": {
+          "rule": "repeated",
+          "type": "data",
+          "id": 1
+        }
+      }
+    },
+    "data": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "desc": {
+          "type": "string",
+          "id": 3
+        },
+        "unit": {
+          "type": "string",
+          "id": 4
+        },
+        "ty": {
+          "type": "int64",
+          "id": 5
+        },
+        "binary": {
+          "type": "bytes",
+          "id": 6
+        }
+      }
+    },
+    "assembly_set_req": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "desc": {
+          "type": "string",
+          "id": 3
+        },
+        "unit": {
+          "type": "string",
+          "id": 4
+        },
+        "adata": {
+          "type": "int64",
+          "id": 5
+        },
+        "ty": {
+          "type": "string",
+          "id": 6
+        },
+        "kvs": {
+          "rule": "repeated",
+          "type": "kv_string",
+          "id": 7
+        },
+        "parent": {
+          "type": "int64",
+          "id": 8
+        }
+      }
+    },
+    "assembly_up_req": {
+      "fields": {
+        "overwrite": {
+          "type": "bool",
+          "id": 1
+        },
+        "binary": {
+          "type": "bytes",
+          "id": 2
+        }
+      }
+    },
+    "single_str": {
+      "fields": {
+        "reply": {
+          "type": "string",
+          "id": 1
+        }
+      }
+    },
+    "single_int": {
+      "fields": {
+        "item": {
+          "type": "int64",
+          "id": 1
+        }
+      }
+    },
+    "single_bytes": {
+      "fields": {
+        "item": {
+          "type": "bytes",
+          "id": 1
+        }
+      }
+    },
+    "list_int": {
+      "fields": {
+        "item": {
+          "rule": "repeated",
+          "type": "int64",
+          "id": 1
+        }
+      }
+    },
+    "list_string": {
+      "fields": {
+        "item": {
+          "rule": "repeated",
+          "type": "string",
+          "id": 1
+        }
+      }
+    },
+    "list_kv_int": {
+      "fields": {
+        "list": {
+          "rule": "repeated",
+          "type": "kv_int",
+          "id": 1
+        }
+      }
+    },
+    "list_tup3_int": {
+      "fields": {
+        "list": {
+          "rule": "repeated",
+          "type": "tup3_int",
+          "id": 1
+        }
+      }
+    },
+    "list_kv_atom_int": {
+      "fields": {
+        "list": {
+          "rule": "repeated",
+          "type": "kv_atom_int",
+          "id": 1
+        }
+      }
+    },
+    "list_kv_str_int": {
+      "fields": {
+        "list": {
+          "rule": "repeated",
+          "type": "kv_str_int",
+          "id": 1
+        }
+      }
+    },
+    "list_int_bytes": {
+      "fields": {
+        "list": {
+          "rule": "repeated",
+          "type": "int_bytes",
+          "id": 1
+        }
+      }
+    },
+    "list_tup4_str_int": {
+      "fields": {
+        "list": {
+          "rule": "repeated",
+          "type": "tup4_str_int",
+          "id": 1
+        }
+      }
+    },
+    "list_kv_string": {
+      "fields": {
+        "list": {
+          "rule": "repeated",
+          "type": "kv_string",
+          "id": 1
+        }
+      }
+    },
+    "kv_int": {
+      "fields": {
+        "k": {
+          "type": "int64",
+          "id": 1
+        },
+        "v": {
+          "type": "int64",
+          "id": 2
+        }
+      }
+    },
+    "kv_atom_int": {
+      "fields": {
+        "k": {
+          "type": "string",
+          "id": 1
+        },
+        "v": {
+          "type": "int64",
+          "id": 2
+        }
+      }
+    },
+    "tup3_int": {
+      "fields": {
+        "e1": {
+          "type": "int64",
+          "id": 1
+        },
+        "e2": {
+          "type": "int64",
+          "id": 2
+        },
+        "e3": {
+          "type": "int64",
+          "id": 3
+        }
+      }
+    },
+    "tup3_str": {
+      "fields": {
+        "e1": {
+          "type": "string",
+          "id": 1
+        },
+        "e2": {
+          "type": "string",
+          "id": 2
+        },
+        "e3": {
+          "type": "string",
+          "id": 3
+        }
+      }
+    },
+    "kv_str_int": {
+      "fields": {
+        "k": {
+          "type": "string",
+          "id": 1
+        },
+        "v": {
+          "type": "int64",
+          "id": 2
+        }
+      }
+    },
+    "int_bytes": {
+      "fields": {
+        "k": {
+          "type": "int64",
+          "id": 1
+        },
+        "v": {
+          "type": "bytes",
+          "id": 2
+        }
+      }
+    },
+    "tup4_str_int": {
+      "fields": {
+        "k": {
+          "type": "string",
+          "id": 1
+        },
+        "v1": {
+          "type": "int64",
+          "id": 2
+        },
+        "v2": {
+          "type": "int64",
+          "id": 3
+        },
+        "v3": {
+          "type": "int64",
+          "id": 4
+        }
+      }
+    },
+    "kv_string": {
+      "fields": {
+        "k": {
+          "type": "string",
+          "id": 1
+        },
+        "v": {
+          "type": "string",
+          "id": 2
+        }
+      }
+    },
+    "string_bytes": {
+      "fields": {
+        "k": {
+          "type": "string",
+          "id": 1
+        },
+        "v": {
+          "type": "bytes",
+          "id": 2
+        }
+      }
+    },
+    "authoritys": {
+      "fields": {
+        "authoritys": {
+          "rule": "repeated",
+          "type": "authority",
+          "id": 1
+        }
+      }
+    },
+    "authority": {
+      "fields": {
+        "level": {
+          "type": "int64",
+          "id": 1
+        },
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "desc": {
+          "type": "string",
+          "id": 3
+        },
+        "members": {
+          "rule": "repeated",
+          "type": "kv_str_int",
+          "id": 4
+        }
+      }
+    },
+    "group_set_req": {
+      "fields": {
+        "name": {
+          "type": "string",
+          "id": 1
+        },
+        "level": {
+          "type": "int64",
+          "id": 2
+        },
+        "desc": {
+          "type": "string",
+          "id": 3
+        },
+        "old": {
+          "type": "int64",
+          "id": 4
+        }
+      }
+    },
+    "menu_authority_reqs": {
+      "fields": {
+        "list": {
+          "rule": "repeated",
+          "type": "menu_authority_req",
+          "id": 1
+        }
+      }
+    },
+    "menu_authority_req": {
+      "fields": {
+        "menu_uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "level": {
+          "type": "int64",
+          "id": 2
+        },
+        "cmd": {
+          "type": "string",
+          "id": 3
+        }
+      }
+    },
+    "active_items": {
+      "fields": {
+        "item": {
+          "rule": "repeated",
+          "type": "active_item",
+          "id": 1
+        }
+      }
+    },
+    "active_item": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "module": {
+          "type": "string",
+          "id": 2
+        },
+        "name": {
+          "type": "string",
+          "id": 3
+        },
+        "bytes": {
+          "type": "single_bytes",
+          "id": 4
+        },
+        "sub_item": {
+          "rule": "repeated",
+          "type": "i_sub_item",
+          "id": 5
+        }
+      }
+    },
+    "i_sub_item": {
+      "fields": {
+        "module": {
+          "type": "string",
+          "id": 1
+        },
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "transmit_name": {
+          "type": "string",
+          "id": 3
+        }
+      }
+    },
+    "active_up_req": {
+      "fields": {
+        "overwrite": {
+          "type": "bool",
+          "id": 1
+        },
+        "binary": {
+          "type": "bytes",
+          "id": 2
+        }
+      }
+    },
+    "active_up_request": {
+      "fields": {
+        "overwrite": {
+          "type": "bool",
+          "id": 1
+        },
+        "items": {
+          "type": "active_down_items",
+          "id": 2
+        }
+      }
+    },
+    "active_send_req": {
+      "fields": {
+        "uids": {
+          "rule": "repeated",
+          "type": "int64",
+          "id": 1
+        },
+        "servers": {
+          "rule": "repeated",
+          "type": "server_info",
+          "id": 2
+        }
+      }
+    },
+    "server_info": {
+      "fields": {
+        "cluster": {
+          "type": "int64",
+          "id": 1
+        },
+        "servers": {
+          "rule": "repeated",
+          "type": "int64",
+          "id": 2
+        }
+      }
+    },
+    "active_list_req": {
+      "fields": {
+        "list": {
+          "rule": "repeated",
+          "type": "active_list_req_item",
+          "id": 1
+        }
+      }
+    },
+    "active_list_req_item": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "sub": {
+          "type": "int64",
+          "id": 2
+        },
+        "name": {
+          "type": "string",
+          "id": 3
+        },
+        "valid": {
+          "type": "int64",
+          "id": 4
+        },
+        "unit": {
+          "type": "string",
+          "id": 5
+        },
+        "note": {
+          "type": "string",
+          "id": 6
+        },
+        "create": {
+          "type": "int64",
+          "id": 7
+        },
+        "modify": {
+          "type": "int64",
+          "id": 8
+        },
+        "examine": {
+          "type": "bool",
+          "id": 9
+        }
+      }
+    },
+    "active_down_items": {
+      "fields": {
+        "list": {
+          "rule": "repeated",
+          "type": "active_down_item",
+          "id": 1
+        }
+      }
+    },
+    "active_down_item": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "sub": {
+          "type": "int64",
+          "id": 2
+        },
+        "name": {
+          "type": "string",
+          "id": 3
+        },
+        "valid": {
+          "type": "int64",
+          "id": 4
+        },
+        "unit": {
+          "type": "string",
+          "id": 5
+        },
+        "note": {
+          "type": "string",
+          "id": 6
+        },
+        "create": {
+          "type": "int64",
+          "id": 7
+        },
+        "modify": {
+          "type": "int64",
+          "id": 8
+        },
+        "json": {
+          "type": "string",
+          "id": 9
+        }
+      }
+    },
+    "gactive": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "sub": {
+          "type": "int64",
+          "id": 2
+        },
+        "name": {
+          "type": "string",
+          "id": 3
+        },
+        "valid": {
+          "type": "int64",
+          "id": 4
+        },
+        "unit": {
+          "type": "string",
+          "id": 5
+        },
+        "note": {
+          "type": "string",
+          "id": 6
+        },
+        "json": {
+          "type": "string",
+          "id": 7
+        }
+      }
+    },
+    "dyn_get_req": {
+      "fields": {
+        "table": {
+          "type": "string",
+          "id": 1
+        },
+        "dyn_uid": {
+          "type": "int64",
+          "id": 2
+        },
+        "language": {
+          "type": "string",
+          "id": 3
+        }
+      }
+    },
+    "dyn_send_resp": {
+      "fields": {
+        "status": {
+          "type": "int64",
+          "id": 1
+        },
+        "list": {
+          "rule": "repeated",
+          "type": "dyn_send_resp_cluster",
+          "id": 2
+        }
+      }
+    },
+    "dyn_send_resp_cluster": {
+      "fields": {
+        "cluster_id": {
+          "type": "int64",
+          "id": 1
+        },
+        "server_result": {
+          "rule": "repeated",
+          "type": "kv_str_int",
+          "id": 2
+        }
+      }
+    },
+    "dyn_update_req": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "desc": {
+          "type": "string",
+          "id": 2
+        },
+        "servers": {
+          "rule": "repeated",
+          "type": "cluster_server",
+          "id": 3
+        },
+        "unit": {
+          "type": "string",
+          "id": 4
+        },
+        "kvs": {
+          "rule": "repeated",
+          "type": "kv_string",
+          "id": 5
+        },
+        "table_id": {
+          "type": "string",
+          "id": 6
+        },
+        "menu_uid": {
+          "type": "int64",
+          "id": 7
+        }
+      }
+    },
+    "dyn_list_req": {
+      "fields": {
+        "list": {
+          "rule": "repeated",
+          "type": "dyn_list_item",
+          "id": 1
+        },
+        "examine": {
+          "type": "bool",
+          "id": 2
+        }
+      }
+    },
+    "dyn_list_item": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "desc": {
+          "type": "string",
+          "id": 2
+        },
+        "servers": {
+          "rule": "repeated",
+          "type": "cluster_server",
+          "id": 3
+        },
+        "unit": {
+          "type": "string",
+          "id": 4
+        },
+        "kvs": {
+          "rule": "repeated",
+          "type": "kv_string",
+          "id": 5
+        },
+        "create": {
+          "type": "int64",
+          "id": 6
+        },
+        "examine": {
+          "type": "bool",
+          "id": 7
+        },
+        "menu_uid": {
+          "type": "int64",
+          "id": 8
+        }
+      }
+    },
+    "tables": {
+      "fields": {
+        "tables": {
+          "rule": "repeated",
+          "type": "table",
+          "id": 1
+        }
+      }
+    },
+    "table": {
+      "fields": {
+        "table": {
+          "type": "string",
+          "id": 1
+        },
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "examine": {
+          "type": "bool",
+          "id": 3
+        },
+        "fields": {
+          "rule": "repeated",
+          "type": "field",
+          "id": 4
+        }
+      }
+    },
+    "field": {
+      "fields": {
+        "name": {
+          "type": "string",
+          "id": 1
+        },
+        "value": {
+          "type": "string",
+          "id": 2
+        },
+        "exist": {
+          "type": "bool",
+          "id": 3
+        }
+      }
+    },
+    "submit_req": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "kvs": {
+          "rule": "repeated",
+          "type": "kv_string",
+          "id": 2
+        },
+        "servers": {
+          "type": "cluster_servers",
+          "id": 3
+        }
+      }
+    },
+    "set_menu_req": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "type": {
+          "type": "int64",
+          "id": 2
+        },
+        "parent": {
+          "type": "string",
+          "id": 3
+        },
+        "name": {
+          "type": "string",
+          "id": 4
+        },
+        "show": {
+          "type": "bool",
+          "id": 5
+        },
+        "level": {
+          "type": "int64",
+          "id": 6
+        },
+        "seq": {
+          "type": "int64",
+          "id": 7
+        },
+        "router": {
+          "type": "string",
+          "id": 8
+        },
+        "table": {
+          "type": "string",
+          "id": 9
+        },
+        "cmd": {
+          "type": "string",
+          "id": 10
+        },
+        "server": {
+          "type": "bool",
+          "id": 11
+        },
+        "widgets": {
+          "rule": "repeated",
+          "type": "widget",
+          "id": 12
+        }
+      }
+    },
+    "format_menus_resp": {
+      "fields": {
+        "menu_summarys": {
+          "rule": "repeated",
+          "type": "menu_summary",
+          "id": 1
+        }
+      }
+    },
+    "menu_summary": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "parent": {
+          "type": "string",
+          "id": 3
+        },
+        "level": {
+          "type": "int64",
+          "id": 4
+        },
+        "seq": {
+          "type": "int64",
+          "id": 5
+        },
+        "route": {
+          "type": "string",
+          "id": 6
+        }
+      }
+    },
+    "menus": {
+      "fields": {
+        "values": {
+          "rule": "repeated",
+          "type": "menu",
+          "id": 1
+        }
+      }
+    },
+    "menu": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "type": {
+          "type": "int32",
+          "id": 2
+        },
+        "parent": {
+          "type": "string",
+          "id": 3
+        },
+        "name": {
+          "type": "string",
+          "id": 4
+        },
+        "show": {
+          "type": "bool",
+          "id": 5
+        },
+        "level": {
+          "type": "int32",
+          "id": 6
+        },
+        "seq": {
+          "type": "int32",
+          "id": 7
+        },
+        "router": {
+          "type": "string",
+          "id": 8
+        },
+        "table": {
+          "type": "string",
+          "id": 9
+        },
+        "cmd": {
+          "type": "string",
+          "id": 10
+        },
+        "server": {
+          "type": "bool",
+          "id": 11
+        },
+        "widgets": {
+          "rule": "repeated",
+          "type": "widget",
+          "id": 12
+        }
+      }
+    },
+    "widgets": {
+      "fields": {
+        "widgets": {
+          "rule": "repeated",
+          "type": "widget",
+          "id": 1
+        }
+      }
+    },
+    "widget": {
+      "fields": {
+        "seq": {
+          "type": "int64",
+          "id": 1
+        },
+        "ty": {
+          "type": "string",
+          "id": 2
+        },
+        "title": {
+          "type": "string",
+          "id": 3
+        },
+        "arg": {
+          "type": "string",
+          "id": 4
+        },
+        "note": {
+          "type": "string",
+          "id": 5
+        },
+        "exist": {
+          "type": "bool",
+          "id": 6
+        },
+        "kvs": {
+          "rule": "repeated",
+          "type": "widget_kv",
+          "id": 7
+        }
+      }
+    },
+    "widget_kv": {
+      "fields": {
+        "seq": {
+          "type": "int64",
+          "id": 1
+        },
+        "key": {
+          "type": "string",
+          "id": 2
+        },
+        "value": {
+          "type": "string",
+          "id": 3
+        },
+        "default": {
+          "type": "bool",
+          "id": 4
+        }
+      }
+    },
+    "async_result": {
+      "fields": {
+        "cluster_name": {
+          "type": "string",
+          "id": 1
+        }
+      }
+    },
+    "up_menu_req": {
+      "fields": {
+        "overwrite": {
+          "type": "bool",
+          "id": 1
+        },
+        "binary": {
+          "type": "bytes",
+          "id": 2
+        }
+      }
+    },
+    "cluster_new_req": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "ip": {
+          "type": "string",
+          "id": 3
+        },
+        "port": {
+          "type": "int64",
+          "id": 4
+        },
+        "level": {
+          "type": "int64",
+          "id": 5
+        },
+        "expand": {
+          "type": "bool",
+          "id": 6
+        },
+        "unit": {
+          "type": "string",
+          "id": 7
+        },
+        "args": {
+          "type": "string",
+          "id": 8
+        }
+      }
+    },
+    "clusters": {
+      "fields": {
+        "clusters": {
+          "rule": "repeated",
+          "type": "cluster",
+          "id": 1
+        }
+      }
+    },
+    "cluster": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "ip": {
+          "type": "string",
+          "id": 3
+        },
+        "port": {
+          "type": "int64",
+          "id": 4
+        },
+        "level": {
+          "type": "int64",
+          "id": 5
+        },
+        "expand": {
+          "type": "bool",
+          "id": 6
+        },
+        "unit": {
+          "type": "string",
+          "id": 7
+        },
+        "seq": {
+          "type": "int64",
+          "id": 8
+        },
+        "args": {
+          "type": "string",
+          "id": 9
+        }
+      }
+    },
+    "servers": {
+      "fields": {
+        "servers": {
+          "rule": "repeated",
+          "type": "server",
+          "id": 1
+        }
+      }
+    },
+    "server": {
+      "fields": {
+        "cluster_uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "id": {
+          "type": "int64",
+          "id": 2
+        },
+        "name": {
+          "type": "string",
+          "id": 3
+        },
+        "status": {
+          "type": "string",
+          "id": 4
+        },
+        "fields": {
+          "rule": "repeated",
+          "type": "kv_string",
+          "id": 5
+        }
+      }
+    },
+    "server_fields": {
+      "fields": {
+        "fields": {
+          "rule": "repeated",
+          "type": "server_field",
+          "id": 1
+        }
+      }
+    },
+    "server_field": {
+      "fields": {
+        "name": {
+          "type": "string",
+          "id": 1
+        },
+        "value": {
+          "type": "string",
+          "id": 2
+        },
+        "seq": {
+          "type": "int64",
+          "id": 3
+        },
+        "wide": {
+          "type": "int64",
+          "id": 4
+        },
+        "ty": {
+          "type": "int64",
+          "id": 5
+        }
+      }
+    },
+    "cluster_servers": {
+      "fields": {
+        "list": {
+          "rule": "repeated",
+          "type": "cluster_server",
+          "id": 1
+        }
+      }
+    },
+    "cluster_server": {
+      "fields": {
+        "cluster": {
+          "type": "int64",
+          "id": 1
+        },
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "servers": {
+          "rule": "repeated",
+          "type": "kv_str_int",
+          "id": 3
+        }
+      }
+    },
+    "cluster_server_ids": {
+      "fields": {
+        "servers": {
+          "rule": "repeated",
+          "type": "dyn_server_id",
+          "id": 1
+        }
+      }
+    },
+    "dyn_server_id": {
+      "fields": {
+        "cluster": {
+          "type": "int64",
+          "id": 1
+        },
+        "servers": {
+          "rule": "repeated",
+          "type": "int64",
+          "id": 2
+        }
+      }
+    },
+    "send_resp": {
+      "fields": {
+        "is_send": {
+          "type": "bool",
+          "id": 1
+        },
+        "items": {
+          "rule": "repeated",
+          "type": "send_item_result",
+          "id": 2
+        }
+      }
+    },
+    "send_item_result": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "items": {
+          "rule": "repeated",
+          "type": "send_result",
+          "id": 2
+        }
+      }
+    },
+    "send_result": {
+      "fields": {
+        "cluster_id": {
+          "type": "int64",
+          "id": 1
+        },
+        "server_result": {
+          "rule": "repeated",
+          "type": "kv_str_int",
+          "id": 2
+        }
+      }
+    },
+    "group_list": {
+      "fields": {
+        "list": {
+          "rule": "repeated",
+          "type": "group_item",
+          "id": 1
+        }
+      }
+    },
+    "group_item": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "desc": {
+          "type": "string",
+          "id": 3
+        },
+        "menus": {
+          "rule": "repeated",
+          "type": "string",
+          "id": 4
+        },
+        "servers": {
+          "rule": "repeated",
+          "type": "cluster_server",
+          "id": 5
+        },
+        "server_all": {
+          "type": "bool",
+          "id": 6
+        },
+        "menu_all": {
+          "type": "bool",
+          "id": 7
+        }
+      }
+    },
+    "get_req": {
+      "fields": {
+        "language": {
+          "type": "string",
+          "id": 1
+        },
+        "keys": {
+          "rule": "repeated",
+          "type": "string",
+          "id": 2
+        }
+      }
+    },
+    "update_req": {
+      "fields": {
+        "action": {
+          "type": "int64",
+          "id": 1
+        },
+        "key": {
+          "type": "string",
+          "id": 2
+        },
+        "ty": {
+          "type": "string",
+          "id": 3
+        },
+        "arg": {
+          "rule": "repeated",
+          "type": "kv_str",
+          "id": 4
+        }
+      }
+    },
+    "kv_str": {
+      "fields": {
+        "key": {
+          "type": "string",
+          "id": 1
+        },
+        "ty": {
+          "type": "string",
+          "id": 2
+        }
+      }
+    },
+    "list_req": {
+      "fields": {
+        "start": {
+          "type": "int64",
+          "id": 1
+        },
+        "len": {
+          "type": "int64",
+          "id": 2
+        },
+        "ty": {
+          "type": "string",
+          "id": 3
+        },
+        "key": {
+          "type": "string",
+          "id": 4
+        }
+      }
+    },
+    "list_resp": {
+      "fields": {
+        "list": {
+          "rule": "repeated",
+          "type": "list_resp_item",
+          "id": 1
+        },
+        "is_end": {
+          "type": "bool",
+          "id": 2
+        }
+      }
+    },
+    "list_resp_item": {
+      "fields": {
+        "key": {
+          "type": "string",
+          "id": 1
+        },
+        "ty": {
+          "type": "string",
+          "id": 2
+        },
+        "info": {
+          "rule": "repeated",
+          "type": "kv_string",
+          "id": 3
+        }
+      }
+    },
+    "client_up_req": {
+      "fields": {
+        "name": {
+          "type": "string",
+          "id": 1
+        },
+        "ty": {
+          "type": "int64",
+          "id": 2
+        },
+        "content": {
+          "type": "bytes",
+          "id": 3
+        }
+      }
+    },
+    "condition_list_resp": {
+      "fields": {
+        "files": {
+          "rule": "repeated",
+          "type": "string",
+          "id": 1
+        },
+        "cmds": {
+          "rule": "repeated",
+          "type": "kv_str_int",
+          "id": 2
+        }
+      }
+    },
+    "query_req": {
+      "fields": {
+        "ty": {
+          "type": "int64",
+          "id": 1
+        },
+        "time": {
+          "type": "kv_int",
+          "id": 2
+        },
+        "file_name": {
+          "type": "string",
+          "id": 3
+        },
+        "group_menu_key": {
+          "type": "string",
+          "id": 4
+        },
+        "role_uid": {
+          "type": "int64",
+          "id": 5
+        },
+        "start": {
+          "type": "int64",
+          "id": 6
+        },
+        "len": {
+          "type": "int64",
+          "id": 7
+        }
+      }
+    },
+    "query_resp": {
+      "fields": {
+        "items": {
+          "rule": "repeated",
+          "type": "query_resp_item",
+          "id": 1
+        },
+        "is_end": {
+          "type": "bool",
+          "id": 2
+        }
+      }
+    },
+    "query_resp_item": {
+      "fields": {
+        "time": {
+          "type": "int64",
+          "id": 1
+        },
+        "user": {
+          "type": "string",
+          "id": 2
+        },
+        "desc": {
+          "type": "string",
+          "id": 3
+        },
+        "ip": {
+          "type": "string",
+          "id": 4
+        },
+        "cmd": {
+          "type": "string",
+          "id": 5
+        },
+        "args": {
+          "type": "string",
+          "id": 6
+        }
+      }
+    },
+    "log": {
+      "fields": {
+        "time": {
+          "type": "int64",
+          "id": 1
+        },
+        "role_uid": {
+          "type": "int64",
+          "id": 2
+        },
+        "desc": {
+          "type": "string",
+          "id": 3
+        },
+        "ip": {
+          "type": "string",
+          "id": 4
+        },
+        "menu_uid": {
+          "type": "string",
+          "id": 5
+        },
+        "term": {
+          "type": "string",
+          "id": 6
+        }
+      }
+    },
+    "login_req": {
+      "fields": {
+        "user": {
+          "type": "string",
+          "id": 1
+        },
+        "pwd": {
+          "type": "string",
+          "id": 2
+        }
+      }
+    },
+    "login_resp": {
+      "fields": {
+        "msg": {
+          "type": "string",
+          "id": 1
+        },
+        "role_uid": {
+          "type": "int64",
+          "id": 2
+        },
+        "project": {
+          "type": "int64",
+          "id": 3
+        },
+        "vsn": {
+          "type": "int64",
+          "id": 4
+        },
+        "cluster": {
+          "type": "int64",
+          "id": 5
+        },
+        "server": {
+          "type": "int64",
+          "id": 6
+        },
+        "language": {
+          "type": "string",
+          "id": 7
+        },
+        "manager": {
+          "type": "bool",
+          "id": 8
+        },
+        "project_manager": {
+          "type": "bool",
+          "id": 9
+        },
+        "user_token": {
+          "type": "string",
+          "id": 10
+        }
+      }
+    },
+    "gm_reply": {
+      "fields": {
+        "status": {
+          "type": "int32",
+          "id": 1
+        },
+        "info": {
+          "type": "bytes",
+          "id": 2
+        }
+      }
+    },
+    "project_select_req": {
+      "fields": {
+        "project": {
+          "type": "int64",
+          "id": 1
+        },
+        "vsn": {
+          "type": "int64",
+          "id": 2
+        },
+        "server": {
+          "type": "int64",
+          "id": 3
+        }
+      }
+    },
+    "project_create_req": {
+      "fields": {
+        "project_name": {
+          "type": "string",
+          "id": 1
+        },
+        "project_desc": {
+          "type": "string",
+          "id": 2
+        },
+        "vsn_name": {
+          "type": "string",
+          "id": 3
+        },
+        "vsn_desc": {
+          "type": "string",
+          "id": 4
+        }
+      }
+    },
+    "project_update_req": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "desc": {
+          "type": "string",
+          "id": 3
+        }
+      }
+    },
+    "projects": {
+      "fields": {
+        "values": {
+          "rule": "repeated",
+          "type": "project",
+          "id": 1
+        }
+      }
+    },
+    "project": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "desc": {
+          "type": "string",
+          "id": 3
+        },
+        "state": {
+          "type": "int64",
+          "id": 4
+        },
+        "vsns": {
+          "rule": "repeated",
+          "type": "vsn",
+          "id": 5
+        },
+        "time": {
+          "type": "int64",
+          "id": 6
+        }
+      }
+    },
+    "vsn": {
+      "fields": {
+        "uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "desc": {
+          "type": "string",
+          "id": 3
+        },
+        "state": {
+          "type": "int64",
+          "id": 4
+        },
+        "roles": {
+          "rule": "repeated",
+          "type": "vsn_role",
+          "id": 5
+        },
+        "time": {
+          "type": "int64",
+          "id": 6
+        }
+      }
+    },
+    "vsn_role": {
+      "fields": {
+        "role_uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "role_name": {
+          "type": "string",
+          "id": 2
+        },
+        "manager": {
+          "type": "bool",
+          "id": 3
+        },
+        "group_uids": {
+          "rule": "repeated",
+          "type": "int64",
+          "id": 4
+        }
+      }
+    },
+    "member_req": {
+      "fields": {
+        "project_uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "vsn_uid": {
+          "type": "int64",
+          "id": 2
+        },
+        "role_uid": {
+          "type": "int64",
+          "id": 3
+        },
+        "manager": {
+          "type": "bool",
+          "id": 4
+        },
+        "group_uids": {
+          "rule": "repeated",
+          "type": "int64",
+          "id": 5
+        }
+      }
+    },
+    "member_delete_req": {
+      "fields": {
+        "project_uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "vsn_uid": {
+          "type": "int64",
+          "id": 2
+        },
+        "role_uid": {
+          "type": "int64",
+          "id": 3
+        }
+      }
+    },
+    "vsn_update_req": {
+      "fields": {
+        "project_uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "vsn_uid": {
+          "type": "int64",
+          "id": 2
+        },
+        "name": {
+          "type": "string",
+          "id": 3
+        },
+        "desc": {
+          "type": "string",
+          "id": 4
+        }
+      }
+    },
+    "vsn_copy_req": {
+      "fields": {
+        "project_uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "vsn_uid": {
+          "type": "int64",
+          "id": 2
+        },
+        "name": {
+          "type": "string",
+          "id": 3
+        },
+        "desc": {
+          "type": "string",
+          "id": 4
+        }
+      }
+    },
+    "list_resp2": {
+      "fields": {
+        "users": {
+          "rule": "repeated",
+          "type": "user_item",
+          "id": 1
+        }
+      }
+    },
+    "user_item": {
+      "fields": {
+        "role_uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "desc": {
+          "type": "string",
+          "id": 3
+        }
+      }
+    },
+    "user_list_resp": {
+      "fields": {
+        "users": {
+          "rule": "repeated",
+          "type": "user",
+          "id": 1
+        }
+      }
+    },
+    "user": {
+      "fields": {
+        "role_uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "desc": {
+          "type": "string",
+          "id": 3
+        },
+        "manager": {
+          "type": "bool",
+          "id": 4
+        },
+        "login_time": {
+          "type": "int64",
+          "id": 5
+        },
+        "login_ip": {
+          "type": "string",
+          "id": 6
+        },
+        "projects": {
+          "rule": "repeated",
+          "type": "string",
+          "id": 7
+        },
+        "lock": {
+          "type": "bool",
+          "id": 8
+        },
+        "group_ids": {
+          "rule": "repeated",
+          "type": "int64",
+          "id": 9
+        }
+      }
+    },
+    "user_create_req": {
+      "fields": {
+        "name": {
+          "type": "string",
+          "id": 1
+        },
+        "desc": {
+          "type": "string",
+          "id": 2
+        },
+        "pwd": {
+          "type": "string",
+          "id": 3
+        },
+        "manager": {
+          "type": "bool",
+          "id": 4
+        },
+        "group_ids": {
+          "rule": "repeated",
+          "type": "int64",
+          "id": 5
+        }
+      }
+    },
+    "user_update_req": {
+      "fields": {
+        "role_uid": {
+          "type": "int64",
+          "id": 1
+        },
+        "desc": {
+          "type": "string",
+          "id": 2
+        },
+        "manager": {
+          "type": "bool",
+          "id": 3
+        },
+        "group_ids": {
+          "rule": "repeated",
+          "type": "int64",
+          "id": 4
+        }
+      }
+    }
+  },
+  "endpoints": {
+    "/gm/gactive_port/active_main_set": {
+      "path": "/gm/gactive_port/active_main_set",
+      "request": "single_bytes",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_main_get": {
+      "path": "/gm/gactive_port/active_main_get",
+      "request": null,
+      "response": "single_bytes",
+      "mode": "read",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_item_set": {
+      "path": "/gm/gactive_port/active_item_set",
+      "request": "active_item",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_item_delete": {
+      "path": "/gm/gactive_port/active_item_delete",
+      "request": "single_int",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_item_list": {
+      "path": "/gm/gactive_port/active_item_list",
+      "request": null,
+      "response": "active_items",
+      "mode": "read",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_item_up": {
+      "path": "/gm/gactive_port/active_item_up",
+      "request": "single_bytes",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_item_down": {
+      "path": "/gm/gactive_port/active_item_down",
+      "request": "list_int",
+      "response": "single_bytes",
+      "mode": "read",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_add": {
+      "path": "/gm/gactive_port/active_add",
+      "request": "gactive",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_list": {
+      "path": "/gm/gactive_port/active_list",
+      "request": null,
+      "response": "active_list_req",
+      "mode": "read",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/examine": {
+      "path": "/gm/gactive_port/examine",
+      "request": "single_int",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_get": {
+      "path": "/gm/gactive_port/active_get",
+      "request": "kv_str_int",
+      "response": "single_str",
+      "mode": "read",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_delete": {
+      "path": "/gm/gactive_port/active_delete",
+      "request": "list_int",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_send_quick": {
+      "path": "/gm/gactive_port/active_send_quick",
+      "request": "active_send_req",
+      "response": "single_int",
+      "mode": "write",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_send": {
+      "path": "/gm/gactive_port/active_send",
+      "request": "active_send_req",
+      "response": "single_int",
+      "mode": "write",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_up": {
+      "path": "/gm/gactive_port/active_up",
+      "request": "active_up_request",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_down": {
+      "path": "/gm/gactive_port/active_down",
+      "request": "list_int",
+      "response": "active_down_items",
+      "mode": "read",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_time_set": {
+      "path": "/gm/gactive_port/active_time_set",
+      "request": "int_bytes",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_time_delete": {
+      "path": "/gm/gactive_port/active_time_delete",
+      "request": "single_int",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_time_list": {
+      "path": "/gm/gactive_port/active_time_list",
+      "request": null,
+      "response": "list_int_bytes",
+      "mode": "read",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_time_up": {
+      "path": "/gm/gactive_port/active_time_up",
+      "request": "active_up_req",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_time_down": {
+      "path": "/gm/gactive_port/active_time_down",
+      "request": "list_int",
+      "response": "single_bytes",
+      "mode": "read",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_recycle_list": {
+      "path": "/gm/gactive_port/active_recycle_list",
+      "request": null,
+      "response": "active_list_req",
+      "mode": "read",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_recycle_get": {
+      "path": "/gm/gactive_port/active_recycle_get",
+      "request": "kv_str_int",
+      "response": "single_str",
+      "mode": "read",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_recycle_revert": {
+      "path": "/gm/gactive_port/active_recycle_revert",
+      "request": "list_int",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/gactive_port/active_recycle_down": {
+      "path": "/gm/gactive_port/active_recycle_down",
+      "request": "list_int",
+      "response": "active_down_items",
+      "mode": "read",
+      "source": "/assets/activity-4fbc0984.js"
+    },
+    "/gm/language_port/list": {
+      "path": "/gm/language_port/list",
+      "request": "list_req",
+      "response": "list_resp",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/language_port/update": {
+      "path": "/gm/language_port/update",
+      "request": "update_req",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/language_port/delete_language": {
+      "path": "/gm/language_port/delete_language",
+      "request": "kv_string",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/language_port/set_type": {
+      "path": "/gm/language_port/set_type",
+      "request": "list_kv_string",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/language_port/get_type": {
+      "path": "/gm/language_port/get_type",
+      "request": null,
+      "response": "list_kv_string",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/language_port/down": {
+      "path": "/gm/language_port/down",
+      "request": "single_str",
+      "response": "list_resp",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/language_port/up": {
+      "path": "/gm/language_port/up",
+      "request": "list_resp",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/language_port/sync": {
+      "path": "/gm/language_port/sync",
+      "request": "cluster_server_ids",
+      "response": "single_int",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/language_port/client_default": {
+      "path": "/gm/language_port/client_default",
+      "request": "single_str",
+      "response": "list_kv_string",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/language_port/get": {
+      "path": "/gm/language_port/get",
+      "request": "get_req",
+      "response": "list_kv_string",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/project_port/project_select": {
+      "path": "/gm/project_port/project_select",
+      "request": "project_select_req",
+      "response": "single_int",
+      "mode": "context",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/project_port/project_exit": {
+      "path": "/gm/project_port/project_exit",
+      "request": null,
+      "response": "single_str",
+      "mode": "context",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/project_port/project_list": {
+      "path": "/gm/project_port/project_list",
+      "request": null,
+      "response": "projects",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/project_port/list": {
+      "path": "/gm/project_port/list",
+      "request": null,
+      "response": "projects",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/project_port/project_create": {
+      "path": "/gm/project_port/project_create",
+      "request": "project_create_req",
+      "response": "kv_int",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/project_port/project_update": {
+      "path": "/gm/project_port/project_update",
+      "request": "project_update_req",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/project_port/project_delete": {
+      "path": "/gm/project_port/project_delete",
+      "request": "single_int",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/project_port/project_seal": {
+      "path": "/gm/project_port/project_seal",
+      "request": "kv_int",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/project_port/vsn_update": {
+      "path": "/gm/project_port/vsn_update",
+      "request": "vsn_update_req",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/project_port/vsn_copy": {
+      "path": "/gm/project_port/vsn_copy",
+      "request": "vsn_copy_req",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/project_port/vsn_delete": {
+      "path": "/gm/project_port/vsn_delete",
+      "request": "kv_int",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/project_port/vsn_seal": {
+      "path": "/gm/project_port/vsn_seal",
+      "request": "tup3_int",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/project_port/set_check": {
+      "path": "/gm/project_port/set_check",
+      "request": "kv_string",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/project_port/delete_check": {
+      "path": "/gm/project_port/delete_check",
+      "request": "single_str",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/project_port/list_check": {
+      "path": "/gm/project_port/list_check",
+      "request": null,
+      "response": "list_kv_string",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/project_port/member_add": {
+      "path": "/gm/project_port/member_add",
+      "request": "member_req",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/project_port/member_modify": {
+      "path": "/gm/project_port/member_modify",
+      "request": "member_req",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/project_port/member_delete": {
+      "path": "/gm/project_port/member_delete",
+      "request": "member_delete_req",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/gserver_port/cluster_update": {
+      "path": "/gm/gserver_port/cluster_update",
+      "request": "cluster_new_req",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/gserver_port/cluster_sort": {
+      "path": "/gm/gserver_port/cluster_sort",
+      "request": "kv_int",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/gserver_port/cluster_delete": {
+      "path": "/gm/gserver_port/cluster_delete",
+      "request": "list_int",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/gserver_port/cluster_list": {
+      "path": "/gm/gserver_port/cluster_list",
+      "request": null,
+      "response": "clusters",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/gserver_port/list": {
+      "path": "/gm/gserver_port/list",
+      "request": null,
+      "response": "clusters",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/gserver_port/server_refresh": {
+      "path": "/gm/gserver_port/server_refresh",
+      "request": "list_int",
+      "response": "servers",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/gserver_port/refresh": {
+      "path": "/gm/gserver_port/refresh",
+      "request": "list_int",
+      "response": "servers",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/gserver_port/server_select": {
+      "path": "/gm/gserver_port/server_select",
+      "request": "kv_int",
+      "response": "single_str",
+      "mode": "context",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/gserver_port/field_list": {
+      "path": "/gm/gserver_port/field_list",
+      "request": null,
+      "response": "server_fields",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/gserver_port/field_update": {
+      "path": "/gm/gserver_port/field_update",
+      "request": "server_fields",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/assembly_port/assembly_list": {
+      "path": "/gm/assembly_port/assembly_list",
+      "request": null,
+      "response": "assemblys",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/assembly_port/data_list": {
+      "path": "/gm/assembly_port/data_list",
+      "request": null,
+      "response": "datas",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/assembly_port/assembly_set": {
+      "path": "/gm/assembly_port/assembly_set",
+      "request": "assembly",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/assembly_port/assembly_up": {
+      "path": "/gm/assembly_port/assembly_up",
+      "request": "assembly_up_req",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/assembly_port/assembly_down": {
+      "path": "/gm/assembly_port/assembly_down",
+      "request": "list_int",
+      "response": "single_bytes",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/assembly_port/data_delete": {
+      "path": "/gm/assembly_port/data_delete",
+      "request": "single_int",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/assembly_port/data_set": {
+      "path": "/gm/assembly_port/data_set",
+      "request": "data",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/assembly_port/data_up": {
+      "path": "/gm/assembly_port/data_up",
+      "request": "assembly_up_req",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/assembly_port/data_down": {
+      "path": "/gm/assembly_port/data_down",
+      "request": "list_int",
+      "response": "single_bytes",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/assembly_port/assembly_delete": {
+      "path": "/gm/assembly_port/assembly_delete",
+      "request": "kv_int",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/assembly_port/assembly_serialize": {
+      "path": "/gm/assembly_port/assembly_serialize",
+      "request": "list_int",
+      "response": "assembly_serializes",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/assembly_port/cfg_list": {
+      "path": "/gm/assembly_port/cfg_list",
+      "request": null,
+      "response": "cfg_list_resp",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/assembly_port/cfg_update": {
+      "path": "/gm/assembly_port/cfg_update",
+      "request": "cfg_update_req",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/assembly_port/cfg_delete": {
+      "path": "/gm/assembly_port/cfg_delete",
+      "request": "tup3_str",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/menu_port/format_menus": {
+      "path": "/gm/menu_port/format_menus",
+      "request": null,
+      "response": "format_menus_resp",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/menu_port/delete_menu": {
+      "path": "/gm/menu_port/delete_menu",
+      "request": "single_int",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/menu_port/list": {
+      "path": "/gm/menu_port/list",
+      "request": null,
+      "response": "menus",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/menu_port/set_menu": {
+      "path": "/gm/menu_port/set_menu",
+      "request": "set_menu_req",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/menu_port/format_menu": {
+      "path": "/gm/menu_port/format_menu",
+      "request": "single_int",
+      "response": "menu",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/menu_port/submit": {
+      "path": "/gm/menu_port/submit",
+      "request": "submit_req",
+      "response": "single_int",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/menu_port/up_menu": {
+      "path": "/gm/menu_port/up_menu",
+      "request": "up_menu_req",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/menu_port/down_menu": {
+      "path": "/gm/menu_port/down_menu",
+      "request": "list_int",
+      "response": "single_bytes",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/gmanager_port/get_result": {
+      "path": "/gm/gmanager_port/get_result",
+      "request": "single_int",
+      "response": "send_resp",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/group_port/list": {
+      "path": "/gm/group_port/list",
+      "request": "kv_int",
+      "response": "group_list",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/group_port/update": {
+      "path": "/gm/group_port/update",
+      "request": "group_item",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/group_port/delete": {
+      "path": "/gm/group_port/delete",
+      "request": "list_int",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/group_port/menus_ids": {
+      "path": "/gm/group_port/menus_ids",
+      "request": null,
+      "response": "list_string",
+      "mode": "read",
+      "source": "/assets/index-6014a13d.js"
+    },
+    "/gm/gtable_port/list": {
+      "path": "/gm/gtable_port/list",
+      "request": null,
+      "response": "tables",
+      "mode": "read",
+      "source": "/assets/table-2a9805f0.js"
+    },
+    "/gm/gtable_port/update": {
+      "path": "/gm/gtable_port/update",
+      "request": "table",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/table-2a9805f0.js"
+    },
+    "/gm/gtable_port/create": {
+      "path": "/gm/gtable_port/create",
+      "request": "table",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/table-2a9805f0.js"
+    },
+    "/gm/gtable_port/delete": {
+      "path": "/gm/gtable_port/delete",
+      "request": "single_str",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/table-2a9805f0.js"
+    },
+    "/gm/gtable_port/up": {
+      "path": "/gm/gtable_port/up",
+      "request": "single_bytes",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/table-2a9805f0.js"
+    },
+    "/gm/gtable_port/down": {
+      "path": "/gm/gtable_port/down",
+      "request": "list_string",
+      "response": "single_bytes",
+      "mode": "read",
+      "source": "/assets/table-2a9805f0.js"
+    },
+    "/gm/gtable_port/dyn_list": {
+      "path": "/gm/gtable_port/dyn_list",
+      "request": "single_str",
+      "response": "dyn_list_req",
+      "mode": "read",
+      "source": "/assets/table-2a9805f0.js"
+    },
+    "/gm/gtable_port/dyn_update": {
+      "path": "/gm/gtable_port/dyn_update",
+      "request": "dyn_update_req",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/table-2a9805f0.js"
+    },
+    "/gm/gtable_port/dyn_delete": {
+      "path": "/gm/gtable_port/dyn_delete",
+      "request": "kv_atom_int",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/table-2a9805f0.js"
+    },
+    "/gm/gtable_port/dyn_examine": {
+      "path": "/gm/gtable_port/dyn_examine",
+      "request": "kv_atom_int",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/table-2a9805f0.js"
+    },
+    "/gm/gtable_port/dyn_send_quick": {
+      "path": "/gm/gtable_port/dyn_send_quick",
+      "request": "list_tup4_str_int",
+      "response": "single_int",
+      "mode": "write",
+      "source": "/assets/table-2a9805f0.js"
+    },
+    "/gm/gtable_port/dyn_send": {
+      "path": "/gm/gtable_port/dyn_send",
+      "request": "list_tup4_str_int",
+      "response": "single_int",
+      "mode": "write",
+      "source": "/assets/table-2a9805f0.js"
+    },
+    "/gm/gtable_port/dyn_get": {
+      "path": "/gm/gtable_port/dyn_get",
+      "request": "dyn_get_req",
+      "response": "dyn_list_item",
+      "mode": "read",
+      "source": "/assets/table-2a9805f0.js"
+    },
+    "/gm/user_port/user_lock": {
+      "path": "/gm/user_port/user_lock",
+      "request": "kv_int",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/user-cd2ef2b6.js"
+    },
+    "/gm/user_port/user_reset_pwd": {
+      "path": "/gm/user_port/user_reset_pwd",
+      "request": "kv_str_int",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/user-cd2ef2b6.js"
+    },
+    "/gm/user_port/user_delete": {
+      "path": "/gm/user_port/user_delete",
+      "request": "kv_str_int",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/user-cd2ef2b6.js"
+    },
+    "/gm/user_port/user_update_pwd": {
+      "path": "/gm/user_port/user_update_pwd",
+      "request": "kv_string",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/user-cd2ef2b6.js"
+    },
+    "/gm/user_port/user_create": {
+      "path": "/gm/user_port/user_create",
+      "request": "user_create_req",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/user-cd2ef2b6.js"
+    },
+    "/gm/user_port/user_list": {
+      "path": "/gm/user_port/user_list",
+      "request": null,
+      "response": "user_list_resp",
+      "mode": "read",
+      "source": "/assets/user-cd2ef2b6.js"
+    },
+    "/gm/user_port/list": {
+      "path": "/gm/user_port/list",
+      "request": null,
+      "response": "user_list_resp",
+      "mode": "read",
+      "source": "/assets/user-cd2ef2b6.js"
+    },
+    "/gm/user_port/user_id_name": {
+      "path": "/gm/user_port/user_id_name",
+      "request": null,
+      "response": "list_kv_str_int",
+      "mode": "read",
+      "source": "/assets/user-cd2ef2b6.js"
+    },
+    "/gm/user_port/user_update": {
+      "path": "/gm/user_port/user_update",
+      "request": "user_update_req",
+      "response": "single_str",
+      "mode": "write",
+      "source": "/assets/user-cd2ef2b6.js"
+    }
+  },
+  "sources": [
+    {
+      "asset": "/assets/index-22017019.js",
+      "sha256": "579666d1bae8b9ecc6e2b5ccf996109d38a6ad9813a4b0247c6d05739b27cf6d"
+    },
+    {
+      "asset": "/assets/activity-4fbc0984.js",
+      "sha256": "f26a11c6062919f549faa82757715a9b3c3f364d90b60b57038dea7ea2cd47e6"
+    },
+    {
+      "asset": "/assets/dicts-2e0f0d8f.js",
+      "sha256": "f4ba6924eaf3eb7053b7bcecf3675b176562a52d375ca094f1a7233ef82c3bbd"
+    },
+    {
+      "asset": "/assets/index-2bb81ff9.js",
+      "sha256": "158bf7ece5b38d7e2aacb05034f8c680a17673a8d51706e2659690dc33d1c90a"
+    },
+    {
+      "asset": "/assets/index-403cd69f.js",
+      "sha256": "e5a7342b74140001e5650a6491cfd178c95dbe8eb231a579ca24045a2de4c9e3"
+    },
+    {
+      "asset": "/assets/index-47467bac.js",
+      "sha256": "69148a528d5cedd77d9acaa4ecdbc7d966cf078ffaeaf6f52144c4fbb7aa7189"
+    },
+    {
+      "asset": "/assets/index-52fa3bcf.js",
+      "sha256": "a773a24e3eaaffb5797b577f7e7fa872d91744bc7a78f6b051528607bdd0ac90"
+    },
+    {
+      "asset": "/assets/index-28779357.js",
+      "sha256": "836616e31ea877eeef6452caa5d375bd873b33508a6eedd6bc591e49d7b51604"
+    },
+    {
+      "asset": "/assets/index-6014a13d.js",
+      "sha256": "77e9aa6329afc93fe1bd3065234265c3fac95abd9175754939f69ede413aa7de"
+    },
+    {
+      "asset": "/assets/index-693bf848.js",
+      "sha256": "d48deb3489349ad7262879858b5adf4192c3780585f186b1e67c8f4a24f213f2"
+    },
+    {
+      "asset": "/assets/index-6cd8e5cb.js",
+      "sha256": "5864b97aa5f051eb563be3b04f0170e19c705b7c59b2023c5b1308dce1f49143"
+    },
+    {
+      "asset": "/assets/index-71df20f5.js",
+      "sha256": "eefdf09ef7456c28e415345fe4f002eecca15edd2348555c0f101f1d8cf5b6cb"
+    },
+    {
+      "asset": "/assets/index-7497852b.js",
+      "sha256": "545e64f6e55bfcb06c82da5d4de185aa1e0e549536999c6cb5853b5445fa31ca"
+    },
+    {
+      "asset": "/assets/index-76b4dd3e.js",
+      "sha256": "85b8d83538bde7f6352648a9cc7393d5bb0628009da02052c70cc41d6869c51d"
+    },
+    {
+      "asset": "/assets/index-79e7f362.js",
+      "sha256": "18bdfcd3708c63122f1e7c1667ac66f48fdeb5fc84537777e555901a50cd3663"
+    },
+    {
+      "asset": "/assets/index-7dd88f67.js",
+      "sha256": "a2ec7e1c7f3920f3bc85f679a1e92904317b9363c2f39670dab4474de24c8c4b"
+    },
+    {
+      "asset": "/assets/index-8089ee52.js",
+      "sha256": "ed723b2ca559d1742f057e7a2e752b06c96208218486a7c7fbdcea05b083dba9"
+    },
+    {
+      "asset": "/assets/index-86a9941f.js",
+      "sha256": "66bac64874747513796f3ba5bb086eb159cf38bd56d6719f7716952d424b4ac1"
+    },
+    {
+      "asset": "/assets/index-8b1eddcf.js",
+      "sha256": "b2603fd65a2e9dada70f3d43cd6325cf5fd660c94bacd57fab71a5206a32df58"
+    },
+    {
+      "asset": "/assets/index-8ddab684.js",
+      "sha256": "b6e512ca1fb228ac96de33de6406c91f725b793658ccafcd7287e6c956354a75"
+    },
+    {
+      "asset": "/assets/index-94b4b5a3.js",
+      "sha256": "93a7d7c2e4eecf5627c2d6c41f61f8d20d71d457437f62dda62053cc36a1c7c0"
+    },
+    {
+      "asset": "/assets/index-9827c6e2.js",
+      "sha256": "a892f7d63bc65b82ca1f6ac6a970dbcc82e6bc94626252daf148ada9b8d3a2d2"
+    },
+    {
+      "asset": "/assets/index-9aebc735.js",
+      "sha256": "6637eee80f297f8f44354a8faade5796c4febfcf9b22a88b50c6baa863655898"
+    },
+    {
+      "asset": "/assets/index-9ec86e46.js",
+      "sha256": "b59c572fc71ca864f214cd8667f59ea430320c25b2f33ab1392853852da529f0"
+    },
+    {
+      "asset": "/assets/index-a177965d.js",
+      "sha256": "a91f6b2d8703ffffdf67a76e7c6a6da44a2b2f00b987db630df1b6d7d96ed36d"
+    },
+    {
+      "asset": "/assets/index-a6e37868.js",
+      "sha256": "851ca36502c0a3c45c6bbeb4e8a9635bd8641b234ea3ce72b704a7f6f5a587fd"
+    },
+    {
+      "asset": "/assets/index-a7db3046.js",
+      "sha256": "ced67bfea630ae507e79272c5ef5a5e64bc8d100b1e2b0537a5e387ca6b6d041"
+    },
+    {
+      "asset": "/assets/index-aa85ad42.js",
+      "sha256": "82fd850df502439f1673e64cee2b15eaad1ebb9a40e4988c3d094310a0daee90"
+    },
+    {
+      "asset": "/assets/index-b6d151a5.js",
+      "sha256": "61ee7dd6d699d7bbff605fa411f07f5c0a4a4e3298099fa3aaf2191f5346ee7c"
+    },
+    {
+      "asset": "/assets/index-1fd63c2a.js",
+      "sha256": "c69109d9b7621064e389854ea8abc3e33bc6a78e50fd4b74ca8bea1cf685a84a"
+    },
+    {
+      "asset": "/assets/index-b7e7d107.js",
+      "sha256": "8533ed5eead4f53211836118e92d4bc8cb6ce49fdaa8087798aeeedba2eafb3e"
+    },
+    {
+      "asset": "/assets/index-bdebbc7d.js",
+      "sha256": "1ffa858948b3b5ed28b6da3ee479fd1ac5ad3ec9f5fed2248aa5eac11ffc0d51"
+    },
+    {
+      "asset": "/assets/index-c0bcb294.js",
+      "sha256": "a2e3555c8c35820ab3a733fd5a9d6970372674cb14082911e96fd5cb3c13c517"
+    },
+    {
+      "asset": "/assets/index-c49d937b.js",
+      "sha256": "b43881140fce843d45f229703831ac657e047068f8b7721cfbec66db6b3fa4bd"
+    },
+    {
+      "asset": "/assets/index-c77b304e.js",
+      "sha256": "de37aa7fc4c961ff43978edde38df00c882f1f10bdc2bc332babded424c3d8bb"
+    },
+    {
+      "asset": "/assets/index-cb5c3056.js",
+      "sha256": "c95e2659bbd3b7824a05b52b703791695710f3dbb7315b3fe13c1a3a40c02b42"
+    },
+    {
+      "asset": "/assets/index-d93834d7.js",
+      "sha256": "2bf07303cf171fa62cceede18867f12fc63ca6b69ebac3dc15290a67f8653801"
+    },
+    {
+      "asset": "/assets/index-da21b643.js",
+      "sha256": "6663865841e9c1844928dd1615399346e943e6fb01ef70a36e3e2b9b996179dd"
+    },
+    {
+      "asset": "/assets/index-f714dc87.js",
+      "sha256": "52f8b683705b96fd6b77483993fb6560d3cb70f7291d789745d2b12d73b731e4"
+    },
+    {
+      "asset": "/assets/index-f719cd22.js",
+      "sha256": "cc536220c72ba2c4bbff428b6dd95d7b23ab569098b006ad4ce591f4d16a5a8e"
+    },
+    {
+      "asset": "/assets/index-f9c9a7f5.js",
+      "sha256": "67f36169d8e3ed1747aa0180a897d6c9cc2bb5fe999dbb4b5607c1ff5ae037de"
+    },
+    {
+      "asset": "/assets/table-2a9805f0.js",
+      "sha256": "e056d7a109b76d6f63099740bcb7a28169927a8b64e820f32e630ed378f06c39"
+    },
+    {
+      "asset": "/assets/user-cd2ef2b6.js",
+      "sha256": "4da7e1555f0f5b33c83fce33b96815f4aa19a066c610721cf46d1668b4c8aaf0"
+    }
+  ]
+}

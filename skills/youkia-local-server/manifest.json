@@ -1,0 +1,17 @@
+{
+  "name": "youkia本地服务器操作",
+  "id": "youkia-local-server",
+  "version": "0.1.0",
+  "sha256": {
+    "SKILL.md": "e64cd46c96d5e0d09b488e60648ab3b858aeaaedde39345dbc92052c0a431d24",
+    "agents/openai.yaml": "d073a33d206ba08a81fd5e09144cef9430db81b1b5c2b5c95a6f924602a0d3c8",
+    "server.ps1": "4b1f7e5c70745fb6f5cedf29b438be6c086f91ec7dbff44a2d92300b0b1ca66e",
+    "scripts/bootstrap.ps1": "146bb259cd1324ed4ac308a43cb8ca45bdbaafa6572590778f391970165487c1",
+    "scripts/core.py": "9cd4f60dd0667146113a46b6beae8d33d7f9e5dcec34dcca4690c651c5968e1c",
+    "scripts/windows_backend.py": "0468220c01bb5a11704a815a15f34117abbeba3d9cecf5756e6b74801ecab2e2",
+    "scripts/server.py": "bf9bdaade8478abfe2780e2a4bbcf9afa413c259342270db18d251944dd3681d",
+    "references/usage.md": "e6a8323629d587ea3ade4da443fd8976bee2e7b5080246386632f75ef9cc651c",
+    "references/validation.md": "1908ecb7639c32345f1c055435634766cd910eff14a9205dda594239ad5e79a4",
+    "assets/python-3.14.8-embed-amd64.zip": "a93abe456ab01bd96d7a085b3cdb6566b3063f4241360d114142fbdb07f0a310"
+  }
+}

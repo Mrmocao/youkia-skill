@@ -1,0 +1,16 @@
+{
+  "name": "youkia-image-codex",
+  "version": "1.0.0",
+  "description": "Youkia image generation skill with direct configurable OpenAI-compatible requests.",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "typescript": "^5.8.0"
+  }
+}

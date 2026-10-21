@@ -1,0 +1,3 @@
+# Preserve published skill bytes so their embedded manifests remain valid.
+skills/** -text
+*.zip binary

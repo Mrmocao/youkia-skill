@@ -1,0 +1,4 @@
+interface:
+  display_name: "youkia本地服务器操作"
+  short_description: "通过对话配置本地服务器，完成启停、重启和联动 Unity 的清档操作"
+  default_prompt: "使用 $youkia-local-server 引导我配置本地服务器，检查当前状态并处理我的操作请求。"

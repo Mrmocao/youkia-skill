@@ -1,0 +1,4 @@
+interface:
+  display_name: "youkia-midjourney-mcp"
+  short_description: "配置 Midjourney MCP，排查浏览器登录与确认问题，按授权出图并下载"
+  default_prompt: "使用 $youkia-midjourney-mcp 检查当前 Midjourney 连接和账号状态，说明能否生成，但先不要提交图片任务。"

@@ -22,7 +22,7 @@ test("parseArgs defaults to 4K images streaming", () => {
 test("buildImagesPayload includes stream and partial image controls", () => {
   const options = parseArgs(["draw a cat", "--size", "2160x3840", "--partial-images", "2"]);
   const payload = buildImagesPayload(options);
-  assert.equal(payload.model, "gpt-image-2");
+  assert.equal(payload.model, "gpt-image-2.5-flare");
   assert.equal(payload.size, "2160x3840");
   assert.equal(payload.stream, true);
   assert.equal(payload.partial_images, 2);

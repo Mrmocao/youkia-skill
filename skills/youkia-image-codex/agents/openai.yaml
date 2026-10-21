@@ -1,0 +1,4 @@
+interface:
+  display_name: "youkia-image-codex"
+  short_description: "Generate and edit high-resolution images with Youkia APIs"
+  default_prompt: "使用 $youkia-image-codex，按我配置的接口生成图片并保存到本地。"

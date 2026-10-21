@@ -7,6 +7,18 @@ description: TypeScript-only skill for generating and debugging high-resolution 
 
 Use this skill when the user wants TypeScript/Node image generation through sub2api rather than Codex's built-in image tool.
 
+## Installation
+
+Extract the downloaded ZIP, then copy the entire `sub2api-4k-image-generator-ts` folder into the Codex skills directory. The final path must contain `SKILL.md` directly inside the skill folder.
+
+- Windows default path: `%USERPROFILE%\.codex\skills\sub2api-4k-image-generator-ts\`
+- Windows example: `C:\Users\admin\.codex\skills\sub2api-4k-image-generator-ts\`
+- Relative to the user home directory: `.codex\skills\sub2api-4k-image-generator-ts\`
+- Relative to `CODEX_HOME`: `skills\sub2api-4k-image-generator-ts\`
+- macOS/Linux default path: `~/.codex/skills/sub2api-4k-image-generator-ts/`
+
+Verify that the installed file is located at `...\sub2api-4k-image-generator-ts\SKILL.md`, not inside an extra nested folder such as `sub2api-4k-image-generator-ts\sub2api-4k-image-generator-ts\SKILL.md`. Fully quit and restart Codex after copying the folder, then start a new task and invoke `$sub2api-4k-image-generator-ts` to verify discovery.
+
 ## Workflow
 
 1. Work from the skill root that contains this `SKILL.md`.
@@ -16,7 +28,7 @@ Use this skill when the user wants TypeScript/Node image generation through sub2
 {
   "api_key": "YOUR_SUB2API_API_KEY",
   "base_url": "https://your-sub2api.example.com",
-  "user_agent": "sub2api-4k-image-generator-ts/0.1"
+  "user_agent": "sub2api-4k-image-generator-ts/0.3.1"
 }
 ```
 
@@ -38,6 +50,8 @@ node .\dist\openai_4k_image_generator.js `
   --quality high `
   --output-dir output
 ```
+
+The default image model is `gpt-image-2.5-flare`. Use `--image-model` only when your Sub2API service requires a different model.
 
 4. For development, run the TypeScript source:
 

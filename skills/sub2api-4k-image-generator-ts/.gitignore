@@ -1,6 +1,5 @@
 # Never commit local API credentials or generated images
 config.local.json
-node_modules/
 output/
 *.png
 *.jpg

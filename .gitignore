@@ -1,10 +1,15 @@
-# Local credentials and generated image outputs
-config.local.json
+# Credentials and local state
 **/config.local.json
-test-grok.png
-**/test-grok.png
-
-# Local/editor files
+**/.env
+**/.env.*
+!**/.env.example
+**/*.job.json
+**/*.tmp
+**/node_modules/
+**/__pycache__/
+**/state/*
+!**/state/.gitkeep
+**/test-grok*
 .DS_Store
 Thumbs.db
 .vscode/

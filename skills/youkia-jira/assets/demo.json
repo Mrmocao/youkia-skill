@@ -1,0 +1,12 @@
+{
+  "jql": "演示数据：虚构任务，不查询或写入 Jira",
+  "total": 5,
+  "complete": true,
+  "issues": [
+    {"key":"DEMO-101","fields":{"summary":"登录页面首次加载显示异常（演示）","status":{"name":"待处理"},"priority":{"name":"P1"},"issuetype":{"name":"缺陷"},"assignee":{"displayName":"演示开发甲"},"fixVersions":[{"name":"演示版本 1.0"}]}},
+    {"key":"DEMO-102","fields":{"summary":"奖励提示与实际到账数量不一致（演示）","status":{"name":"已解决"},"priority":{"name":"P1"},"issuetype":{"name":"缺陷"},"assignee":{"displayName":"演示测试乙"},"resolution":{"name":"已解决"},"fixVersions":[{"name":"演示版本 1.0"}]}},
+    {"key":"DEMO-103","fields":{"summary":"附件上传后的反馈文案优化（演示）","status":{"name":"进行中"},"priority":{"name":"P2"},"issuetype":{"name":"优化"},"assignee":{"displayName":"演示开发丙"},"fixVersions":[{"name":"演示版本 1.1"}]}},
+    {"key":"DEMO-104","fields":{"summary":"任务筛选条件保留错误（演示）","status":{"name":"已解决"},"priority":{"name":"P2"},"issuetype":{"name":"缺陷"},"assignee":{"displayName":"演示测试乙"},"resolution":{"name":"重复问题"},"fixVersions":[]}},
+    {"key":"DEMO-105","fields":{"summary":"周报导出验收（演示）","status":{"name":"验收通过"},"priority":{"name":"P3"},"issuetype":{"name":"任务"},"assignee":{"displayName":"演示负责人"},"resolution":{"name":"完成"},"fixVersions":[{"name":"演示版本 1.0"}]}}
+  ]
+}

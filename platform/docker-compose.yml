@@ -1,0 +1,34 @@
+services:
+  skillroom:
+    build: .
+    container_name: skillroom
+    restart: unless-stopped
+    env_file:
+      - .env
+    expose:
+      - "${PORT:-8088}"
+    ports:
+      - "8088:8088"
+    volumes:
+      - ./data:/app/data
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: skillroom-caddy
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      - skillroom
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

@@ -11,7 +11,7 @@ export const SIZE_OPTIONS = [
 ];
 export const DEFAULT_SIZE = SIZE_OPTIONS[5];
 export const DEFAULT_QUALITY = "high";
-export const DEFAULT_IMAGES_MODEL = "gpt-image-2";
+export const DEFAULT_IMAGES_MODEL = "gpt-image-2.5-flare";
 export const DEFAULT_RESPONSES_MODEL = "gpt-5.4-mini";
 export const DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
     "AppleWebKit/537.36 (KHTML, like Gecko) " +
@@ -169,7 +169,7 @@ Options:
   --base-url URL                 Defaults to SUB2API_BASE_URL or http://127.0.0.1:8080
   --api-key KEY                  Defaults to SUB2API_API_KEY
   --endpoint images|responses    Defaults to images
-  --image-model MODEL            Defaults to gpt-image-2
+  --image-model MODEL            Defaults to gpt-image-2.5-flare
   --responses-model MODEL        Defaults to gpt-5.4-mini
   --input-image PATH_OR_URL      Only with --endpoint responses
   --size WIDTHxHEIGHT            Defaults to 3840x2160

@@ -1,0 +1,4 @@
+interface:
+  display_name: "youkia JIRA助手"
+  short_description: "用对话实时查询 Jira、处理任务和 Bug、生成报告，并抽取能力供其他项目使用"
+  default_prompt: "使用 $youkia-jira 连接 Jira，按我的需求实时查询或操作任务。"

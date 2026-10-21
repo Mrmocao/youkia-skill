@@ -40,7 +40,7 @@ size_options = [
 DEFAULT_SIZE = size_options[5]
 # DEFAULT_SIZE = size_options[3]
 DEFAULT_QUALITY = "high"
-DEFAULT_IMAGES_MODEL = "gpt-image-2"
+DEFAULT_IMAGES_MODEL = "gpt-image-2.5-flare"
 DEFAULT_RESPONSES_MODEL = "gpt-5.4-mini"
 DEFAULT_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "

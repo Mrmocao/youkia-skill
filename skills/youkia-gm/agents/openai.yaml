@@ -1,0 +1,4 @@
+interface:
+  display_name: "youkia GM 助手"
+  short_description: "自然语言查询 GM 项目与菜单，预检执行并清晰反馈平台结果"
+  default_prompt: "使用 $youkia-gm 启动 youkia GM：读取已有配置，必要时引导绑定账号和选择项目，支持服务器与任务一起下达，后续沿用已选服务器。"

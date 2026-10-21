@@ -1,5 +1,5 @@
 {
   "api_key": "YOUR_SUB2API_API_KEY",
   "base_url": "https://your-sub2api.example.com",
-  "user_agent": "sub2api-4k-image-generator-ts/0.1"
+  "user_agent": "sub2api-4k-image-generator-ts/0.3.1"
 }
