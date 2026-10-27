@@ -1,0 +1,718 @@
+[
+  {
+    "id": "grok-imagine-subapi",
+    "name": "Grok Imagine SubAPI",
+    "description": "通过直连 SubAPI 调用 Grok Imagine，生成图片或短视频并保存到本地。",
+    "category": "媒体生成",
+    "tags": [
+      "图片生成",
+      "视频生成",
+      "SubAPI",
+      "Node.js"
+    ],
+    "author": "内部工具组",
+    "uploaderName": "mochao",
+    "version": "1.2.0",
+    "updatedAt": "2026-10-27",
+    "featured": true,
+    "downloads": 11,
+    "package": "grok-imagine-subapi.zip",
+    "files": [
+      "grok-imagine-subapi/.gitignore",
+      "grok-imagine-subapi/SKILL.md",
+      "grok-imagine-subapi/config.example.json",
+      "grok-imagine-subapi/agents/openai.yaml",
+      "grok-imagine-subapi/scripts/lib.mjs",
+      "grok-imagine-subapi/scripts/generate-image.mjs",
+      "grok-imagine-subapi/scripts/generate-video.mjs",
+      "grok-imagine-subapi/scripts/diagnose.mjs",
+      "grok-imagine-subapi/scripts/inspect-media.mjs",
+      "grok-imagine-subapi/tests/generation.test.mjs",
+      "grok-imagine-subapi/references/troubleshooting.md"
+    ],
+    "tutorial": [
+      {
+        "title": "安装",
+        "body": "将 ZIP 解压到客户端实际用户技能目录，确认 grok-imagine-subapi/SKILL.md 与 scripts 同级。需要 Node.js 20+；重新加载技能或新建会话。"
+      },
+      {
+        "title": "配置",
+        "body": "复制 config.example.json 为 config.local.json，填写自己的 api_key 与 base_url。脚本直连配置的 SubAPI 地址，不经过 MCP 或 CC-Switch 代理；不要上传本地配置。"
+      },
+      {
+        "title": "生成图片",
+        "body": "运行 node scripts/generate-image.mjs --prompt \"你的提示词\" --output ./output/image.jpg。图片模型固定为 grok-imagine-image，请勿添加 stream、size、quality 或 partial_images。"
+      },
+      {
+        "title": "生成视频与参考图",
+        "body": "运行 node scripts/generate-video.mjs --prompt \"A kitten fishing by a pond\" --duration 5 --output ./output/kitten.mp4；参考图使用 --reference ./character.png，时长支持 1–15 秒。"
+      },
+      {
+        "title": "恢复与自测",
+        "body": "视频中断后使用 node scripts/generate-video.mjs --resume ./output/character.mp4.job.json，不会重新提交生成。先用 --dry-run 和 node --test tests/generation.test.mjs 做离线检查；diagnose.mjs 只读取模型列表。"
+      }
+    ],
+    "config": {
+      "path": "config.local.json",
+      "fields": [
+        {
+          "key": "api_key",
+          "type": "secret",
+          "description": "SubAPI 用户 API Key"
+        },
+        {
+          "key": "base_url",
+          "type": "url",
+          "description": "SubAPI 根地址或 /v1 地址"
+        }
+      ],
+      "example": "{\r\n  \"api_key\": \"YOUR_SUBAPI_API_KEY\",\r\n  \"base_url\": \"https://your-subapi-host.example/v1\"\r\n}\r\n"
+    },
+    "examples": [
+      {
+        "label": "生成图片",
+        "command": "node scripts/generate-image.mjs --prompt \"A red ball on a white floor\" --output ./output/ball.jpg"
+      },
+      {
+        "label": "参考图视频",
+        "command": "node scripts/generate-video.mjs --prompt \"A kitten fishing by a pond\" --reference ./character.png --duration 5 --output ./output/kitten.mp4"
+      },
+      {
+        "label": "恢复既有任务",
+        "command": "node scripts/generate-video.mjs --resume ./output/character.mp4.job.json"
+      },
+      {
+        "label": "离线测试",
+        "command": "node --test tests/generation.test.mjs"
+      }
+    ],
+    "notes": [
+      "图片模型固定为 grok-imagine-image。",
+      "视频模型固定为 grok-imagine-video，duration 支持 1–15 秒。",
+      "不要上传 config.local.json、任务记录、生成媒体或含密钥的日志。"
+    ]
+  },
+  {
+    "id": "sub2api-4k-image-generator-ts",
+    "name": "Sub2API 4K Image Generator TS",
+    "description": "通过 Sub2API 的 OpenAI 兼容接口生成高分辨率和 4K 图片，支持 TypeScript/Node、流式响应、超时规避、局部图捕获以及本地 API Key 配置文件。",
+    "category": "媒体生成",
+    "tags": [
+      "Sub2API",
+      "4K",
+      "图片生成",
+      "TypeScript",
+      "Node.js",
+      "OpenAI兼容",
+      "流式响应",
+      "gpt-image-2.5"
+    ],
+    "author": "Youkia Team",
+    "version": "0.3.1",
+    "updatedAt": "2026-10-15",
+    "featured": false,
+    "downloads": 10,
+    "package": "sub2api-4k-image-generator-ts.zip",
+    "files": [
+      "agents/openai.yaml",
+      "dist/args.js",
+      "dist/cli.js",
+      "dist/env.js",
+      "dist/errors.js",
+      "dist/openai_4k_image_generator.js",
+      "dist/payload.js",
+      "dist/request.js",
+      "dist/save.js",
+      "dist/sse.js",
+      "dist/types.js",
+      "scripts/args.ts",
+      "scripts/cli.ts",
+      "scripts/env.ts",
+      "scripts/errors.ts",
+      "scripts/openai_4k_image_generator.ts",
+      "scripts/payload.ts",
+      "scripts/request.ts",
+      "scripts/save.ts",
+      "scripts/sse.ts",
+      "scripts/test.ts",
+      "scripts/types.ts",
+      ".env.example",
+      ".gitignore",
+      "config.example.json",
+      "openai_4k_image_request.py",
+      "package-lock.json",
+      "package.json",
+      "SKILL.md",
+      "tsconfig.json"
+    ],
+    "tutorial": [
+      {
+        "title": "安装技能",
+        "body": "下载并解压 ZIP，将整个 sub2api-4k-image-generator-ts 文件夹复制到 Codex 技能目录。\n\nWindows 默认路径：\n%USERPROFILE%\\.codex\\skills\\sub2api-4k-image-generator-ts\\\n\nWindows 示例：\nC:\\Users\\admin\\.codex\\skills\\sub2api-4k-image-generator-ts\\\n\n相对于用户目录：\n.codex\\skills\\sub2api-4k-image-generator-ts\\\n\n相对于 CODEX_HOME：\nskills\\sub2api-4k-image-generator-ts\\\n\nmacOS/Linux：\n~/.codex/skills/sub2api-4k-image-generator-ts/\n\n确认 SKILL.md 直接位于该技能目录内，不能多套一层同名目录。复制完成后完全退出并重新启动 Codex，再新建任务并调用 $sub2api-4k-image-generator-ts。"
+      },
+      {
+        "title": "配置 API Key",
+        "body": "把技能目录内的 config.example.json 复制为 config.local.json，填写自己的 api_key 和 base_url。不要将 config.local.json、.env 或真实 API Key 分享或提交到仓库。也可使用 SUB2API_API_KEY 和 SUB2API_BASE_URL 环境变量，环境变量及命令行参数优先于本地配置文件。"
+      },
+      {
+        "title": "运行和自测",
+        "body": "普通使用运行：node .\\dist\\openai_4k_image_generator.js \"提示词\" --size 3840x2160 --quality high --output-dir output\n\n仅检查配置和请求参数可追加 --dry-run。默认图片模型为 gpt-image-2.5-flare，流式传输默认开启，以降低长时间 4K 生成触发 Cloudflare 524 的概率。"
+      }
+    ],
+    "config": {
+      "path": "config.local.json",
+      "fields": [],
+      "example": "{\n  \"api_key\": \"YOUR_SUB2API_API_KEY\",\n  \"base_url\": \"https://your-sub2api.example.com\",\n  \"user_agent\": \"sub2api-4k-image-generator-ts/0.3.1\"\n}"
+    },
+    "examples": [
+      {
+        "label": "生成 4K 图片",
+        "command": "node .\\dist\\openai_4k_image_generator.js \"东方古装美女，知性，婉转\" --size 3840x2160 --quality high --output-dir output"
+      },
+      {
+        "label": "配置检查",
+        "command": "node .\\dist\\openai_4k_image_generator.js \"test prompt\" --dry-run"
+      }
+    ],
+    "notes": []
+  },
+  {
+    "id": "svn-windows-powershell",
+    "name": "SVN Windows PowerShell",
+    "description": "在 Windows PowerShell 中安全检查、更新、修改、冲突处理和提交 Apache Subversion 工作副本。",
+    "category": "开发工具",
+    "tags": [
+      "SVN",
+      "Subversion",
+      "PowerShell",
+      "版本控制",
+      "冲突处理"
+    ],
+    "author": "内部工具组",
+    "version": "1.0.0",
+    "updatedAt": "2026-10-10",
+    "featured": false,
+    "downloads": 6,
+    "package": "svn-windows-powershell.zip",
+    "files": [
+      "svn-windows-powershell/SKILL.md",
+      "svn-windows-powershell/agents/openai.yaml",
+      "svn-windows-powershell/references/svn-handbook.md"
+    ],
+    "tutorial": [
+      {
+        "title": "安装",
+        "body": "下载技能 ZIP，解压到用户技能目录 C:\\Users\\<用户名>\\.codex\\skills\\svn-windows-powershell，然后退出并重启 Agent 客户端或新建会话。"
+      },
+      {
+        "title": "使用",
+        "body": "在目标 SVN 工作副本中先运行 svn info 和 svn status，再按需更新、修改、解决冲突和定向提交。"
+      },
+      {
+        "title": "安全规则",
+        "body": "提交前检查 svn diff 和明确路径；不在命令、脚本、技能包或聊天中暴露密码；revert、回滚、锁和清理删除参数需确认。"
+      }
+    ],
+    "config": {
+      "path": "config.local.json",
+      "fields": [],
+      "example": "{}"
+    },
+    "examples": [
+      {
+        "label": "检查工作副本",
+        "command": "svn info; svn status"
+      },
+      {
+        "label": "保留冲突现场更新",
+        "command": "svn update --accept postpone"
+      },
+      {
+        "label": "查看差异",
+        "command": "svn diff"
+      }
+    ],
+    "notes": [
+      "适用于 Windows PowerShell 与 SVN 1.14.x。",
+      "references/svn-handbook.md 包含项目手册原文和项目特定约定。",
+      "技能不包含 SVN 账号、密码或服务器私密配置。"
+    ]
+  },
+  {
+    "id": "youkia-gm",
+    "name": "youkia GM 助手",
+    "description": "通过 Codex 自然语言操作 youkia GM，支持账号绑定、项目与功能发现、服务器选择、任务预检、执行和结果查询，并内置 Python 运行环境。",
+    "category": "开发工具",
+    "tags": [
+      "GM工具",
+      "游戏管理"
+    ],
+    "author": "内部工具组",
+    "version": "0.1.2",
+    "updatedAt": "2026-10-15",
+    "featured": false,
+    "downloads": 1,
+    "package": "youkia-gm.zip",
+    "files": [
+      "youkia-gm/README.md",
+      "youkia-gm/SKILL.md",
+      "youkia-gm/agents/openai.yaml",
+      "youkia-gm/assets/python-3.14.8-embed-amd64.zip",
+      "youkia-gm/gm.ps1",
+      "youkia-gm/install.ps1",
+      "youkia-gm/references/coverage.md",
+      "youkia-gm/references/protocol.json",
+      "youkia-gm/references/python-runtime.md",
+      "youkia-gm/references/usage.md",
+      "youkia-gm/references/workflows.md",
+      "youkia-gm/scripts/bootstrap.ps1",
+      "youkia-gm/scripts/client.py",
+      "youkia-gm/scripts/gm.py",
+      "youkia-gm/scripts/operations.py",
+      "youkia-gm/scripts/protocol.py",
+      "youkia-gm/scripts/storage.py",
+      "youkia-gm/state/.gitkeep",
+      "youkia-gm/MANIFEST.sha256"
+    ],
+    "tutorial": [
+      {
+        "title": "1：解压",
+        "body": "将技能 ZIP 解压到固定目录，保留其中的 youkia-gm 文件夹。"
+      },
+      {
+        "title": "2：启动",
+        "body": "解压后直接对 Codex 说：读取“实际解压路径\\youkia-gm\\SKILL.md”，启动 YouKia GM，按流程引导我配置。"
+      },
+      {
+        "title": "3：环境",
+        "body": "工具会优先使用系统 Python 3.10+；如果不存在，会自动部署包内 Python 运行时，不修改系统 PATH。"
+      },
+      {
+        "title": "4：配置",
+        "body": "首次使用时按 Codex 引导绑定 GM 账号，密码通过隐藏输入提供。"
+      },
+      {
+        "title": "5：选择项目",
+        "body": "查看账号可访问的游戏项目，选择项目和版本后读取可用功能定义。"
+      },
+      {
+        "title": "6：选择服务器",
+        "body": "可以单独选择服务器，也可以在同一条消息中同时提供服务器和任务。"
+      },
+      {
+        "title": "7：执行任务",
+        "body": "例如“选择后端/女妖_ai_797/1服，查询指定角色”。后续未明确切换时沿用当前服务器。"
+      },
+      {
+        "title": "8：查看结果",
+        "body": "Codex 返回目标项目、服务器、执行阶段、任务编号和平台结果。"
+      },
+      {
+        "title": "9：安全",
+        "body": "技能包不包含账号、密码、令牌或本地运行缓存；执行写操作前必须经过预检和用户授权。"
+      }
+    ],
+    "config": {
+      "path": "config.local.json",
+      "fields": [],
+      "example": ""
+    },
+    "examples": [
+      {
+        "label": "检查环境",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\gm.ps1 doctor"
+      },
+      {
+        "label": "读取启动状态",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\gm.ps1 startup"
+      },
+      {
+        "label": "查看可用项目",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\gm.ps1 projects"
+      },
+      {
+        "label": "选择服务器",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\gm.ps1 select-server --project P --version V --cluster C --server S"
+      }
+    ],
+    "notes": []
+  },
+  {
+    "id": "youkia-midjourney-mcp",
+    "name": "youkia-midjourney-mcp",
+    "description": "在 Codex 桌面版中配置和使用 Midjourney MCP，解决专用 Chrome 登录、确认表单不可见和生成任务重复提交问题，支持只读验收、经授权出图及原图下载。",
+    "category": "媒体生成",
+    "tags": [
+      "Midjourney",
+      "MCP",
+      "Codex",
+      "Windows",
+      "Chrome",
+      "图片生成",
+      "登录排障",
+      "消费确认"
+    ],
+    "author": "莫超",
+    "version": "1.0.0",
+    "updatedAt": "2026-10-15",
+    "featured": false,
+    "downloads": 1,
+    "package": "youkia-midjourney-mcp.zip",
+    "files": [
+      "agents/openai.yaml",
+      "LICENSE",
+      "references/setup.md",
+      "references/troubleshooting.md",
+      "references/usage.md",
+      "references/verification.md",
+      "SKILL.md"
+    ],
+    "tutorial": [
+      {
+        "title": "1. 安装技能与适用范围",
+        "body": "下载技能 ZIP，解压到 Codex 实际技能目录中的 youkia-midjourney-mcp 文件夹，确保 SKILL.md 直接位于该文件夹下；重新加载技能列表或重启客户端后调用 $youkia-midjourney-mcp。技能只提供操作流程，不捆绑 MCP 运行时或账号。基线为 Windows、Node.js 22+、Google Chrome、上游包 2.0.1。此非官方自动化存在网站条款和账号限制风险，接口可能变化；首次安装先阅读上游当前 README、INSTALL、SECURITY 和源码。"
+      },
+      {
+        "title": "2. 固定版本并保留已有配置",
+        "body": "在独立运行目录安装 @thenavidm/midjourney-mcp-cli@2.0.1；本次复现环境固定 Slipway 0.1.17，保存 lockfile，使用 npm install --ignore-scripts。升级需重审，不能向现有项目强加 overrides。备份当前 Codex 配置，只修改 midjourney 服务器块。将配置示例中的所有路径和端口占位符替换为实际值；Windows 使用 node.exe 与 dist/npx.js 的绝对路径。技能改名不要求把已有 MCP 服务器键改名。"
+      },
+      {
+        "title": "3. 专用浏览器登录与端口说明",
+        "body": "MCP 通过本机 CDP 连接专用 Chrome profile。日常浏览器已登录不代表 MCP 已登录；没有调试端口时不能只靠网页 URL 接入。Chrome 136+ 限制默认数据目录的远程调试，通常需在专用窗口重新登录同一个 Midjourney 账号。运行同一环境配置下的 login，然后由用户在 https://www.midjourney.com 手动登录。127.0.0.1:19222 只是示例调试地址，不是登录页。端口仅回环监听，不复制 Cookie/profile，不索取密码、验证码或 Token，不绕过 Cloudflare；已有专用会话优先复用。"
+      },
+      {
+        "title": "4. 无消费验收，再启用生成功能",
+        "body": "先用 READ_ONLY=1、ALLOW_DESTRUCTIVE=0、CONFIRM=human。验证 MCP initialize/ping/tools/list，再检查 whoami 与 get_queue 等受保护只读接口。2.0.1 的 whoami 不自动启动浏览器，且推断登录不能单独证明余额/订阅。冷启动页面尚未就绪时等待加载后仅重试只读查询一次。用户要求启用生成时改为 READ_ONLY=0、ALLOW_DESTRUCTIVE=1，保留 human；重载客户端后检查实际工具。启用功能不授权试生成。"
+      },
+      {
+        "title": "5. 确认拒绝和本次注意事项",
+        "body": "① 无表单却出现 The approval was declined, so imagine did not run：本次有效 approval_policy=never 自动拒绝非空 MCP elicitation 表单；不是内容审核或额度拒绝，也不代表用户手动拒绝。检查当前聊天实际策略与客户端表单支持，切换到允许询问的模式（本次 on-request），保留 human；UI 标签随版本变化，不编造设置入口。\n\n② 表单出现但仍拒绝：必须勾选 Approve 再批准；accept 但未勾选也应停止。禁止自动批准、改 model 模式消除拒绝、静默改用 CLI。只有另行明确授权的 CLI 操作才使用 --confirm，不能借此宣称 MCP 修复。\n\n③ 日常 Chrome 已登录而 MCP 未登录：核查 CDP_URL 和 profile；优先复用已有专用会话，不能复制日常浏览器凭据。用户拒绝新窗口时说明连接限制，不强行启动。\n\n④ 127.0.0.1 调试端点不是登录页面；在受控 Chrome 的 Midjourney 网站登录。\n\n⑤ whoami 返回 browser_running:false：2.0.1 不会在这个工具里自动启动 Chrome；先 login 或按配置允许的只读启动操作，不能据此判断日常浏览器退出。\n\n⑥ 冷启动报 Failed to parse URL from /api/user-queue：本次是页面尚未就绪；确认页面加载完成后仅重试只读查询一次，不能推广到生成重提。\n\n⑦ 修改配置仍无生成工具：检查实际配置、覆盖项、两个功能开关及服务器进程是否重载；历史 17/32 个工具只是 2.0.1 观测值。\n\n⑧ 生成超时、丢失 ID：不等于未提交；先查队列和近期任务，再等候/下载，避免重复扣费。不确定是否接受时告知用户，不自动补单。\n\n⑨ signed_out、Cloudflare、余额/限流：按实际响应分类，浏览器验证由用户本地完成；不绕过、不循环重试。共享诊断去除账号 ID、任务 ID、私有 URL、个人路径和会话数据。完整处理步骤见包内 references/troubleshooting.md。"
+      },
+      {
+        "title": "6. 正常出图、跟踪和下载",
+        "body": "# 正常使用与交付\n\n## 从用户请求到一次生成\n\n确认用户明确要求生成，而非只讨论提示词、开启功能或诊断。使用已连接的 MCP `imagine` 完成提交、等待和结果返回；先读取当前 schema。参数保留用户意图，未指定的设置维持默认，不额外增加 repeat、模型、stylize、chaos 或后处理任务。\n\n将提示词中的 `--ar 16:9` 转为 `aspect: \"16:9\"`，正文仅保留画面描述。以下为参数示例，**阅读本指南不构成执行授权**：\n\n```json\n{\n  \"prompt\": \"一条可爱的锦鲤，细腻真实的鳞片，半透明柔软鱼鳍，在清澈水中优雅游动，柔和自然光，精致的电影级三维质感\",\n  \"aspect\": \"16:9\",\n  \"confirm\": true,\n  \"save\": true,\n  \"out_dir\": \"<ABSOLUTE_WRITABLE_OUTPUT_DIR>\"\n}\n```\n\nMCP 确认表单出现后，由用户勾选 **Approve** 再批准。只有点击提交而没有勾选，仍会被拒绝。若客户端根本不支持表单，上游可能退回 confirm:true；此时不能把该参数当成人类审批的技术保证，必须已有明确的具体操作授权。不能为了让拒绝消失主动切换为这种回退。\n\n一次任务常返回四张候选，不等于要提交四次；`repeat` 和批量提示词会增加任务与消费。变体、放大、重混、动画等都可能另行计费，不能当作免费的默认收尾自动运行。\n\n## 跟踪和下载\n\n- 普通单次任务优先 imagine；用户明确要异步、批量或较长 relax 任务时使用 submit_imagine，并保留任务 ID 交给 wait_for_job。\n- 网络错误、等待超时或未返回 ID 时，先 get_queue、list_jobs、get_job 对照时间和提示词查找已接受的任务。先恢复已有任务，不盲目再次提交。\n- 使用 save:true 或 download_job 保存实际原图，不把网页截图当成生成结果。确认输出目录可写，验证文件存在和格式后，用绝对文件路径在聊天显示图片。\n- 用户要求参考风格时，moodboard 用对应风格板机制；单图风格参考用 style_refs，对象一致性用 omni_refs。按当前模型与 schema 核实支持，不把风格板采样图片假装成等价实现。\n- 不固定“最新模型永远是某版本”，不承诺 seed 在不同版本或不同设置下严格复现。\n- CLI 适用于用户明确要求的脚本化工作。先检查固定版本 CLI help；`--confirm` 会允许消费，不用于绕过 MCP 的取消、拒绝或自动审核阻止。\n- 不将 api_get 或 submit_raw_job 作为普通错误的逃生通道；未知写入 payload 不能靠付费试错验证。\n\n## 可直接提问的示例\n\n- “用 Midjourney 检查连接和账号状态，先不要生成。”\n- “启用 Midjourney 生成功能，但不要提交任务。”\n- “用 Midjourney 生成一条可爱锦鲤，16:9，仅一个任务，保存原图。”\n- “刚才没看到确认表单就被拒绝，请检查原因，不要重新生成。”\n- “查询上次任务是否完成并下载结果，不要重复提交。”\n\n交付说明包含：实际调用方式、任务状态、候选数量和文件位置。出现失败时区分本地校验、确认拒绝、网站验证、余额限制和网络错误；只报告已验证的原因。"
+      },
+      {
+        "title": "7. 版本依据与验证边界",
+        "body": "已测环境（2026-10-15）：Windows；上游包 2.0.1，源码 c0ffb7c325639dfa50efa4b57def2119f1e623c1；Slipway 0.1.17；Node 24.11.1；Chrome 155.0.8059.40；Codex 桌面内置后端 0.162.0-alpha.17.2。PATH 中独立 CLI 0.144.5 不能代表桌面版本。其他版本需重新核实。\n\n已通过：MCP initialize/ping/tools/list；登录后 whoami + get_queue；配置保留和回环监听检查；四项无网络确认测试（拒绝、取消、未勾选都停止，明确批准才进入处理函数）；实际 MCP 表单接收批准；既有任务读取、下载及 SHA-256 核对。\n\n付费出图此前只在单独授权的 CLI 路径实测成功，一次任务返回四张候选。权限修复后未再执行新的付费 MCP 生成，不能把 CLI 成功或表单批准宣称为完整付费 MCP 实测。\n\n本次无消费表单探针在审阅 2.0.1 执行顺序后使用无效 aspect 0:0 且不带风格板/参考等选项，批准后本地校验报错，未提交任务。它不是通用 dry-run；其他版本先证明校验早于网络/消费，否则只用隔离测试和只读检查。\n\n根因依据来自实际会话策略、确认代码和 Codex elicitation 源码；未来版本可能有例外，不按界面标签一概推断 never 行为。OpenAI 官方 MCP 页面本次返回 403，未声称全文核实。npm audit 当时无已知漏洞不等于完整审计。\n\n技能结构、YAML/TOML、相对链接、ZIP 完整性与文件白名单均已检查。仅含七个文档/元数据/许可证文件，无账号、凭据、浏览器 profile、node_modules、个人配置、真实任务或图片。参考上游 MIT 文档，保留 Copyright (c) 2026 NM Media 和完整许可证；来源与详细边界见 references/verification.md。"
+      }
+    ],
+    "config": {
+      "path": "$CODEX_HOME/config.toml（未设置时使用 ~/.codex/config.toml）",
+      "fields": [],
+      "example": "[mcp_servers.midjourney]\ncommand = \"<ABSOLUTE_NODE_EXECUTABLE>\"\nargs = [\"<ABSOLUTE_RUNTIME_DIR>/node_modules/@thenavidm/midjourney-mcp-cli/dist/npx.js\"]\nstartup_timeout_sec = 30\ntool_timeout_sec = 660\n\n[mcp_servers.midjourney.env]\nMIDJOURNEY_READ_ONLY = \"1\"\nMIDJOURNEY_ALLOW_DESTRUCTIVE = \"0\"\nMIDJOURNEY_CONFIRM = \"human\"\nMIDJOURNEY_CDP_URL = \"http://127.0.0.1:<LOCAL_DEBUG_PORT>\"\nMIDJOURNEY_CHROME_PATH = \"<ABSOLUTE_CHROME_EXECUTABLE>\"\nMIDJOURNEY_CHROME_PROFILE = \"<ABSOLUTE_DEDICATED_PROFILE_DIR>\"\nMIDJOURNEY_CHROME_LAUNCH = \"1\"\nMIDJOURNEY_HEADLESS = \"0\"\nMIDJOURNEY_MAX_RETRIES = \"0\"\nMIDJOURNEY_ORIGIN = \"https://www.midjourney.com\"\n"
+    },
+    "examples": [
+      {
+        "label": "只读检查",
+        "command": "使用 $youkia-midjourney-mcp 检查连接、工具列表和账号状态，不生成图片。"
+      },
+      {
+        "label": "启用功能",
+        "command": "使用 $youkia-midjourney-mcp 开启 Midjourney 生成功能，保留 human 确认，先不要生成。"
+      },
+      {
+        "label": "单次生成",
+        "command": "使用 $youkia-midjourney-mcp 生成一条可爱的锦鲤，真实鳞片、半透明鱼鳍、清澈水中、自然光、电影级三维质感，16:9，仅提交一个任务并保存原图。"
+      },
+      {
+        "label": "拒绝排查",
+        "command": "使用 $youkia-midjourney-mcp 排查没有出现确认表单却立即拒绝的问题，不重复提交生成。"
+      },
+      {
+        "label": "恢复结果",
+        "command": "使用 $youkia-midjourney-mcp 查询上次任务并下载已完成结果，不重新生成。"
+      }
+    ],
+    "notes": []
+  },
+  {
+    "id": "youkia-local-server",
+    "name": "youkia本地服务器操作",
+    "description": "通过 Codex 对话配置和管理 youkia 本地服务器，支持开启、关闭、重启、清档及清档重启，自动核验 Unity Play 与服务器状态。",
+    "category": "开发工具",
+    "tags": [
+      "本地服务"
+    ],
+    "author": "内部工具组",
+    "version": "0.1.0",
+    "updatedAt": "2026-10-20",
+    "featured": false,
+    "downloads": 1,
+    "package": "youkia-local-server.zip",
+    "files": [
+      "youkia-local-server/SKILL.md",
+      "youkia-local-server/agents/openai.yaml",
+      "youkia-local-server/server.ps1",
+      "youkia-local-server/scripts/bootstrap.ps1",
+      "youkia-local-server/scripts/core.py",
+      "youkia-local-server/scripts/windows_backend.py",
+      "youkia-local-server/scripts/server.py",
+      "youkia-local-server/references/usage.md",
+      "youkia-local-server/references/validation.md",
+      "youkia-local-server/assets/python-3.14.8-embed-amd64.zip",
+      "youkia-local-server/manifest.json"
+    ],
+    "tutorial": [
+      {
+        "title": "1.准备",
+        "body": "使用 Windows 10/11 x64，准备可正常运行的 youkia Erlang 本地服务器；对应 Unity 工程须已打开，并启用 AnkleBreaker Unity MCP 插件的本机 HTTP 接口。"
+      },
+      {
+        "title": "2.解压",
+        "body": "将技能 ZIP 解压到固定目录，保留其中的 youkia-local-server 文件夹。"
+      },
+      {
+        "title": "3.启动",
+        "body": "在 Codex 中说：“读取此目录下的 SKILL.md，启动 youkia本地服务器操作并引导配置。”"
+      },
+      {
+        "title": "4.环境",
+        "body": "优先使用系统 Python 3.12+；环境不满足时自动部署包内 Python，无需单独安装。"
+      },
+      {
+        "title": "5.配置",
+        "body": "按引导确认服务器目录、启动程序、Unity 工程及清档目录的绝对路径，同时核对启动脚本自带的清理行为。"
+      },
+      {
+        "title": "6.操作",
+        "body": "配置后直接说“查看状态”“开启服务器”“关闭服务器”“重启服务器”“清档”或“清档重启”。"
+      },
+      {
+        "title": "7.清档",
+        "body": "先退出 Unity Play，再正常关闭服务器并确认退出，最后删除已确认的整个 db 目录。"
+      },
+      {
+        "title": "8.清档重启",
+        "body": "完成清档后重新启动服务器并核验状态；Unity 保持未 Play。"
+      },
+      {
+        "title": "9.复用",
+        "body": "配置和操作记录保存在解压目录的 state 中，后续对话直接复用；支持明确切换目标或重新配置。"
+      },
+      {
+        "title": "10.反馈",
+        "body": "返回操作目标、完成步骤、最终状态和操作编号；发生异常时停止后续步骤，结果未知时先核查原记录。"
+      }
+    ],
+    "config": {
+      "path": "config.local.json",
+      "fields": [],
+      "example": ""
+    },
+    "examples": [
+      {
+        "label": "检查运行环境",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\server.ps1 doctor"
+      },
+      {
+        "label": "读取配置状态",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\server.ps1 startup"
+      },
+      {
+        "label": "查看运行状态",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\server.ps1 status"
+      }
+    ],
+    "notes": []
+  },
+  {
+    "id": "youkia-jira",
+    "name": "youkia JIRA助手",
+    "description": "通过 Codex 自然语言查询和操作 Jira，支持账号密码与 Token 登录、任务与 Bug 处理、工作流、报告导出和技能模块抽取，并内置 Python 运行环境。",
+    "category": "开发工具",
+    "tags": [
+      "Jira",
+      "项目管理",
+      "游戏测试"
+    ],
+    "author": "内部工具组",
+    "version": "0.1.0",
+    "updatedAt": "2026-10-20",
+    "featured": false,
+    "downloads": 1,
+    "package": "youkia-jira.zip",
+    "files": [
+      "youkia-jira/agents/openai.yaml",
+      "youkia-jira/assets/demo.json",
+      "youkia-jira/assets/icon.svg",
+      "youkia-jira/assets/python-3.14.8-embed-amd64.zip",
+      "youkia-jira/jira.ps1",
+      "youkia-jira/modules/diagnostics.md",
+      "youkia-jira/modules/operations.md",
+      "youkia-jira/modules/reports.md",
+      "youkia-jira/modules/workflow.md",
+      "youkia-jira/references/coverage.md",
+      "youkia-jira/references/diagnostics.md",
+      "youkia-jira/references/extension.md",
+      "youkia-jira/references/integration.md",
+      "youkia-jira/references/operations.md",
+      "youkia-jira/references/reports.md",
+      "youkia-jira/references/usage.md",
+      "youkia-jira/references/workflows.md",
+      "youkia-jira/scripts/bootstrap.ps1",
+      "youkia-jira/scripts/core.py",
+      "youkia-jira/scripts/exporting.py",
+      "youkia-jira/scripts/jira.py",
+      "youkia-jira/scripts/login.ps1",
+      "youkia-jira/scripts/operations.py",
+      "youkia-jira/scripts/reports.py",
+      "youkia-jira/SKILL.md",
+      "youkia-jira/manifest.json"
+    ],
+    "tutorial": [
+      {
+        "title": "1.解压",
+        "body": "将技能 ZIP 解压到固定目录，保留其中的 youkia-jira 文件夹。"
+      },
+      {
+        "title": "2.启动",
+        "body": "解压后直接对 Codex 说：读取“实际解压路径\\youkia-jira\\SKILL.md”，启动 youkia JIRA助手，按流程引导我配置。"
+      },
+      {
+        "title": "3.环境",
+        "body": "工具会优先使用系统 Python 3.12+；如果不存在或版本不满足要求，会自动部署包内 Python 运行时，不修改系统 PATH。"
+      },
+      {
+        "title": "4.确认网站",
+        "body": "首次引导显示当前 Jira 网站和实时解析 IP；默认网站为 http://log.youkia.com:8084(43.254.2.146)，支持更换。"
+      },
+      {
+        "title": "5.登录",
+        "body": "引导后直接打开“youkia JIRA助手｜登录”窗口，选择账号密码或 Token 方式填写；账号、密码和 Token 均不预填，Codex 等待窗口返回后继续。"
+      },
+      {
+        "title": "6.选择项目",
+        "body": "登录后读取当前可访问项目；可以单独选择项目，也可以同时提供项目和任务。选择仅在当前对话中生效，不保存为默认项目。"
+      },
+      {
+        "title": "7.执行任务",
+        "body": "例如“DFW，查看当前待验收的 Bug”。查询实时读取；写操作依据当前字段、权限和工作流进行预检，并在授权后执行和回读。"
+      },
+      {
+        "title": "8.查看结果",
+        "body": "Codex 返回任务编号、链接、当前状态和处理结果；需要导出时可生成带查询时间和完整性说明的报告。"
+      },
+      {
+        "title": "9.抽取复用",
+        "body": "可以要求 Codex 将任务操作、工作流、报告或诊断模块抽取到其他项目，抽取内容不包含当前登录信息和业务记录。"
+      },
+      {
+        "title": "10.安全",
+        "body": "技能包不包含账号、密码、Token 或本地运行缓存；登录信息使用当前 Windows 用户加密保存，项目、权限、工作流与查询结果不作默认缓存。"
+      }
+    ],
+    "config": {
+      "path": "config.local.json",
+      "fields": [],
+      "example": ""
+    },
+    "examples": [
+      {
+        "label": "读取启动状态",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\jira.ps1 startup"
+      },
+      {
+        "label": "打开登录窗口",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\jira.ps1 login"
+      },
+      {
+        "label": "查看可用项目",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\jira.ps1 projects"
+      },
+      {
+        "label": "查询待验收 Bug",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\jira.ps1 pending-bugs --project DFW"
+      }
+    ],
+    "notes": []
+  },
+  {
+    "id": "youkia-image-codex",
+    "name": "youkia-image-codex",
+    "description": "通过用户自有的 OpenAI 兼容 Sub2API 地址生成或修改高分辨率图片，支持 4K、流式 SSE 解析、本地保存、尺寸检查、错误诊断和安全的离线自测。",
+    "category": "媒体生成",
+    "tags": [
+      "图片生成",
+      "4K",
+      "Sub2API",
+      "OpenAI兼容",
+      "TypeScript",
+      "Node.js",
+      "SSE",
+      "图片编辑"
+    ],
+    "author": "内部工具组",
+    "version": "1.0.0",
+    "updatedAt": "2026-10-20",
+    "featured": false,
+    "downloads": 2,
+    "package": "youkia-image-codex.zip",
+    "files": [
+      "agents/openai.yaml",
+      "dist/cli.js",
+      "dist/generate-image.js",
+      "dist/media.js",
+      "dist/openai_4k_image_generator.js",
+      "dist/options.js",
+      "dist/payload.js",
+      "dist/protocol.js",
+      "scripts/cli.ts",
+      "scripts/generate-image.ts",
+      "scripts/media.ts",
+      "scripts/openai_4k_image_generator.ts",
+      "scripts/options.ts",
+      "scripts/payload.ts",
+      "scripts/protocol.ts",
+      "tests/youkia-image-codex.test.mjs",
+      ".gitignore",
+      "config.example.json",
+      "package-lock.json",
+      "package.json",
+      "SKILL.md",
+      "tsconfig.json"
+    ],
+    "tutorial": [
+      {
+        "title": "安装",
+        "body": "下载 ZIP 并解压到 Codex 全局技能目录：Windows 使用 %USERPROFILE%\\\\.codex\\\\skills\\\\youkia-image-codex\\\\，macOS/Linux 使用 ~/.codex/skills/youkia-image-codex/。确认 SKILL.md 位于目录根部，然后重启 Agent 客户端或新建会话。Node.js 需要 22 或更高版本。"
+      },
+      {
+        "title": "配置",
+        "body": "复制 config.example.json 为 config.local.json，只填写自己的 api_key、base_url、image_model 和 responses_model。base_url 可填服务根地址或 /v1 地址，脚本会自动补齐一次接口路径。config.local.json 不要上传或提交。"
+      },
+      {
+        "title": "生成图片",
+        "body": "运行 node .\\\\dist\\\\generate-image.js \"你的提示词\" --size 3840x2160 --output-dir .\\\\output。使用 --output 指定单张图片路径；默认流式请求，最终结果和实际尺寸会以 JSON 输出。"
+      },
+      {
+        "title": "修改图片",
+        "body": "运行 node .\\\\dist\\\\generate-image.js \"保留人物和场景，只修改某处\" --endpoint responses --input-image .\\\\input.png --output .\\\\edited.png。服务端必须支持 Responses 图片工具。"
+      },
+      {
+        "title": "自测与排查",
+        "body": "先运行 node .\\\\dist\\\\generate-image.js \"test prompt\" --dry-run 做不联网检查，再运行 npm test 和 npm run build。脚本不自动重试付费请求，避免产生重复任务。"
+      }
+    ],
+    "config": {
+      "path": "config.local.json",
+      "fields": [],
+      "example": "{\n  \"api_key\": \"YOUR_API_KEY\",\n  \"base_url\": \"https://your-sub2api.example.com/v1\",\n  \"image_model\": \"gpt-image-2.5-flare\",\n  \"responses_model\": \"gpt-5.4-mini\"\n}"
+    },
+    "examples": [
+      {
+        "label": "生成 4K 图片",
+        "command": "node .\\\\dist\\\\generate-image.js \"东方古装美女，云海，电影级光影，无文字无水印\" --size 3840x2160 --output-dir .\\\\output"
+      },
+      {
+        "label": "修改图片",
+        "command": "node .\\\\dist\\\\generate-image.js \"保留人物和场景，只把天空改成日落\" --endpoint responses --input-image .\\\\input.png --output .\\\\edited.png"
+      },
+      {
+        "label": "离线配置检查",
+        "command": "node .\\\\dist\\\\generate-image.js \"test prompt\" --dry-run"
+      }
+    ],
+    "notes": []
+  }
+]

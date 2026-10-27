@@ -1,0 +1,58 @@
+{
+  "generatedAt": "2026-10-27",
+  "source": "GitHub backup plus local published package",
+  "publishedVersions": [
+    {
+      "id": "grok-imagine-subapi",
+      "version": "1.2.0",
+      "sha256": "6bf0d9d8a413da9ce16a88bdf04799a4d49c2fa337b1723ddd3ca89bf6bc2372",
+      "bytes": 20047
+    },
+    {
+      "id": "sub2api-4k-image-generator-ts",
+      "version": "0.3.1",
+      "sha256": "c5836eb3b7fae29a52046a49d6f2c166c16080d8feb9c94450777bdc311a03c8",
+      "bytes": 29960
+    },
+    {
+      "id": "svn-windows-powershell",
+      "version": "1.0.0",
+      "sha256": "ea8e9cdabf5336a66223fbf658d30306c5083721e4d80a1dde7a0645f653bb3f",
+      "bytes": 13772
+    },
+    {
+      "id": "youkia-gm",
+      "version": "0.1.2",
+      "sha256": "14a2917e5b038829a22ced3f88b491c42dd2d8ec9c16c0a5ba39d79639fc4e05",
+      "bytes": 12633181
+    },
+    {
+      "id": "youkia-image-codex",
+      "version": "1.0.0",
+      "sha256": "9f45654f44c51fb6b6bebe000cc0e2d63cb8f454fadce63ac8b9201f791a3664",
+      "bytes": 25582
+    },
+    {
+      "id": "youkia-jira",
+      "version": "0.1.0",
+      "sha256": "583dbef040df5c074cdf928cde5378a2a70a7f06a362d7a021d8b70bcad82172",
+      "bytes": 12633937
+    },
+    {
+      "id": "youkia-local-server",
+      "version": "0.1.0",
+      "sha256": "f3e30c0028cd3d16197adc8455cf443bafc0698b38c4a324652e36c532c6167b",
+      "bytes": 12609010
+    },
+    {
+      "id": "youkia-midjourney-mcp",
+      "version": "1.0.0",
+      "sha256": "f7f02147d0665bd495b4f9cb65367f8324c04b1c922ad7b3e88e5eeeea2de079",
+      "bytes": 14520
+    }
+  ],
+  "notes": [
+    "Grok 1.2.0 is now promoted from the previous review candidate per user request.",
+    "Submissions and archives were unavailable in GitHub backup and remain empty after reset."
+  ]
+}

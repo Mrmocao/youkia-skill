@@ -1,0 +1,575 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "锦鲤云公共技能平台 Agent API",
+    "version": "2.5.0",
+    "description": "先读取 /agent-guide.md。公开读取与投稿无需管理员登录；投稿进入莫超审核队列。MCP 等价入口为 /mcp。"
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "使用收到的平台 origin，保留端口"
+    }
+  ],
+  "security": [],
+  "paths": {
+    "/api/skills": {
+      "get": {
+        "operationId": "listSkills",
+        "summary": "获取公开目录；关键词在客户端筛选",
+        "responses": {
+          "200": {
+            "description": "当前已发布技能",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "const": true
+                    },
+                    "skills": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Skill"
+                      }
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "skills"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/skills/{id}": {
+      "get": {
+        "operationId": "getSkill",
+        "summary": "读取最新技能详情",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 100,
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "详情",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "const": true
+                    },
+                    "skill": {
+                      "$ref": "#/components/schemas/Skill"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "skill"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "技能不存在",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/skills/{id}/download": {
+      "get": {
+        "operationId": "downloadSkill",
+        "summary": "下载技能 ZIP；增加下载计数",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 100,
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ZIP 文件",
+            "content": {
+              "application/zip": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "技能或包不存在",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/submissions": {
+      "post": {
+        "operationId": "submitSkillForReview",
+        "summary": "按用户要求提交审核；不会直接发布",
+        "description": "不支持幂等键。网络中断或 5xx 后不得自动重发；保留信息联系莫超核对。当前没有公开投稿状态查询接口。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmissionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "待审核；审核编号为 submission.id 最后8位转大写",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "const": true
+                    },
+                    "submission": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "pattern": "^[a-f0-9]{24}$"
+                        },
+                        "status": {
+                          "const": "pending"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "status"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "submission"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "字段、版本或包无效",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "版本基线过期",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "包或请求过大",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "投稿过于频繁",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "审核队列已满",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "服务端错误；不要盲目重发投稿",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SubmissionRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 100,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1
+          },
+          "version": {
+            "type": "string",
+            "maxLength": 40,
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 1
+          },
+          "category": {
+            "type": "string",
+            "maxLength": 40
+          },
+          "author": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1
+          },
+          "uploaderName": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "选填的公开上传人姓名"
+          },
+          "submitter": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1
+          },
+          "contact": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "description": "供管理员审核沟通，不在公开详情展示"
+          },
+          "baseVersion": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "更新已有技能时必须传入最新详情中的 version"
+          },
+          "changeSummary": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 60
+            },
+            "maxItems": 12
+          },
+          "tutorial": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                "body": {
+                  "type": "string",
+                  "maxLength": 2000
+                }
+              },
+              "required": [
+                "title",
+                "body"
+              ]
+            },
+            "maxItems": 12,
+            "minItems": 1
+          },
+          "config": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "maxLength": 160
+              },
+              "fields": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "maxItems": 20
+              },
+              "example": {
+                "type": "string",
+                "maxLength": 10000
+              }
+            }
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                "command": {
+                  "type": "string",
+                  "maxLength": 4000
+                }
+              },
+              "required": [
+                "label",
+                "command"
+              ]
+            },
+            "maxItems": 20
+          },
+          "packageBase64": {
+            "type": "string",
+            "maxLength": 41943040,
+            "minLength": 4,
+            "description": "ZIP 的纯 Base64；ZIP 最大 30 MiB，无 data: 前缀"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "version",
+          "description",
+          "author",
+          "submitter",
+          "contact",
+          "tutorial",
+          "packageBase64"
+        ]
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "const": false
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "success",
+          "error"
+        ]
+      },
+      "Skill": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 100,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1
+          },
+          "version": {
+            "type": "string",
+            "maxLength": 40,
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 1
+          },
+          "category": {
+            "type": "string",
+            "maxLength": 40
+          },
+          "author": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1
+          },
+          "uploaderName": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "选填的公开上传人姓名"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 60
+            },
+            "maxItems": 12
+          },
+          "tutorial": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                "body": {
+                  "type": "string",
+                  "maxLength": 2000
+                }
+              },
+              "required": [
+                "title",
+                "body"
+              ]
+            },
+            "maxItems": 12,
+            "minItems": 1
+          },
+          "config": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "maxLength": 160
+              },
+              "fields": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "maxItems": 20
+              },
+              "example": {
+                "type": "string",
+                "maxLength": 10000
+              }
+            }
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                "command": {
+                  "type": "string",
+                  "maxLength": 4000
+                }
+              },
+              "required": [
+                "label",
+                "command"
+              ]
+            },
+            "maxItems": 20
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "downloads": {
+            "type": "integer"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 100
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 30
+          }
+        }
+      }
+    }
+  }
+}

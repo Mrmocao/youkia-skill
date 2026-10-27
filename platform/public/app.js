@@ -1,3 +1,5 @@
+import { profileFor, renderSkillHelp, renderHelpCenter, clientInstructions } from "./onboarding.js?v=2.5.0";
+
 const state = {
   skills: [],
   submissions: [],
@@ -10,6 +12,7 @@ const state = {
   currentSkill: null,
   mcpClient: "codex",
   authenticated: false,
+  helpClient: "codex",
 };
 
 const libraryView = document.querySelector("#library-view");
@@ -145,7 +148,7 @@ function filteredSkills() {
   const filtered = state.skills.filter((skill) => {
     if (state.category !== "全部" && skill.category !== state.category) return false;
     if (!query) return true;
-    const haystack = [skill.name, skill.description, skill.category, skill.author, ...(skill.tags || [])].join(" ").toLowerCase();
+    const haystack = [skill.name, skill.description, skill.category, skill.author, profileFor(skill).purpose, ...(skill.tags || [])].join(" ").toLowerCase();
     return haystack.includes(query);
   });
 
@@ -183,6 +186,7 @@ function renderCard(skill) {
         </div>
         <p class="card-description">${escapeHtml(skill.description)}</p>
         <div class="tags">${tags || `<span class="tag">${escapeHtml(skill.category || "其他")}</span>`}</div>
+        <p class="card-start-label">查看用途 · 安装 · 配置与反馈 →</p>
         <div class="card-footer">
           <span class="card-author"><i data-lucide="user-round"></i>${escapeHtml(skill.author || "内部贡献者")}</span>
           <span class="card-metric"><i data-lucide="download"></i>${formatNumber(skill.downloads)}</span>
@@ -249,8 +253,8 @@ async function handleRoute() {
       return;
     }
   }
-  if (route === "guide") {
-    renderGuide();
+  if (route === "guide" || route.startsWith("guide/")) {
+    renderGuide(route.split("/")[1]);
     showView("guide");
     return;
   }
@@ -308,11 +312,12 @@ function renderDetail(skill) {
       <div class="detail-actions"><a class="button button-primary" href="/api/skills/${encodeURIComponent(skill.id)}/download"><i data-lucide="download"></i>下载技能包</a><button class="button button-secondary" type="button" data-action="improve-skill"><i data-lucide="git-pull-request"></i>提交此技能优化</button></div>
     </header>
 
+    ${renderSkillHelp(skill, escapeHtml, codeBlock)}
     <div class="detail-band">
       <div class="detail-layout">
         <div class="detail-main">
           <section class="detail-section"><h2>安装与使用</h2><div class="steps">${tutorial || '<p class="guide-copy">暂无教程，请联系发布者补充。</p>'}</div></section>
-          <section class="detail-section"><h2>配置方案</h2>${skill.config?.path ? `<p class="guide-copy">配置文件：<code>${escapeHtml(skill.config.path)}</code></p>` : ""}${configTable}${codeBlock("配置示例", skill.config?.example || "")}</section>
+          <section class="detail-section"><h2>配置方案</h2><p class="guide-copy">具体以包内 SKILL.md 为准；有些技能通过本机登录窗口或 state 保存配置。</p>${skill.config?.example && skill.config.example !== "{}" && skill.config?.path ? `<p class="guide-copy">发布者提供的配置位置：<code>${escapeHtml(skill.config.path)}</code></p>` : ""}${configTable}${skill.config?.example && skill.config.example !== "{}" ? codeBlock("配置示例", skill.config.example) : '<p class="guide-copy">未提供通用配置示例，请按上方教程完成配置或登录。</p>'}</section>
           <section class="detail-section"><h2>常用命令</h2>${examples || '<p class="guide-copy">暂无命令示例。</p>'}</section>
         </div>
         <aside class="detail-aside">
@@ -327,20 +332,19 @@ function renderDetail(skill) {
   refreshIcons();
 }
 
-function renderGuide() {
-  guideView.innerHTML = `
-    <header class="guide-header"><p class="eyebrow">START HERE</p><h1>安装、使用与协作指南</h1><p class="intro">锦鲤云是公司的共享技能平台，大家可以使用、改进和共同维护技能。</p></header>
-    <div class="guide-grid">
-      <section class="guide-section"><span>01</span><h2>下载</h2><p class="guide-copy">打开任意技能详情页下载 ZIP。先阅读适用场景、教程和配置字段。</p></section>
-      <section class="guide-section"><span>02</span><h2>安装</h2><p class="guide-copy">Windows：<code>%USERPROFILE%\\.codex\\skills\\技能 ID\\</code><br />macOS / Linux：<code>~/.codex/skills/技能 ID/</code></p></section>
-      <section class="guide-section"><span>03</span><h2>配置</h2><p class="guide-copy">复制示例配置并填写自己的参数。真实 API Key 只保留在本机。</p></section>
-      <section class="guide-section"><span>04</span><h2>重启</h2><p class="guide-copy">退出并重启 Codex 会话，让新技能进入技能索引。</p></section>
-      <section class="guide-section"><span>05</span><h2>共同维护</h2><p class="guide-copy">如果你发现更好的提示词、配置、脚本或教程，可以提交新版本或优化建议，帮助同事一起复用。</p></section>
-      <section class="guide-section"><span>06</span><h2>审批发布</h2><p class="guide-copy">所有投稿进入审核队列，由莫超统一检查安全性、说明完整度和兼容性后更新公共目录。</p></section>
-      <section class="guide-section"><span>07</span><h2>安全</h2><p class="guide-copy">上传前移除 <code>config.local.json</code>、<code>.env</code>、私钥和个人数据。管理员权限仅限内部维护。</p></section>
-      <section class="guide-section"><span>08</span><h2>Agent 接入</h2><p class="guide-copy">Codex、OpenCode 等客户端可通过 MCP 搜索、安装和投稿，投稿仍需莫超审批。</p></section>
-    </div>
-  `;
+function renderGuide(topic) {
+  guideView.innerHTML = renderHelpCenter(topic, escapeHtml, codeBlock);
+  renderHelpClient();
+  refreshIcons();
+}
+
+function renderHelpClient() {
+  const content = document.querySelector("#help-client-content");
+  if (!content) return;
+  content.innerHTML = clientInstructions(state.helpClient, codeBlock);
+  guideView.querySelectorAll("[data-help-client]").forEach(button => {
+    button.setAttribute("aria-pressed", String(button.dataset.helpClient === state.helpClient));
+  });
   refreshIcons();
 }
 
@@ -442,11 +446,14 @@ function renderMcp() {
 }
 
 function lineItems(text, fields) {
-  return String(text || "").split("\n").map((line) => line.trim()).filter(Boolean).map((line, index) => {
+  const items = [];
+  for (const line of String(text || "").split("\n")) {
     const separator = line.indexOf("|");
-    if (separator < 0) return { [fields[0]]: `步骤 ${index + 1}`, [fields[1]]: line };
-    return { [fields[0]]: line.slice(0, separator).trim(), [fields[1]]: line.slice(separator + 1).trim() };
-  });
+    if (separator >= 0) items.push({ [fields[0]]: line.slice(0, separator).trim(), [fields[1]]: line.slice(separator + 1).trim() });
+    else if (items.length) items[items.length - 1][fields[1]] += `\n${line}`;
+    else if (line.trim()) items.push({ [fields[0]]: `步骤 ${items.length + 1}`, [fields[1]]: line });
+  }
+  return items.map(item => ({ ...item, [fields[1]]: item[fields[1]].trim() }));
 }
 
 function fileToBase64(file) {
@@ -463,12 +470,13 @@ function openSubmission(skill = null) {
   submissionPackageLabel.textContent = "最大 30 MB，包内必须包含 SKILL.md";
   submissionForm._originalConfig = skill?.config || null;
   submissionForm._originalNotes = skill?.notes || [];
+  submissionForm._originalTutorial = skill?.tutorial || [];
+  submissionForm._originalExamples = skill?.examples || [];
   submissionForm.elements.namedItem("version").placeholder = "例如：1.0.0";
   if (skill) {
     const values = {
       id: skill.id, name: skill.name, version: "", category: skill.category,
       description: skill.description, author: skill.author,
-      uploaderName: skill.uploaderName || "",
       tags: (skill.tags || []).join(", "), baseVersion: skill.version,
       tutorial: (skill.tutorial || []).map((step) => `${step.title} | ${step.body}`).join("\n"),
       configExample: skill.config?.example || "",
@@ -480,6 +488,9 @@ function openSubmission(skill = null) {
     submissionForm.elements.namedItem("version").placeholder = `当前 ${skill.version}，请填写新版本`;
   }
   submissionStatus.hidden = true;
+  submissionForm._tutorialText = submissionForm.elements.namedItem("tutorial").value;
+  submissionForm._examplesText = submissionForm.elements.namedItem("examples").value;
+  submitDialog.querySelector("h2").textContent = skill ? `提交优化：${skill.name}` : "上传新技能";
   if (!submitDialog.open) submitDialog.showModal();
 }
 
@@ -507,17 +518,23 @@ async function submitContribution(event) {
       submitter: form.get("submitter"),
       contact: form.get("contact"),
       tags: String(form.get("tags") || "").split(/[,，]/).map((item) => item.trim()).filter(Boolean),
-      tutorial: lineItems(form.get("tutorial"), ["title", "body"]),
+      tutorial: form.get("tutorial") === submissionForm._tutorialText ? submissionForm._originalTutorial : lineItems(form.get("tutorial"), ["title", "body"]),
       config: { ...(submissionForm._originalConfig || { path: "config.local.json", fields: [] }), example: form.get("configExample") },
       notes: submissionForm._originalNotes,
       baseVersion: form.get("baseVersion"),
       changeSummary: form.get("changeSummary"),
-      examples: lineItems(form.get("examples"), ["label", "command"]),
+      examples: form.get("examples") === submissionForm._examplesText ? submissionForm._originalExamples : lineItems(form.get("examples"), ["label", "command"]),
       packageBase64,
     };
     const body = await api("/api/submissions", { method: "POST", body: JSON.stringify(payload) });
     const ticket = body.submission.id.slice(-8).toUpperCase();
     submissionForm.reset();
+    submissionForm._originalConfig = null;
+    submissionForm._originalNotes = [];
+    submissionForm._originalTutorial = [];
+    submissionForm._originalExamples = [];
+    submissionForm._tutorialText = "";
+    submissionForm._examplesText = "";
     submissionPackageLabel.textContent = "最大 30 MB，包内必须包含 SKILL.md";
     submissionStatus.innerHTML = `<i data-lucide="circle-check-big"></i><div><strong>提交成功，等待莫超审批</strong><span>审核编号：${escapeHtml(ticket)}。请联系莫超并提供此编号，审批后更新发布。</span></div>`;
     submissionStatus.hidden = false;
@@ -788,7 +805,33 @@ async function logout() {
   }
 }
 
+async function copyText(text) {
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return;
+    }
+  } catch {}
+  const active = document.activeElement;
+  const input = document.createElement("textarea");
+  input.className = "clipboard-fallback";
+  input.value = text;
+  input.setAttribute("aria-label", "待复制内容");
+  (Array.from(document.querySelectorAll("dialog[open]")).at(-1) || document.body).append(input);
+  input.select();
+  const copied = document.execCommand("copy");
+  input.remove();
+  active?.focus({ preventScroll: true });
+  if (!copied) throw new Error("请手动选择文本复制");
+}
+
 document.addEventListener("click", async (event) => {
+  const helpClient = event.target.closest("[data-help-client]");
+  if (helpClient) {
+    state.helpClient = helpClient.dataset.helpClient;
+    renderHelpClient();
+    return;
+  }
   const category = event.target.closest("[data-category]");
   if (category) {
     state.category = category.dataset.category;
@@ -833,6 +876,16 @@ document.addEventListener("click", async (event) => {
   if (action === "open-guide") {
     navigate("guide");
   }
+  if (action === "upload-help") {
+    submitDialog.close();
+    navigate("guide/share");
+  }
+  if (action === "tutorial-template") {
+    const field = submissionForm.elements.namedItem("tutorial");
+    if (field.value.trim()) return toast("已有教程已保留，可按运行环境、安装、配置、验证补充。");
+    field.value = "运行环境 | 填写支持的系统、客户端、运行时和账号权限\n安装 | 填写文件放置位置，以及如何确认技能被识别\n配置 | 填写配置文件或本机登录方式，仅使用占位符\n首次验证 | 给出一条离线或只读检查，以及成功时的表现\n常见问题 | 写明常见报错、排查步骤和维护联系方式";
+    field.focus();
+  }
   if (action === "open-admin") openAdmin();
   if (action === "new-admin-skill") openAdminSkillEditor();
   if (action === "close-dialog") actionTarget.closest("dialog")?.close();
@@ -850,7 +903,7 @@ document.addEventListener("click", async (event) => {
   const copyButton = event.target.closest("[data-copy]");
   if (copyButton) {
     try {
-      await navigator.clipboard.writeText(copyButton.dataset.copy);
+      await copyText(copyButton.dataset.copy);
       toast("已复制到剪贴板");
     } catch {
       toast("复制失败，请手动选择文本", "error");
@@ -859,7 +912,7 @@ document.addEventListener("click", async (event) => {
 });
 
 document.addEventListener("keydown", async (event) => {
-  const dialogOpen = submitDialog.open || adminDialog.open;
+  const dialogOpen = submitDialog.open || adminDialog.open || adminSkillDialog.open;
   if (event.key === "/" && document.activeElement !== searchInput && !dialogOpen) {
     event.preventDefault();
     searchInput.focus();

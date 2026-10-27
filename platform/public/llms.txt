@@ -1,0 +1,14 @@
+# 天上友嘉 · 锦鲤云公共技能平台
+
+> 公司共享的 Agent 技能目录。用户可把平台网址或技能详情网址交给 AI 助手，要求搜索、安装、更新或提交技能。投稿由莫超审批后发布。
+
+## Start here
+
+- [AI 操作手册](/agent-guide.md): 完整工作流、能力检查、安装验收、投稿 JSON 示例、错误处理及权限边界。开始操作前读取。
+- [HTTP API / OpenAPI 3.1](/openapi.json): 无需配置 MCP，即可通过 HTTP 搜索目录、读取详情、下载 ZIP 和提交审核。
+- [实时技能目录](/api/skills): JSON，技能在 skills 数组中；在客户端按名称、用途、标签筛选。
+- [MCP 接口](/mcp): Streamable HTTP POST；已经连接时使用 search_skills、get_skill、submit_skill。GET 返回 405 是正常的。
+- [用户指南](/#guide/install): 给使用者的简要说明。
+
+相对路径均相对于收到的本平台网址的 origin。/#skill/技能ID 是浏览器路由；AI 应读取 /api/skills/技能ID，不依赖 JavaScript 渲染或网页点击。
+只按用户实际请求操作。用户请求安装不等于授权投稿或业务写操作。平台无需管理员账号即可下载及投稿；不要请求管理员密码。

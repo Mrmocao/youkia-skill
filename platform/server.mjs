@@ -34,6 +34,8 @@ const MIME_TYPES = new Map([
   [".ico", "image/x-icon"],
   [".js", "text/javascript; charset=utf-8"],
   [".json", "application/json; charset=utf-8"],
+  [".md", "text/markdown; charset=utf-8"],
+  [".txt", "text/plain; charset=utf-8"],
   [".png", "image/png"],
   [".svg", "image/svg+xml"],
   [".webp", "image/webp"],
@@ -41,6 +43,7 @@ const MIME_TYPES = new Map([
 ]);
 
 function setSecurityHeaders(response) {
+  response.setHeader("Link", '</agent-guide.md>; rel="describedby"; type="text/markdown", </openapi.json>; rel="service-desc"; type="application/json"');
   response.setHeader("X-Content-Type-Options", "nosniff");
   response.setHeader("X-Frame-Options", "DENY");
   response.setHeader("Referrer-Policy", "same-origin");
@@ -762,7 +765,7 @@ async function serveStatic(response, pathname) {
   response.writeHead(200, {
     "Content-Type": MIME_TYPES.get(extname(filePath).toLowerCase()) || "application/octet-stream",
     "Content-Length": fileStat.size,
-    "Cache-Control": extname(filePath) === ".html" ? "no-cache" : "public, max-age=3600",
+    "Cache-Control": [".html", ".md", ".txt", ".json"].includes(extname(filePath)) ? "no-cache" : "public, max-age=3600",
   });
   createReadStream(filePath).pipe(response);
 }

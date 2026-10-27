@@ -4,7 +4,13 @@
 
 平台管理员权限仅限内部维护人员。普通用户和 Agent 只拥有公开检索、详情读取、ZIP 下载和投稿权限，投稿内容在莫超审批前不会进入公共目录。
 
-## 共同维护
+## 使用指南与新人引导
+
+首页提供三个入门步骤，`/#guide/understand`、`/#guide/install`、`/#guide/maintain`、`/#guide/share`、`/#guide/faq` 分别说明技能选择、安装、更新回退、投稿审批及常见问题。技能详情提供用途、准备项以及可复制的安装、首次验证、更新和反馈提示词；发布者原有教程仍保留。
+
+安装指引优先要求 Agent 检查客户端实际扫描的目录，避免重复安装和覆盖个人配置。MCP `get_skill` 返回的命令仅下载到临时位置，后续检查、安装和验证步骤单独列出。网页不读取或推断用户本机安装状态。
+
+## 投稿与审批
 
 使用中发现问题或改进空间时，可从技能详情页点击“提交此技能优化”，自动带入原技能资料。沿用技能 ID、提高版本号，补充本次改动和验证结果，再上传完整 ZIP。提交成功后联系莫超并提供审核编号，由莫超审批后更新发布；优化建议也可直接反馈给莫超。
 
@@ -74,7 +80,7 @@ Set `PUBLIC_BASE_URL` to the externally reachable origin so MCP responses return
 
 The administrator review center also manages the published catalog. It can create a new published skill, edit display metadata, unpublish a skill into a recoverable archive, and restore an archived skill. Updating the actual ZIP contents should continue through a new version submission so the review baseline and package inspection remain visible.
 
-The `data` directory contains the public catalog, pending submissions, archived skills, and ZIP packages. Keep `.env` private and do not put API keys in skill packages. Back up `data/skills.json`, `data/submissions.json`, `data/archived-skills.json`, `data/packages/`, `data/submissions/`, and `data/archive/` together.
+The `data` directory contains the public catalog, pending submissions, archived skills, and ZIP packages. The sibling `restore-data/` snapshot is the sanitized recovery copy for a reset server. Keep `.env` private and do not put API keys in skill packages. Back up `data/skills.json`, `data/submissions.json`, `data/archived-skills.json`, `data/packages/`, `data/submissions/`, and `data/archive/` together.
 
 ## Scheduled backups
 
@@ -96,3 +102,7 @@ Run it from cron, for example every night at 03:20:
 For a lower-risk alternative, use a server-side daily `tar.zst` or `rsync` snapshot to a second disk/NAS and keep 7–30 daily versions. This avoids placing internal submission metadata in GitHub; GitHub is convenient for version history, while a separate snapshot is better for disaster recovery.
 
 Direct-IP HTTP does not encrypt MCP submissions or administrator login traffic. Use HTTPS before sending sensitive metadata, and never include secrets in a skill ZIP.
+
+## Recovery snapshot
+
+The sibling `restore-data/` directory contains the current public catalog and package ZIPs. It excludes `.env`, administrator passwords, pending contact metadata and runtime secrets. Copy it to `data/`, create a new `.env` with a new `ADMIN_PASSWORD`, then start the platform.

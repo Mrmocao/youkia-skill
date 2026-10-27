@@ -1,5 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import { readFile } from "node:fs/promises";
 import * as z from "zod/v4";
 
 const MAX_PACKAGE_BASE64_LENGTH = Math.ceil((30 * 1024 * 1024) / 3) * 4 + 4;
@@ -33,10 +34,15 @@ function skillWithLinks(skill, baseUrl) {
 
 function installCommands(skill, baseUrl) {
   const downloadUrl = `${baseUrl}/api/skills/${encodeURIComponent(skill.id)}/download`;
+  const powershellUrl = `'${downloadUrl.replaceAll("'", "''")}'`;
+  const shellUrl = `'${downloadUrl.replaceAll("'", "'\\''")}'`;
   return {
-    windows_powershell: `$zip = Join-Path $env:TEMP "${skill.id}.zip"; Invoke-WebRequest "${downloadUrl}" -OutFile $zip; Expand-Archive $zip -DestinationPath (Join-Path $env:USERPROFILE ".codex\\skills") -Force`,
-    macos_linux: `curl -fL "${downloadUrl}" -o "/tmp/${skill.id}.zip" && unzip -o "/tmp/${skill.id}.zip" -d "$HOME/.codex/skills"`,
-    final_step: "退出并重启 Agent 客户端或新建会话，使新技能进入索引。",
+    windows_powershell: `$skillZip = Join-Path $env:TEMP ('${skill.id}-' + [guid]::NewGuid().ToString('N') + '.zip'); Invoke-WebRequest ${powershellUrl} -OutFile $skillZip; Write-Output $skillZip`,
+    macos_linux: `skill_stage=$(mktemp -d) && curl -fL ${shellUrl} -o "$skill_stage/${skill.id}.zip" && printf '%s\\n' "$skill_stage/${skill.id}.zip"`,
+    command_scope: "上述命令仅下载到临时路径，不安装、不覆盖已有技能。",
+    next_steps: ["先检查 ZIP 路径及 SKILL.md 内容，再解压到临时目录。", `定位客户端实际技能目录，确保安装后为 ${skill.id}/SKILL.md。包内已有同名目录时不要再套一层。`, "同名技能更新前备份旧目录、个人配置和 state；不能直接覆盖凭据或将多个版本混装。", "按技能要求核对系统、运行时、账号或业务 MCP；连接平台 MCP 不会自动配置业务服务。"],
+    guide_url: `${baseUrl}/#guide/install`,
+    final_step: "检查客户端是否识别新技能；未识别时重新加载或重启。先完成离线或只读验收，再执行实际任务。",
   };
 }
 
@@ -44,7 +50,7 @@ export async function createSkillMcpServer({ baseUrl, clientAddress, readSkills,
   const server = new McpServer({
     name: "jinli-cloud-skill-platform",
     title: "天上友嘉 · 锦鲤云公共技能平台",
-    version: "2.2.0",
+    version: "2.5.0",
   }, {
     instructions: "这是公司的共享 Agent 技能平台，用于发现、读取和提交技能。鼓励大家提交更好的提示词、配置、脚本和教程共同迭代；所有提交都会进入审核队列，由莫超统一审批更新，不会直接公开。MCP 用户只有搜索、读取和投稿权限，不拥有管理员审核或发布权限。",
   });
@@ -185,6 +191,18 @@ export async function createSkillMcpServer({ baseUrl, clientAddress, readSkills,
   });
 
   const catalogUri = "skillroom://catalog";
+  const agentGuideUri = "skillroom://agent-guide";
+  server.registerResource("agent-guide", agentGuideUri, {
+    title: "锦鲤云 AI 助手操作手册",
+    description: "AI 助手通过网页或 MCP 搜索、安装、维护和投稿技能的完整流程",
+    mimeType: "text/markdown",
+  }, async () => ({
+    contents: [{
+      uri: agentGuideUri,
+      mimeType: "text/markdown",
+      text: await readFile(new URL("./public/agent-guide.md", import.meta.url), "utf8"),
+    }],
+  }));
   server.registerResource("skill-catalog", catalogUri, {
     title: "锦鲤云公共技能目录",
     description: "平台当前已审核发布的全部技能及其下载地址",

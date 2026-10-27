@@ -4,11 +4,11 @@ Shared Codex skills and the company skill platform source snapshot.
 
 ## Skills
 
-Snapshot: 2026-10-21. Published skills are synchronized from the company platform ZIPs. Grok 1.2.0 is the new tested local revision submitted for company review; GitHub availability does not imply company approval.
+Snapshot: 2026-10-27. Published skills and the company platform recovery snapshot are synchronized here. Grok 1.2.0 is now promoted and published.
 
 | Skill | Version | Company platform status |
 | --- | --- | --- |
-| `grok-imagine-subapi` | 1.2.0 | Company review pending |
+| `grok-imagine-subapi` | 1.2.0 | Published |
 | `sub2api-4k-image-generator-ts` | 0.3.1 | Published |
 | `svn-windows-powershell` | 1.0.0 | Published |
 | `youkia-gm` | 0.1.2 | Published |
@@ -27,6 +27,10 @@ Copy a desired skill directory to `~/.codex/skills/` (Windows: `%USERPROFILE%\.c
 
 For Grok validation, run `node --test skills/grok-imagine-subapi/tests/generation.test.mjs`. Generation smoke tests use provider credits; `--dry-run` does not. Grok 1.2.0 adds reference images, prompt files, recoverable video jobs, sanitized diagnostics and image/MP4 inspection. Existing output files are protected.
 
-For platform deployment see `platform/README.md`. Its data directory starts empty; restore approved catalog data separately. The GitHub skill directory may contain a proposed version still under company review; do not automatically publish it as an approved platform package.
+For platform deployment see `platform/README.md`. Its data directory starts empty; restore approved catalog data separately. The published catalog and recovery snapshot are synchronized with the company platform; local credentials and runtime state remain excluded.
 
 Never commit local credentials, browser profiles, job records, generated output or private submission/contact metadata. Third-party runtimes and license files included by published skills are retained.
+
+## Platform recovery
+
+`platform/` contains the latest platform source, including the AI-first `/agent-guide.md`, `/llms.txt`, `/openapi.json` and MCP guide. `platform/restore-data/` is a sanitized recovery snapshot of the eight published catalog entries and ZIP packages; it excludes `.env`, administrator passwords, pending contact metadata and runtime secrets. After a server reset, copy the platform source, restore `platform/restore-data` as `data`, set a new `ADMIN_PASSWORD`, and run the documented Node/Nginx or Docker deployment.

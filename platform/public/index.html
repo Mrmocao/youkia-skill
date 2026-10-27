@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="天上友嘉锦鲤云公共技能平台" />
     <title>天上友嘉 · 锦鲤云公共技能平台</title>
-    <link rel="icon" href="/favicon.svg?v=2.2.0" type="image/svg+xml" />
-    <link rel="stylesheet" href="/styles.css?v=2.3.0" />
+    <link rel="describedby" href="/agent-guide.md" type="text/markdown" />
+    <link rel="icon" href="/favicon.svg?v=2.5.0" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css?v=2.5.0" />
   </head>
   <body>
     <header class="topbar">
@@ -21,7 +22,7 @@
 
         <nav class="nav" aria-label="主导航">
           <button class="nav-link is-active" data-nav="library" type="button">技能广场</button>
-          <button class="nav-link" data-nav="guide" type="button">安装指南</button>
+          <button class="nav-link" data-nav="guide" type="button">使用指南</button>
           <button class="nav-link" data-nav="mcp" type="button">Agent 接入</button>
         </nav>
 
@@ -57,6 +58,31 @@
           </dl>
         </header>
 
+        <section class="quick-start" aria-labelledby="quick-start-title">
+          <div class="quick-start-head">
+            <div>
+              <p class="eyebrow">START HERE</p>
+              <h2 id="quick-start-title">第一次使用？把网址交给 AI 助手</h2>
+            </div>
+            <button class="button button-secondary button-small" type="button" data-action="open-guide"><i data-lucide="book-open"></i>查看完整指南</button>
+          </div>
+          <div class="quick-start-grid">
+            <article class="quick-start-item">
+              <span class="quick-start-number">01</span>
+              <div><strong>把网址交给 AI</strong><p>把平台或技能详情网址发给 Codex、OpenCode 等 Agent，说清你想完成的任务。</p></div>
+            </article>
+            <article class="quick-start-item">
+              <span class="quick-start-number">02</span>
+              <div><strong>让 AI 安装</strong><p>Agent 会读取说明、下载 ZIP、定位本机目录并检查 <code>SKILL.md</code>。</p></div>
+            </article>
+            <article class="quick-start-item">
+              <span class="quick-start-number">03</span>
+              <div><strong>配置后开始使用</strong><p>只在本机完成账号配置，Agent 验证通过后，直接描述任务即可。</p></div>
+            </article>
+          </div>
+        </section>
+
+        <p class="guide-copy">不想自己安装或上传？把本页网址交给 AI，并告诉它要安装的技能或要提交的本地目录。<a href="/agent-guide.md">AI 操作说明</a> · <a href="/llms.txt">AI 入口</a> · <a href="#guide/share">让 AI 帮我投稿</a></p>
         <section class="collaboration-banner" aria-labelledby="collaboration-title">
           <div class="collaboration-mark"><i data-lucide="users-round"></i></div>
           <div class="collaboration-copy">
@@ -66,9 +92,11 @@
           </div>
           <div class="collaboration-actions">
             <button class="button button-primary" type="button" data-action="open-submit"><i data-lucide="upload-cloud"></i>提交优化</button>
-            <button class="button button-secondary" type="button" data-action="open-guide">查看协作规则</button>
+            <a class="button button-secondary" href="#guide/maintain">查看协作规则</a>
           </div>
         </section>
+
+        <nav class="help-shortcuts" aria-label="快速帮助"><a href="#guide/understand">技能怎么选？</a><a href="#guide/install">安装与配置</a><a href="#guide/maintain">更新与回退</a><a href="#guide/share">上传与审批</a><a href="#guide/faq">常见问题与反馈</a></nav>
 
         <div class="catalog-toolbar">
           <label class="search-control" for="search-input">
@@ -120,11 +148,17 @@
         <input type="hidden" name="baseVersion" />
         <div id="submission-status" class="submission-status" role="status" hidden></div>
 
+        <div class="submission-checklist">
+          <strong><i data-lucide="clipboard-check"></i>提交前先检查</strong>
+          <span>ZIP 内必须包含 <code>SKILL.md</code>；真实 API Key、密码、<code>config.local.json</code> 和 <code>.env</code> 只保留在本机。</span>
+          <button class="button button-secondary button-small" type="button" data-action="upload-help">不知道怎么打包？查看上传指南</button>
+        </div>
+
         <div class="agent-submit-option">
           <span class="agent-submit-icon" aria-hidden="true"><i data-lucide="bot"></i></span>
           <div>
             <strong>也可以让 Codex 或 OpenCode 直接投稿</strong>
-            <span>接入平台 MCP 后，把本地 ZIP 路径和技能资料告诉 Agent 即可提交审核。</span>
+            <span>把平台网址和本地技能目录交给 Agent，按 AI 操作说明完成打包和提交；无需先配置 MCP。</span>
           </div>
           <button class="button button-secondary button-small" type="button" data-action="open-mcp">
             <i data-lucide="plug-zap"></i>
@@ -168,11 +202,13 @@
           <div class="form-grid two-columns">
             <label class="field">
               <span>作者 / 团队</span>
-              <input name="author" placeholder="你的名字或团队" required maxlength="80" />
+              <input name="author" placeholder="技能维护团队或原作者" required maxlength="80" />
+              <small>技能归属和维护方，用于详情页展示。</small>
             </label>
             <label class="field">
               <span>上传人员 <em>（选填）</em></span>
               <input name="uploaderName" placeholder="用于技能详情页展示" maxlength="80" />
+              <small>本次上传或整理技能的同事，可不填写。</small>
             </label>
             <label class="field">
               <span>标签</span>
@@ -183,6 +219,7 @@
 
         <fieldset class="form-section">
           <legend>教程与配置</legend>
+          <button class="button button-secondary button-small tutorial-template" type="button" data-action="tutorial-template">填入教程填写模板</button>
           <label class="field">
             <span>本次贡献 / 优化说明</span>
             <textarea name="changeSummary" rows="3" required maxlength="2000" placeholder="说明解决的问题、改动内容和验证结果；优化已有技能时请沿用技能 ID 并提高版本号。"></textarea>
@@ -190,6 +227,7 @@
           <label class="field">
             <span>安装与使用教程</span>
             <textarea name="tutorial" rows="6" required placeholder="每一步使用“标题 | 内容”一行，例如：&#10;安装 | 解压到 ~/.codex/skills/skill-name/&#10;配置 | 复制 config.example.json 为 config.local.json"></textarea>
+            <small>请写清运行环境、安装、配置和首次验证。每个新步骤使用“标题 | 内容”，后续无竖线的行会保留在当前步骤内。</small>
           </label>
 
           <label class="field">
@@ -209,6 +247,7 @@
             <label class="field">
               <span>提交人</span>
               <input name="submitter" placeholder="便于审核沟通" required maxlength="80" />
+              <small>审批时联系的人员，可以与作者不同。</small>
             </label>
             <label class="field">
               <span>联系方式</span>
@@ -319,6 +358,6 @@
     <div id="toast-region" class="toast-region" aria-live="assertive"></div>
 
     <script src="/vendor/lucide.min.js"></script>
-    <script type="module" src="/app.js?v=2.3.0"></script>
+    <script type="module" src="/app.js?v=2.5.0"></script>
   </body>
 </html>

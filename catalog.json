@@ -1,12 +1,12 @@
 {
-  "snapshot_date": "2026-10-21",
+  "snapshot_date": "2026-10-27",
   "skills": [
     {
       "id": "grok-imagine-subapi",
       "version": "1.2.0",
       "description": "通过直连 SubAPI 调用 Grok Imagine，生成图片或短视频并保存到本地。",
-      "platform_published_version": "1.1.0",
-      "status": "pending_company_review",
+      "platform_published_version": "1.2.0",
+      "status": "published",
       "package_sha256": "6bf0d9d8a413da9ce16a88bdf04799a4d49c2fa337b1723ddd3ca89bf6bc2372"
     },
     {

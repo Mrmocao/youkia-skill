@@ -228,6 +228,82 @@ svg {
   min-width: 0;
 }
 
+.quick-start {
+  margin-top: 22px;
+  padding: 22px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.quick-start-head, .help-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.quick-start-head h2, .help-section-heading h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.quick-start-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.quick-start-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.quick-start-item strong { font-size: 15px; }
+.quick-start-item p { margin: 8px 0 0; color: var(--ink-soft); font-size: 13px; line-height: 1.8; }
+.quick-start-number { color: var(--primary); font-size: 20px; font-weight: 700; }
+.help-shortcuts, .help-actions, .help-client-switch { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0; }
+.help-shortcuts a, .text-link { color: var(--primary-hover); font-size: 14px; text-underline-offset: 4px; }
+.help-shortcuts a { padding: 6px 0; margin-right: 12px; }
+.card-start-label { margin: 14px 0; font-size: 12px; color: var(--primary-hover); }
+.skill-getting-started { margin-top: 24px; padding: 26px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.skill-getting-started .guide-copy { font-size: 14px; line-height: 1.9; }
+.help-topic-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.help-topic-nav a { padding: 12px 18px; text-decoration: none; border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--surface); font-size: 14px; }
+.help-topic-nav a[aria-current], .help-client-switch [aria-pressed="true"] { background: var(--primary); border-color: var(--primary); color: white; }
+.help-content { padding: 30px; max-width: 1000px; border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius); }
+.help-content h2 { margin-top: 0; font-size: 23px; }
+.help-content h3 { margin-top: 28px; font-size: 17px; }
+.help-content .guide-copy, .help-list, .help-definitions { font-size: 15px; line-height: 1.9; color: var(--ink-soft); }
+.help-list { padding-left: 24px; }
+.help-list li { padding-left: 6px; margin-bottom: 16px; }
+.help-task-list { display: grid; gap: 0; margin: 20px 0; }
+.help-task-list > div { border-bottom: 1px solid var(--line); padding: 16px 0; }
+.help-task-list p { font-size: 15px; line-height: 1.8; color: var(--ink-soft); margin: 8px 0; }
+.help-definitions dt { font-weight: 700; color: var(--ink); }
+.help-definitions dd { margin: 0 0 14px; }
+.help-disclosure { margin-top: 16px; border-top: 1px solid var(--line); padding: 16px 0; }
+.help-disclosure summary { cursor: pointer; font-size: 15px; font-weight: 650; line-height: 1.8; }
+.help-disclosure summary:focus-visible, .help-topic-nav a:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+.submission-checklist { display: grid; gap: 10px; padding: 16px; margin-bottom: 18px; border-left: 3px solid var(--primary); background: var(--primary-soft); font-size: 13px; line-height: 1.8; }
+.submission-checklist strong { display: flex; align-items: center; gap: 8px; }
+.submission-checklist svg { width: 18px; height: 18px; }
+.submission-checklist .button { justify-self: start; }
+.field small { color: var(--ink-muted); font-size: 12px; line-height: 1.6; }
+.tutorial-template { margin-bottom: 18px; }
+.clipboard-fallback { position: fixed; left: -9999px; top: 0; }
+.step p { white-space: pre-wrap; overflow-wrap: anywhere; }
+.help-content pre, .skill-getting-started pre { overflow-wrap: anywhere; }
+.button[href] { text-decoration: none; }
+
+@media (max-width: 820px) {
+  .quick-start-grid { grid-template-columns: 1fr; gap: 18px; }
+  .help-content, .skill-getting-started { padding: 20px; }
+}
+
 .admin-access-note {
   color: var(--ink-muted);
   font-size: 11px;
@@ -2334,6 +2410,24 @@ pre {
   .catalog-stats dd {
     font-size: 18px;
   }
+}
+
+
+.agent-handoff {
+  margin: 0 0 18px;
+  padding: 24px 28px;
+  border: 1px solid #b9d6fb;
+  border-left: 4px solid var(--blue, #1677ff);
+  border-radius: 12px;
+  background: #f3f8ff;
+}
+
+.agent-handoff h2 { margin: 0 0 10px; font-size: 20px; }
+.agent-handoff .code-block { margin: 16px 0 12px; }
+.agent-handoff .text-link { font-weight: 700; }
+
+@media (max-width: 600px) {
+  .agent-handoff { padding: 18px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
