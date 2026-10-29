@@ -41,8 +41,8 @@ Independent multi-select job roles can be combined with skill categories and tag
 
 ## Platform 2.6.1
 
-The home page now uses a compact, initially collapsed help bar so skill search, filters and cards appear sooner. Users can copy an AI installation prompt or expand installation steps, contribution guidance and help links. Keyboard, clipboard and responsive layout checks passed locally; production deployment is pending.
+The home page now uses a compact, initially collapsed help bar so skill search, filters and cards appear sooner. Users can copy an AI installation prompt or expand installation steps, contribution guidance and help links. Keyboard, clipboard and responsive layout checks passed locally; included in the deployed 2.6.2 release.
 
 ## Platform 2.6.2
 
-The desktop title, inline catalog statistics and AI help controls now share one compact row. The expandable guide remains full width; tablet and phone layouts wrap automatically. Local keyboard, clipboard, filtering and responsive checks passed. Production deployment remains pending.
+The desktop title, inline catalog statistics and AI help controls now share one compact row. The expandable guide remains full width; tablet and phone layouts wrap automatically. Deployed to http://14.103.231.1/ on 2026-10-29. Live keyboard, clipboard, filtering and responsive checks passed at 1366, 768, 390 and 320 pixel widths. Existing packages and submission data were preserved.
