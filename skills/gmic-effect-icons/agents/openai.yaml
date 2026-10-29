@@ -1,0 +1,6 @@
+interface:
+  display_name: "ComfyUI GMIC 特效图标"
+  short_description: "优化特效提示词并通过 GPU0 生成可追溯预览"
+  default_prompt: "Use $gmic-effect-icons to optimize my effect prompt, generate it on GPU0 ComfyUI, and create a WebP preview."
+policy:
+  allow_implicit_invocation: true

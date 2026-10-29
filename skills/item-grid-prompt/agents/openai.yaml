@@ -1,0 +1,4 @@
+interface:
+  display_name: "道具图标 Prompt 组装"
+  short_description: "由当前Codex优化世界观与16个道具并组装固定Prompt"
+  default_prompt: "使用 $item-grid-prompt 展示已有风格并帮我组装16个道具图标 Prompt。"

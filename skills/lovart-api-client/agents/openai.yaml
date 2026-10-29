@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lovart API Client"
+  short_description: "配置 Lovart 密钥并调用多模型生成及管理媒体内容"
+  default_prompt: "Use $lovart-api-client to configure Lovart API and generate an image."

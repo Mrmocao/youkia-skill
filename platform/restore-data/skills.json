@@ -16,7 +16,6 @@
     "updatedAt": "2026-10-27",
     "featured": true,
     "downloads": 12,
-    "package": "grok-imagine-subapi.zip",
     "files": [
       "grok-imagine-subapi/.gitignore",
       "grok-imagine-subapi/SKILL.md",
@@ -103,7 +102,8 @@
         "date": "2026-10-27",
         "kind": "历史记录"
       }
-    ]
+    ],
+    "package": "grok-imagine-subapi.zip"
   },
   {
     "id": "sub2api-4k-image-generator-ts",
@@ -125,7 +125,6 @@
     "updatedAt": "2026-10-15",
     "featured": false,
     "downloads": 11,
-    "package": "sub2api-4k-image-generator-ts.zip",
     "files": [
       "agents/openai.yaml",
       "dist/args.js",
@@ -191,7 +190,8 @@
     "roles": [
       "美术"
     ],
-    "contributions": []
+    "contributions": [],
+    "package": "sub2api-4k-image-generator-ts.zip"
   },
   {
     "id": "svn-windows-powershell",
@@ -210,7 +210,6 @@
     "updatedAt": "2026-10-10",
     "featured": false,
     "downloads": 7,
-    "package": "svn-windows-powershell.zip",
     "files": [
       "svn-windows-powershell/SKILL.md",
       "svn-windows-powershell/agents/openai.yaml",
@@ -260,7 +259,8 @@
       "策划",
       "测试"
     ],
-    "contributions": []
+    "contributions": [],
+    "package": "svn-windows-powershell.zip"
   },
   {
     "id": "youkia-gm",
@@ -276,7 +276,6 @@
     "updatedAt": "2026-10-15",
     "featured": false,
     "downloads": 2,
-    "package": "youkia-gm.zip",
     "files": [
       "youkia-gm/README.md",
       "youkia-gm/SKILL.md",
@@ -365,7 +364,8 @@
       "测试",
       "后端"
     ],
-    "contributions": []
+    "contributions": [],
+    "package": "youkia-gm.zip"
   },
   {
     "id": "youkia-midjourney-mcp",
@@ -383,11 +383,22 @@
       "消费确认"
     ],
     "author": "莫超",
-    "version": "1.0.0",
-    "updatedAt": "2026-10-15",
+    "uploaderName": "莫超",
+    "roles": [
+      "美术"
+    ],
+    "contributions": [
+      {
+        "name": "莫超",
+        "version": "1.0.1",
+        "date": "2026-10-29T10:03:07.494Z",
+        "kind": "更新发布"
+      }
+    ],
+    "version": "1.0.1",
+    "updatedAt": "2026-10-29",
     "featured": false,
     "downloads": 6,
-    "package": "youkia-midjourney-mcp.zip",
     "files": [
       "agents/openai.yaml",
       "LICENSE",
@@ -425,6 +436,10 @@
       {
         "title": "7. 版本依据与验证边界",
         "body": "已测环境（2026-10-15）：Windows；上游包 2.0.1，源码 c0ffb7c325639dfa50efa4b57def2119f1e623c1；Slipway 0.1.17；Node 24.11.1；Chrome 155.0.8059.40；Codex 桌面内置后端 0.162.0-alpha.17.2。PATH 中独立 CLI 0.144.5 不能代表桌面版本。其他版本需重新核实。\n\n已通过：MCP initialize/ping/tools/list；登录后 whoami + get_queue；配置保留和回环监听检查；四项无网络确认测试（拒绝、取消、未勾选都停止，明确批准才进入处理函数）；实际 MCP 表单接收批准；既有任务读取、下载及 SHA-256 核对。\n\n付费出图此前只在单独授权的 CLI 路径实测成功，一次任务返回四张候选。权限修复后未再执行新的付费 MCP 生成，不能把 CLI 成功或表单批准宣称为完整付费 MCP 实测。\n\n本次无消费表单探针在审阅 2.0.1 执行顺序后使用无效 aspect 0:0 且不带风格板/参考等选项，批准后本地校验报错，未提交任务。它不是通用 dry-run；其他版本先证明校验早于网络/消费，否则只用隔离测试和只读检查。\n\n根因依据来自实际会话策略、确认代码和 Codex elicitation 源码；未来版本可能有例外，不按界面标签一概推断 never 行为。OpenAI 官方 MCP 页面本次返回 403，未声称全文核实。npm audit 当时无已知漏洞不等于完整审计。\n\n技能结构、YAML/TOML、相对链接、ZIP 完整性与文件白名单均已检查。仅含七个文档/元数据/许可证文件，无账号、凭据、浏览器 profile、node_modules、个人配置、真实任务或图片。参考上游 MIT 文档，保留 Copyright (c) 2026 NM Media 和完整许可证；来源与详细边界见 references/verification.md。"
+      },
+      {
+        "title": "8. 同事环境排查：权限、工具通道与原图",
+        "body": "先区分两类问题。① 之前本机真实发生过的确认故障：有效 approval_policy=never 自动拒绝非空 MCP human 表单；用户切为允许询问的 on-request 后恢复。让同事检查当前聊天的实际审批策略，保留 MIDJOURNEY_CONFIRM=human。不要仅凭“完全控制”标签推断，也不要关闭 human 或静默用 CLI 绕过。② “电脑控制无法可靠识别 Chrome 当前网址”目前只有回复转述，尚未拿到同事原始工具日志，疑似电脑控制通道问题，不能断言是同一个权限故障。需要出错工具名、脱敏错误和是否发现 whoami/imagine。技能 ZIP 不会自动安装 MCP；工具缺失时先安装并只读验收，不自动改走电脑控制。2.0.1 的 image_prompts 接受直接图片 URL/Midjourney 资源 URL，不接受本地文件路径，没有专用本地文件上传工具。独立素材准备可由用户在本地网页手动上传取得实际资源 URL；系统阻止动作后不通过 MCP/CDP/CLI 重做来绕行。本次只验证本机协议和离线参数，未生成、未上传、未复现同事机器。完整流程见包内 usage、troubleshooting 与 verification。"
       }
     ],
     "config": {
@@ -455,10 +470,7 @@
       }
     ],
     "notes": [],
-    "roles": [
-      "美术"
-    ],
-    "contributions": []
+    "package": "youkia-midjourney-mcp.zip"
   },
   {
     "id": "youkia-local-server",
@@ -473,7 +485,6 @@
     "updatedAt": "2026-10-20",
     "featured": false,
     "downloads": 2,
-    "package": "youkia-local-server.zip",
     "files": [
       "youkia-local-server/SKILL.md",
       "youkia-local-server/agents/openai.yaml",
@@ -554,7 +565,8 @@
       "后端",
       "测试"
     ],
-    "contributions": []
+    "contributions": [],
+    "package": "youkia-local-server.zip"
   },
   {
     "id": "youkia-jira",
@@ -571,7 +583,6 @@
     "updatedAt": "2026-10-20",
     "featured": false,
     "downloads": 2,
-    "package": "youkia-jira.zip",
     "files": [
       "youkia-jira/agents/openai.yaml",
       "youkia-jira/assets/demo.json",
@@ -672,7 +683,8 @@
       "策划",
       "测试"
     ],
-    "contributions": []
+    "contributions": [],
+    "package": "youkia-jira.zip"
   },
   {
     "id": "youkia-image-codex",
@@ -694,7 +706,6 @@
     "updatedAt": "2026-10-20",
     "featured": false,
     "downloads": 3,
-    "package": "youkia-image-codex.zip",
     "files": [
       "agents/openai.yaml",
       "dist/cli.js",
@@ -765,6 +776,452 @@
       "美术",
       "策划"
     ],
-    "contributions": []
+    "contributions": [],
+    "package": "youkia-image-codex.zip"
+  },
+  {
+    "id": "gmic-effect-icons",
+    "name": "GMIC 游戏特效图标",
+    "description": "Optimize a user's short game-effect idea into a Qwen-Image GMIC skill-icon prompt, generate it through the configured GPU0 ComfyUI API, and produce a traceable WebP preview showing the original input beside the result. Use for GMIC/Qwen game skill icons and effect-icon batches; do not use for character portraits or general image editing.",
+    "category": "媒体生成",
+    "tags": [
+      "ComfyUI",
+      "Qwen",
+      "技能图标"
+    ],
+    "author": "原作者未标注",
+    "uploaderName": "朱家丰",
+    "roles": [
+      "美术"
+    ],
+    "contributions": [
+      {
+        "name": "朱家丰",
+        "version": "1.0.0",
+        "date": "2026-10-29T10:02:39.937Z",
+        "kind": "首次发布"
+      }
+    ],
+    "version": "1.0.0",
+    "updatedAt": "2026-10-29",
+    "featured": false,
+    "downloads": 0,
+    "files": [
+      "gmic-effect-icons/agents/openai.yaml",
+      "gmic-effect-icons/assets/ten_test_cases.json",
+      "gmic-effect-icons/assets/workflow_api.json",
+      "gmic-effect-icons/references/portability.md",
+      "gmic-effect-icons/references/prompt-template.md",
+      "gmic-effect-icons/requirements.txt",
+      "gmic-effect-icons/scripts/build_webp_preview.py",
+      "gmic-effect-icons/scripts/run_effect_icon.py",
+      "gmic-effect-icons/SKILL.md",
+      "gmic-effect-icons/使用示例.webp"
+    ],
+    "tutorial": [
+      {
+        "title": "安装",
+        "body": "审核通过后下载 ZIP，解压到 Agent 的技能目录，确认 gmic-effect-icons/SKILL.md 存在，再重新加载技能。"
+      },
+      {
+        "title": "使用",
+        "body": "阅读包内 SKILL.md，按其中的适用场景、输入要求、执行步骤和验收标准使用；所需服务及依赖以包内文档为准。"
+      }
+    ],
+    "config": {
+      "path": "config.local.json",
+      "fields": [],
+      "example": ""
+    },
+    "examples": [],
+    "notes": [],
+    "package": "gmic-effect-icons.zip"
+  },
+  {
+    "id": "qwen-multi-angle",
+    "name": "Qwen 角色八方向视图",
+    "description": "Generate consistent eight-direction game-character views and labeled 3×3 sheets with a bundled local ComfyUI Qwen Image Edit 2511 workflow.",
+    "category": "媒体生成",
+    "tags": [
+      "ComfyUI",
+      "Qwen",
+      "角色设计"
+    ],
+    "author": "原作者未标注",
+    "uploaderName": "朱家丰",
+    "roles": [
+      "美术"
+    ],
+    "contributions": [
+      {
+        "name": "朱家丰",
+        "version": "1.0.0",
+        "date": "2026-10-29T10:02:42.494Z",
+        "kind": "首次发布"
+      }
+    ],
+    "version": "1.0.0",
+    "updatedAt": "2026-10-29",
+    "featured": false,
+    "downloads": 0,
+    "files": [
+      "qwen-multi-angle/agents/openai.yaml",
+      "qwen-multi-angle/AGENTS.md",
+      "qwen-multi-angle/assets/qwen-edit-2511-multi-angle-workflow.json",
+      "qwen-multi-angle/README.md",
+      "qwen-multi-angle/references/comfyui-requirements.md",
+      "qwen-multi-angle/references/eight-direction-map.md",
+      "qwen-multi-angle/references/prompt-library.json",
+      "qwen-multi-angle/requirements.txt",
+      "qwen-multi-angle/scripts/generate_angles.py",
+      "qwen-multi-angle/scripts/make_contact_sheets.py",
+      "qwen-multi-angle/skill.json",
+      "qwen-multi-angle/SKILL.md",
+      "qwen-multi-angle/使用示例.webp"
+    ],
+    "tutorial": [
+      {
+        "title": "安装",
+        "body": "审核通过后下载 ZIP，解压到 Agent 的技能目录，确认 qwen-multi-angle/SKILL.md 存在，再重新加载技能。"
+      },
+      {
+        "title": "使用",
+        "body": "阅读包内 SKILL.md，按其中的适用场景、输入要求、执行步骤和验收标准使用；所需服务及依赖以包内文档为准。"
+      }
+    ],
+    "config": {
+      "path": "config.local.json",
+      "fields": [],
+      "example": ""
+    },
+    "examples": [],
+    "notes": [],
+    "package": "qwen-multi-angle.zip"
+  },
+  {
+    "id": "01-45-1",
+    "name": "45°竖版场景背景",
+    "description": "提供中国卡通风格、45°俯视的竖版仙侠场景绘图标准与复用提示词。",
+    "category": "美术提示词",
+    "tags": [
+      "场景",
+      "仙侠",
+      "提示词"
+    ],
+    "author": "原作者未标注",
+    "uploaderName": "朱家丰",
+    "roles": [
+      "美术",
+      "策划"
+    ],
+    "contributions": [
+      {
+        "name": "朱家丰",
+        "version": "1.0.0",
+        "date": "2026-10-29T10:02:44.845Z",
+        "kind": "首次发布"
+      }
+    ],
+    "version": "1.0.0",
+    "updatedAt": "2026-10-29",
+    "featured": false,
+    "downloads": 0,
+    "files": [
+      "01-45-1/SKILL.md",
+      "01-45-1/使用示例.webp"
+    ],
+    "tutorial": [
+      {
+        "title": "安装",
+        "body": "审核通过后下载 ZIP，解压到 Agent 的技能目录，确认 01-45-1/SKILL.md 存在，再重新加载技能。"
+      },
+      {
+        "title": "使用",
+        "body": "阅读包内 SKILL.md，按其中的适用场景、输入要求、执行步骤和验收标准使用；所需服务及依赖以包内文档为准。"
+      }
+    ],
+    "config": {
+      "path": "config.local.json",
+      "fields": [],
+      "example": ""
+    },
+    "examples": [],
+    "notes": [],
+    "package": "01-45-1.zip"
+  },
+  {
+    "id": "03-prompt-1",
+    "name": "单体建筑 Prompt 模板",
+    "description": "提供中国卡通风格的单体建筑 Prompt 模板、示例与生成检查清单。",
+    "category": "美术提示词",
+    "tags": [
+      "建筑",
+      "场景",
+      "提示词"
+    ],
+    "author": "原作者未标注",
+    "uploaderName": "朱家丰",
+    "roles": [
+      "美术",
+      "策划"
+    ],
+    "contributions": [
+      {
+        "name": "朱家丰",
+        "version": "1.0.0",
+        "date": "2026-10-29T10:02:47.053Z",
+        "kind": "首次发布"
+      }
+    ],
+    "version": "1.0.0",
+    "updatedAt": "2026-10-29",
+    "featured": false,
+    "downloads": 0,
+    "files": [
+      "03-prompt-1/SKILL.md",
+      "03-prompt-1/使用示例.webp"
+    ],
+    "tutorial": [
+      {
+        "title": "安装",
+        "body": "审核通过后下载 ZIP，解压到 Agent 的技能目录，确认 03-prompt-1/SKILL.md 存在，再重新加载技能。"
+      },
+      {
+        "title": "使用",
+        "body": "阅读包内 SKILL.md，按其中的适用场景、输入要求、执行步骤和验收标准使用；所需服务及依赖以包内文档为准。"
+      }
+    ],
+    "config": {
+      "path": "config.local.json",
+      "fields": [],
+      "example": ""
+    },
+    "examples": [],
+    "notes": [],
+    "package": "03-prompt-1.zip"
+  },
+  {
+    "id": "avatar-frame-prompt",
+    "name": "游戏头像框提示词",
+    "description": "Build and validate structured image-generation prompts for game avatar frames. Use when a user wants an avatar-frame prompt, wants to choose among the bundled visual categories, or provides a short Chinese or English avatar-frame concept that needs composition, material, center-opening, and negative constraints. This skill outputs prompts only.",
+    "category": "美术提示词",
+    "tags": [
+      "头像框",
+      "提示词"
+    ],
+    "author": "原作者未标注",
+    "uploaderName": "朱家丰",
+    "roles": [
+      "美术",
+      "策划"
+    ],
+    "contributions": [
+      {
+        "name": "朱家丰",
+        "version": "1.0.0",
+        "date": "2026-10-29T10:02:49.216Z",
+        "kind": "首次发布"
+      }
+    ],
+    "version": "1.0.0",
+    "updatedAt": "2026-10-29",
+    "featured": false,
+    "downloads": 0,
+    "files": [
+      "avatar-frame-prompt/agents/openai.yaml",
+      "avatar-frame-prompt/assets/avatar-frame-six-category-grid-2x3.png",
+      "avatar-frame-prompt/Codex 图像 2026年9月4日 17_20_24.png",
+      "avatar-frame-prompt/references/category-presets.json",
+      "avatar-frame-prompt/references/prompt-rules.md",
+      "avatar-frame-prompt/scripts/assemble_prompt.py",
+      "avatar-frame-prompt/SKILL.md",
+      "avatar-frame-prompt/使用示例.webp"
+    ],
+    "tutorial": [
+      {
+        "title": "安装",
+        "body": "审核通过后下载 ZIP，解压到 Agent 的技能目录，确认 avatar-frame-prompt/SKILL.md 存在，再重新加载技能。"
+      },
+      {
+        "title": "使用",
+        "body": "阅读包内 SKILL.md，按其中的适用场景、输入要求、执行步骤和验收标准使用；所需服务及依赖以包内文档为准。"
+      }
+    ],
+    "config": {
+      "path": "config.local.json",
+      "fields": [],
+      "example": ""
+    },
+    "examples": [],
+    "notes": [],
+    "package": "avatar-frame-prompt.zip"
+  },
+  {
+    "id": "game-skill-icon-five-styles",
+    "name": "五风格游戏技能图标",
+    "description": "Generate readable 3×3 game skill-icon sheets from character references in LAYERED_2_5D, FLAT_DEPTH_CONTRAST, MONOCHROME_CHIBI_SILHOUETTE, ANIME_CHIBI_RAYLINE, or BOLD_CHIBI_TRICOLOR. Use for character-derived ability icons, style comparison boards, and portable prompt packs across image-capable Agent applications.",
+    "category": "媒体生成",
+    "tags": [
+      "技能图标",
+      "九宫格",
+      "风格"
+    ],
+    "author": "原作者未标注",
+    "uploaderName": "朱家丰",
+    "roles": [
+      "美术",
+      "策划"
+    ],
+    "contributions": [
+      {
+        "name": "朱家丰",
+        "version": "1.0.0",
+        "date": "2026-10-29T10:02:51.189Z",
+        "kind": "首次发布"
+      }
+    ],
+    "version": "1.0.0",
+    "updatedAt": "2026-10-29",
+    "featured": false,
+    "downloads": 0,
+    "files": [
+      "game-skill-icon-five-styles/agents/openai.yaml",
+      "game-skill-icon-five-styles/build-five-style-preview.py",
+      "game-skill-icon-five-styles/references/style-profiles.md",
+      "game-skill-icon-five-styles/references/universal-workflow.md",
+      "game-skill-icon-five-styles/SKILL.md",
+      "game-skill-icon-five-styles/使用示例.webp"
+    ],
+    "tutorial": [
+      {
+        "title": "安装",
+        "body": "审核通过后下载 ZIP，解压到 Agent 的技能目录，确认 game-skill-icon-five-styles/SKILL.md 存在，再重新加载技能。"
+      },
+      {
+        "title": "使用",
+        "body": "阅读包内 SKILL.md，按其中的适用场景、输入要求、执行步骤和验收标准使用；所需服务及依赖以包内文档为准。"
+      }
+    ],
+    "config": {
+      "path": "config.local.json",
+      "fields": [],
+      "example": ""
+    },
+    "examples": [],
+    "notes": [],
+    "package": "game-skill-icon-five-styles.zip"
+  },
+  {
+    "id": "item-grid-prompt",
+    "name": "16格道具图标提示词",
+    "description": "Build a fixed 4x4 game-item icon generation prompt from a supported game-art style, a world/theme description, and exactly 16 item descriptions. Use when the user wants Codex to prepare, optimize, assemble, or display a 16-item grid prompt without generating images. Optimize variable content directly with the current Codex model; never call a separate text-model API or rewrite the fixed prompt contract.",
+    "category": "美术提示词",
+    "tags": [
+      "道具图标",
+      "4x4",
+      "提示词"
+    ],
+    "author": "原作者未标注",
+    "uploaderName": "朱家丰",
+    "roles": [
+      "美术",
+      "策划"
+    ],
+    "contributions": [
+      {
+        "name": "朱家丰",
+        "version": "1.0.0",
+        "date": "2026-10-29T10:02:53.415Z",
+        "kind": "首次发布"
+      }
+    ],
+    "version": "1.0.0",
+    "updatedAt": "2026-10-29",
+    "featured": false,
+    "downloads": 0,
+    "files": [
+      "item-grid-prompt/agents/openai.yaml",
+      "item-grid-prompt/Codex 图像 2026年8月31日 12_20_48.png",
+      "item-grid-prompt/Codex 图像 2026年9月4日 17_20_33.png",
+      "item-grid-prompt/scripts/assemble_prompt.py",
+      "item-grid-prompt/SKILL.md",
+      "item-grid-prompt/使用示例.webp"
+    ],
+    "tutorial": [
+      {
+        "title": "安装",
+        "body": "审核通过后下载 ZIP，解压到 Agent 的技能目录，确认 item-grid-prompt/SKILL.md 存在，再重新加载技能。"
+      },
+      {
+        "title": "使用",
+        "body": "阅读包内 SKILL.md，按其中的适用场景、输入要求、执行步骤和验收标准使用；所需服务及依赖以包内文档为准。"
+      }
+    ],
+    "config": {
+      "path": "config.local.json",
+      "fields": [],
+      "example": ""
+    },
+    "examples": [],
+    "notes": [],
+    "package": "item-grid-prompt.zip"
+  },
+  {
+    "id": "lovart-api-client",
+    "name": "Lovart API 客户端",
+    "description": "Configure and call the Lovart Agent OpenAPI for image, video, audio, 3D, project, thread, upload, download, and model-selection tasks. Use when the user asks to configure Lovart Access Key/Secret Key, test Lovart connectivity, generate or edit media through Lovart, choose a Lovart generation model, or manage Lovart projects and conversations.",
+    "category": "开发工具",
+    "tags": [
+      "Lovart",
+      "API",
+      "媒体生成"
+    ],
+    "author": "原作者未标注",
+    "uploaderName": "朱家丰",
+    "roles": [
+      "美术",
+      "客户端",
+      "通用"
+    ],
+    "contributions": [
+      {
+        "name": "朱家丰",
+        "version": "1.0.0",
+        "date": "2026-10-29T10:02:55.380Z",
+        "kind": "首次发布"
+      }
+    ],
+    "version": "1.0.0",
+    "updatedAt": "2026-10-29",
+    "featured": false,
+    "downloads": 0,
+    "files": [
+      "lovart-api-client/.gitignore",
+      "lovart-api-client/agents/openai.yaml",
+      "lovart-api-client/conf/config.example.json",
+      "lovart-api-client/conf/config.json",
+      "lovart-api-client/scripts/agent_skill.py",
+      "lovart-api-client/scripts/configure.py",
+      "lovart-api-client/scripts/run_lovart.py",
+      "lovart-api-client/SKILL.md"
+    ],
+    "tutorial": [
+      {
+        "title": "安装",
+        "body": "审核通过后下载 ZIP，解压到 Agent 的技能目录，确认 lovart-api-client/SKILL.md 存在，再重新加载技能。"
+      },
+      {
+        "title": "使用",
+        "body": "阅读包内 SKILL.md，按其中的适用场景、输入要求、执行步骤和验收标准使用；所需服务及依赖以包内文档为准。"
+      }
+    ],
+    "config": {
+      "path": "config.local.json",
+      "fields": [],
+      "example": ""
+    },
+    "examples": [],
+    "notes": [],
+    "package": "lovart-api-client.zip"
   }
 ]

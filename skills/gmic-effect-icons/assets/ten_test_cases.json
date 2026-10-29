@@ -1,0 +1,72 @@
+[
+  {
+    "id": "01_phoenix_burst",
+    "name": "炎凰爆发",
+    "user_input": "炎凰爆发，火焰凤凰展开双翼，红金配色，向外爆发",
+    "seed": 42102001,
+    "optimized_prompt": "gmic icon_\\(Game ai Institute\\), a single blazing phoenix-shaped fire burst spreading its wings upward, brilliant orange-red flame feathers, white-hot golden core, sparks and a compact circular shockwave, simple deep crimson background, no humans, one concentrated magical skill effect, centered composition, bold readable silhouette, premium fantasy mobile game ability icon, polished 2D digital painting, crisp luminous edges, high contrast"
+  },
+  {
+    "id": "02_thunder_spear",
+    "name": "雷霆神枪",
+    "user_input": "雷霆神枪，纵向武器构图，雷电分叉，金蓝配色",
+    "seed": 42102002,
+    "optimized_prompt": "gmic icon_\\(Game ai Institute\\), one celestial spear made entirely of blue lightning descending diagonally, sharp golden spearhead wrapped in branching electric arcs, small fragments of charged crystal, deep midnight blue background, no wielder, no humans, isolated centered weapon skill effect, strong diagonal motion, premium fantasy mobile game ability icon, luminous 2D digital painting, crisp silhouette, dramatic energy glow"
+  },
+  {
+    "id": "03_frost_nova",
+    "name": "极寒新星",
+    "user_input": "极寒新星，冰晶从中心放射爆发，青蓝色，带冷雾",
+    "seed": 42102003,
+    "optimized_prompt": "gmic icon_\\(Game ai Institute\\), a single explosive frost nova viewed from slightly above, radial crown of translucent cyan ice spikes erupting from a bright frozen core, swirling cold mist and tiny snow crystals, simple dark navy background, no humans, centered circular area-of-effect skill, clean radial symmetry with dynamic variation, premium fantasy game icon, polished 2D digital painting, crystalline highlights, crisp edges"
+  },
+  {
+    "id": "04_venom_vortex",
+    "name": "剧毒漩涡",
+    "user_input": "剧毒漩涡，绿色毒液和紫色毒雾旋转，危险感",
+    "seed": 42102004,
+    "optimized_prompt": "gmic icon_\\(Game ai Institute\\), one spiraling venom vortex with luminous acid-green liquid ribbons, dark violet poisonous smoke, three suspended toxic droplets and a glowing emerald core, simple near-black purple background, no humans, isolated centered spell effect, clear clockwise motion, premium dark fantasy mobile game skill icon, polished 2D digital painting, glossy liquid texture, strong readable silhouette, high contrast"
+  },
+  {
+    "id": "05_holy_aegis",
+    "name": "圣光壁垒",
+    "user_input": "圣光壁垒，金色发光盾牌，几何感，对称防御特效",
+    "seed": 42102005,
+    "optimized_prompt": "gmic icon_\\(Game ai Institute\\), one radiant holy aegis formed from layered golden light, hexagonal shield silhouette with a bright ivory crystal at the center, symmetrical wing-like light rays and tiny floating gold particles, simple royal blue background, no humans, centered defensive skill effect, calm powerful composition, premium fantasy mobile game ability icon, polished 2D digital painting, clean geometry, luminous beveled edges"
+  },
+  {
+    "id": "06_void_slash",
+    "name": "虚空斩痕",
+    "user_input": "虚空斩痕，黑紫色空间被斩开，洋红色边缘，高反差",
+    "seed": 42102006,
+    "optimized_prompt": "gmic icon_\\(Game ai Institute\\), a single violent crescent slash tearing open space, black-purple blade trail edged with intense magenta light, fractured void shards and a narrow white energy core, simple smoky charcoal background, no weapon, no humans, centered close-up attack effect, aggressive sweeping diagonal composition, premium dark fantasy game skill icon, polished 2D digital painting, razor-sharp silhouette, dramatic contrast"
+  },
+  {
+    "id": "07_lotus_heal",
+    "name": "青莲回春",
+    "user_input": "青莲回春，青绿色莲花绽放，柔和治疗光效，东方幻想",
+    "seed": 42102007,
+    "optimized_prompt": "gmic icon_\\(Game ai Institute\\), one luminous jade lotus blooming from a circular pool of healing light, layered translucent turquoise petals, warm pearl-white core, delicate rising motes and two flowing ribbons of life energy, simple deep teal background, no humans, centered restorative spell effect, graceful upward composition, premium eastern fantasy mobile game skill icon, polished 2D digital painting, soft glow with crisp petal silhouette"
+  },
+  {
+    "id": "08_meteor_impact",
+    "name": "陨星坠击",
+    "user_input": "陨星坠击，燃烧陨石高速撞击，岩浆裂纹，大透视",
+    "seed": 42102008,
+    "optimized_prompt": "gmic icon_\\(Game ai Institute\\), one molten meteor crashing toward the viewer at a steep diagonal, cracked black volcanic rock shell with blazing orange magma seams, long compressed fire trail and a circular impact shockwave behind it, simple dark red-brown background, no humans, dramatic foreshortened attack effect, centered readable mass, premium fantasy game ability icon, polished 2D digital painting, powerful motion, high contrast"
+  },
+  {
+    "id": "09_earth_fist",
+    "name": "岩神巨拳",
+    "user_input": "岩神巨拳，岩石拳头破土而出，厚重有力量，琥珀光",
+    "seed": 42102009,
+    "optimized_prompt": "gmic icon_\\(Game ai Institute\\), one colossal clenched fist sculpted from layered ochre rock punching upward through shattered ground, glowing amber runes in the stone cracks, flying debris and a compact dust ring, simple dark umber background, no arm, no humans, centered heavy impact skill effect, strong blocky silhouette, premium fantasy mobile game ability icon, polished 2D digital painting, weighty volume, sharp rock texture"
+  },
+  {
+    "id": "10_time_rift",
+    "name": "时轮裂隙",
+    "user_input": "时轮裂隙，蓝紫色时间圆环，金色指针，空间纵深",
+    "seed": 42102010,
+    "optimized_prompt": "gmic icon_\\(Game ai Institute\\), one circular time rift made from concentric sapphire and violet energy rings, a fractured golden clock hand suspended across the glowing center, curved trails of frozen particles and warped starlight, simple deep indigo background, no numbers, no text, no humans, centered arcane control skill effect, strong depth and rotation, premium fantasy game icon, polished 2D digital painting, intricate luminous detail, clean silhouette"
+  }
+]

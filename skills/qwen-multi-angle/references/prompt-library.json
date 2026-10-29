@@ -1,0 +1,44 @@
+{
+  "description": "Qwen Image Edit 2511 multi-angle prompt library. Combine one direction, one camera angle and one shot size.",
+  "format": "<sks> {direction} {camera_angle} shot {shot_size}",
+  "camera_angles": {
+    "low-angle": {"en": "low-angle", "zh": "低机位"},
+    "eye-level": {"en": "eye-level", "zh": "平视"},
+    "elevated": {"en": "elevated", "zh": "轻度俯视"},
+    "high-angle": {"en": "high-angle", "zh": "高度俯视"}
+  },
+  "shot_sizes": {
+    "close-up": {"en": "close-up", "zh": "特写"},
+    "medium": {"en": "medium shot", "zh": "中景"},
+    "wide": {"en": "wide shot", "zh": "广角远景"}
+  },
+  "directions": {
+    "front": {"en": "front view", "zh": "正面"},
+    "front-right": {"en": "front-right quarter view", "zh": "右前45°"},
+    "right": {"en": "right side view", "zh": "右侧面"},
+    "back-right": {"en": "back-right quarter view", "zh": "右后45°"},
+    "back": {"en": "back view", "zh": "背面"},
+    "back-left": {"en": "back-left quarter view", "zh": "左后45°"},
+    "left": {"en": "left side view", "zh": "左侧面"},
+    "front-left": {"en": "front-left quarter view", "zh": "左前45°"}
+  },
+  "independent_templates": {
+    "high-angle": "<sks> {direction} high-angle shot medium shot, same character, preserve the same outfit, preserve the same weapon, full body, centered, top-down mobile strategy game unit, stronger top-down perspective, visible top surfaces of the head and shoulders, foreshortened lower body, clear readable silhouette, subtle ground contact shadow, white background",
+    "elevated": "<sks> {direction} elevated shot medium shot, same character, preserve the same outfit, preserve the same weapon, full body, centered, stylized mobile strategy game character unit, slight top-down perspective, slightly visible top surfaces of the head and shoulders, clear readable silhouette, subtle ground contact shadow, white background"
+  },
+  "examples": [
+    {"en": "<sks> front-right quarter view low-angle shot close-up", "zh": "右前45° + 低机位 + 特写"},
+    {"en": "<sks> front-right quarter view eye-level shot close-up", "zh": "右前45° + 平视 + 特写"},
+    {"en": "<sks> front-right quarter view elevated shot close-up", "zh": "右前45° + 轻度俯视 + 特写"},
+    {"en": "<sks> front-right quarter view high-angle shot close-up", "zh": "右前45° + 高度俯视 + 特写"},
+    {"en": "<sks> front-right quarter view low-angle shot medium shot", "zh": "右前45° + 低机位 + 中景"},
+    {"en": "<sks> front-right quarter view eye-level shot medium shot", "zh": "右前45° + 平视 + 中景"},
+    {"en": "<sks> front-right quarter view elevated shot medium shot", "zh": "右前45° + 轻度俯视 + 中景"},
+    {"en": "<sks> front-right quarter view high-angle shot medium shot", "zh": "右前45° + 高度俯视 + 中景"},
+    {"en": "<sks> front-right quarter view low-angle shot wide shot", "zh": "右前45° + 低机位 + 广角远景"},
+    {"en": "<sks> front-right quarter view eye-level shot wide shot", "zh": "右前45° + 平视 + 广角远景"},
+    {"en": "<sks> front-right quarter view elevated shot wide shot", "zh": "右前45° + 轻度俯视 + 广角远景"},
+    {"en": "<sks> front-right quarter view high-angle shot wide shot", "zh": "右前45° + 高度俯视 + 广角远景"}
+  ],
+  "note": "The 12 examples above demonstrate every camera-angle/shot-size combination. Apply the same substitutions to the other seven directions to obtain all 96 exact prompts. Add 'white background' at the end when background control is required."
+}

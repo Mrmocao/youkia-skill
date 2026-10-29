@@ -1,6 +1,7 @@
 {
-  "generatedAt": "2026-10-29",
-  "source": "GitHub backup plus local published package",
+  "generatedAt": "2026-10-29T19:01:54+08:00",
+  "source": "Verified live company platform snapshot",
+  "platformVersion": "2.6.3",
   "publishedVersions": [
     {
       "id": "grok-imagine-subapi",
@@ -27,16 +28,10 @@
       "bytes": 12633181
     },
     {
-      "id": "youkia-image-codex",
-      "version": "1.0.0",
-      "sha256": "9f45654f44c51fb6b6bebe000cc0e2d63cb8f454fadce63ac8b9201f791a3664",
-      "bytes": 25582
-    },
-    {
-      "id": "youkia-jira",
-      "version": "0.1.0",
-      "sha256": "583dbef040df5c074cdf928cde5378a2a70a7f06a362d7a021d8b70bcad82172",
-      "bytes": 12633937
+      "id": "youkia-midjourney-mcp",
+      "version": "1.0.1",
+      "sha256": "31e9e9e0e364894043a996bc4d952147c286314e0a5df318dc600826e5d72beb",
+      "bytes": 16690
     },
     {
       "id": "youkia-local-server",
@@ -45,15 +40,136 @@
       "bytes": 12609010
     },
     {
-      "id": "youkia-midjourney-mcp",
+      "id": "youkia-jira",
+      "version": "0.1.0",
+      "sha256": "583dbef040df5c074cdf928cde5378a2a70a7f06a362d7a021d8b70bcad82172",
+      "bytes": 12633937
+    },
+    {
+      "id": "youkia-image-codex",
       "version": "1.0.0",
-      "sha256": "f7f02147d0665bd495b4f9cb65367f8324c04b1c922ad7b3e88e5eeeea2de079",
-      "bytes": 14520
+      "sha256": "9f45654f44c51fb6b6bebe000cc0e2d63cb8f454fadce63ac8b9201f791a3664",
+      "bytes": 25582
+    },
+    {
+      "id": "gmic-effect-icons",
+      "version": "1.0.0",
+      "sha256": "36823aac67bae71e3e05dd44411702724b2db8e844d81548419b8ae6909d0098",
+      "bytes": 657677
+    },
+    {
+      "id": "qwen-multi-angle",
+      "version": "1.0.0",
+      "sha256": "2ef2559aafa078f794034781903f25fd135fc1a7a445d0b8060d1cd101513397",
+      "bytes": 1101057
+    },
+    {
+      "id": "01-45-1",
+      "version": "1.0.0",
+      "sha256": "c4fe5f558f997c31c0ab1bcc9d9dee11087d05815e8d137df3c5c9ef2145535d",
+      "bytes": 422732
+    },
+    {
+      "id": "03-prompt-1",
+      "version": "1.0.0",
+      "sha256": "a0191fa5157c21dc12281edb92c696ff8a282d766d40301d08b03246bf6c1211",
+      "bytes": 369443
+    },
+    {
+      "id": "avatar-frame-prompt",
+      "version": "1.0.0",
+      "sha256": "6d81829909138fd82acdb4f89f1650ee43e3cd8b6fe1677338ce4039975b639d",
+      "bytes": 3065408
+    },
+    {
+      "id": "game-skill-icon-five-styles",
+      "version": "1.0.0",
+      "sha256": "95eacb98e4fbf6b97b6495fdbbb29443f168f05bcbe35b8dfecfa8e70f882218",
+      "bytes": 2365878
+    },
+    {
+      "id": "item-grid-prompt",
+      "version": "1.0.0",
+      "sha256": "3941e6fcf7b6f8bc42287eac391cb14b0d292e0fe3e9b58b4f21d8b0c22dcc38",
+      "bytes": 4255830
+    },
+    {
+      "id": "lovart-api-client",
+      "version": "1.0.0",
+      "sha256": "1fef0f007b59b36e7a34968a44683373c0cd01715427796960b5334f774a3338",
+      "bytes": 15940
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "README.md",
+      "sha256": "257b42cd3534179dd0ea9f692c1f2eb73c1d41558a0c0bd0841a21d1d003f6e6"
+    },
+    {
+      "path": "mcp-server.mjs",
+      "sha256": "4e770e2048819d6ac9c098eaeda4a6dd4a594313d22ffa045eb42f2494be045a"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "1791c98371cc959a33e700342f3fd769786fd1037ff64601ea12bec286df1b2e"
+    },
+    {
+      "path": "package.json",
+      "sha256": "385ff5f96241c97b4ff9209a3a2a9385780af52ba08a4b7b32e70898c4db8dc5"
+    },
+    {
+      "path": "public/agent-guide.md",
+      "sha256": "4b0e44fd79b0b7447e2c35f2dea62a5aac2f80d3afc2c07829f0618ef71365cd"
+    },
+    {
+      "path": "public/app.js",
+      "sha256": "a7bcad5338bb2e1b66d484af8bbd75e3389ceed6e9464d1d91fb7aff774e1e00"
+    },
+    {
+      "path": "public/favicon.svg",
+      "sha256": "9ff53f085fea8794f1b401157c22e5bf4a616050658bf7afee498f41050f557c"
+    },
+    {
+      "path": "public/index.html",
+      "sha256": "c7f120ebe880d8dbf2954c475b88813a5712b93edfc64f93891e7612d027de5f"
+    },
+    {
+      "path": "public/llms.txt",
+      "sha256": "b059a225f8f3cf618790287b7c666c173f6d2010a9e9cf58c7ed68adad199092"
+    },
+    {
+      "path": "public/onboarding.js",
+      "sha256": "6bf6e562d4230cc8dddc578a47ed4c27bd37950a5c8f33462c8f3730a4c843d2"
+    },
+    {
+      "path": "public/openapi.json",
+      "sha256": "1f94b5751f94591a79f9b7bc9c751b0392af5f463a344bd9b6000ba823eeb7f4"
+    },
+    {
+      "path": "public/roles.js",
+      "sha256": "9c44bfd577839e398f4d2e06ef05445f0afbf970490a2c7ec22c4534eda28f76"
+    },
+    {
+      "path": "public/styles.css",
+      "sha256": "93116a81879450f6b6b2d7cb1dd80b6236a884206c13446bd525b0ca0cc167f9"
+    },
+    {
+      "path": "public/vendor/lucide.min.js",
+      "sha256": "3411692820cb8d47543f69496aa25fd603a358f4498046f41c508a5a3342210e"
+    },
+    {
+      "path": "scripts/backup-to-github.mjs",
+      "sha256": "3adb02d212d04df6b058c5334bc7adc05e5ff99fa57d3141ec0c9e9903477da2"
+    },
+    {
+      "path": "server.mjs",
+      "sha256": "f7994d127f9f619afe80a7fb760e833964cc06a8fdcd2ae1011c696fbef2dde6"
     }
   ],
   "notes": [
-    "Grok 1.2.0 is now promoted from the previous review candidate per user request.",
-    "Submissions and archives were unavailable in GitHub backup and remain empty after reset."
-  ],
-  "platformVersion": "2.6.3"
+    "All 16 published ZIP packages are byte-for-byte copies verified against the server.",
+    "Published metadata includes roles, uploaders, contribution history and download counters.",
+    "Pending submissions: 0; archived skills: 0 at capture time.",
+    "Administrator configuration, credentials and runtime sessions are not included. Deployment templates retained from Git are not part of the live source hash list."
+  ]
 }

@@ -1,0 +1,14 @@
+{
+  "name": "qwen-multi-angle",
+  "version": "1.0.0",
+  "description": "Generate consistent eight-direction game-character views through a local ComfyUI Qwen Image Edit 2511 workflow.",
+  "entrypoints": {
+    "generate": "scripts/generate_angles.py",
+    "contact_sheet": "scripts/make_contact_sheets.py"
+  },
+  "workflow": "assets/qwen-edit-2511-multi-angle-workflow.json",
+  "requirements": "requirements.txt",
+  "default_server": "http://192.168.5.149:8199",
+  "templates": ["base", "high-angle", "elevated"],
+  "directions": ["front", "front_right", "right", "back_right", "back", "back_left", "left", "front_left"]
+}

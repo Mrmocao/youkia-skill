@@ -1,0 +1,4 @@
+interface:
+  display_name: Qwen Multi-angle
+  short_description: Generate eight high-angle views from one image
+  default_prompt: Turn this source image into eight consistent high-angle directional views with the local Qwen workflow.

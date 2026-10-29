@@ -1,0 +1,6 @@
+interface:
+  display_name: "头像框提示词工作流"
+  short_description: "将游戏头像框描述转换为统一字段、构图约束和生图提示词"
+  default_prompt: "Use $avatar-frame-prompt to turn my avatar-frame concept into a validated structured prompt."
+policy:
+  allow_implicit_invocation: true

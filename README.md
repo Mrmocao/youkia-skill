@@ -4,7 +4,7 @@ Shared Codex skills and the company skill platform source snapshot.
 
 ## Skills
 
-Snapshot: 2026-10-29. Published skills and the company platform recovery snapshot are synchronized here. Grok 1.2.0 is now promoted and published.
+Snapshot: 2026-10-29. Platform **2.6.3** and all **16 published skills** are synchronized from the live company platform.
 
 | Skill | Version | Company platform status |
 | --- | --- | --- |
@@ -12,10 +12,18 @@ Snapshot: 2026-10-29. Published skills and the company platform recovery snapsho
 | `sub2api-4k-image-generator-ts` | 0.3.1 | Published |
 | `svn-windows-powershell` | 1.0.0 | Published |
 | `youkia-gm` | 0.1.2 | Published |
-| `youkia-midjourney-mcp` | 1.0.0 | Published |
+| `youkia-midjourney-mcp` | 1.0.1 | Published |
 | `youkia-local-server` | 0.1.0 | Published |
 | `youkia-jira` | 0.1.0 | Published |
 | `youkia-image-codex` | 1.0.0 | Published |
+| `gmic-effect-icons` | 1.0.0 | Published |
+| `qwen-multi-angle` | 1.0.0 | Published |
+| `01-45-1` | 1.0.0 | Published |
+| `03-prompt-1` | 1.0.0 | Published |
+| `avatar-frame-prompt` | 1.0.0 | Published |
+| `game-skill-icon-five-styles` | 1.0.0 | Published |
+| `item-grid-prompt` | 1.0.0 | Published |
+| `lovart-api-client` | 1.0.0 | Published |
 
 ## Layout and installation
 
@@ -33,20 +41,14 @@ Never commit local credentials, browser profiles, job records, generated output 
 
 ## Platform recovery
 
-`platform/` contains the latest platform source, including the AI-first `/agent-guide.md`, `/llms.txt`, `/openapi.json` and MCP guide. `platform/restore-data/` is a sanitized recovery snapshot of the eight published catalog entries and ZIP packages; it excludes `.env`, administrator passwords, pending contact metadata and runtime secrets. After a server reset, copy the platform source, restore `platform/restore-data` as `data`, set a new `ADMIN_PASSWORD`, and run the documented Node/Nginx or Docker deployment.
+`platform/` contains the latest platform source, including the AI-first `/agent-guide.md`, `/llms.txt`, `/openapi.json` and MCP guide. `platform/restore-data/` is a sanitized recovery snapshot of the 16 published catalog entries and ZIP packages; it excludes `.env`, administrator passwords, pending contact metadata and runtime secrets. After a server reset, copy the platform source, restore `platform/restore-data` as `data`, set a new `ADMIN_PASSWORD`, and run the documented Node/Nginx or Docker deployment.
 
-## Platform 2.6.0
+## Current platform behavior
 
-Independent multi-select job roles can be combined with skill categories and tags. Web and MCP submissions require an uploader name; approved releases retain contributor/version history. Administrators can edit roles and complete missing names on legacy pending submissions before approval. Historical unknown names are shown explicitly and are not inferred.
+Independent job-role and category filters, required uploader names, contribution history, administrator review/edit/unpublish actions and AI-first instructions are included. The homepage has a compact header and collapsed help; skill cards use smaller decorative headers and tighter spacing.
 
-## Platform 2.6.1
+## Backup verification
 
-The home page now uses a compact, initially collapsed help bar so skill search, filters and cards appear sooner. Users can copy an AI installation prompt or expand installation steps, contribution guidance and help links. Keyboard, clipboard and responsive layout checks passed locally; included in the deployed 2.6.2 release.
+`platform/recovery-manifest.json` lists every published package version, SHA-256 and size, plus hashes for the captured live source files. ZIP packages in `platform/restore-data/packages/` preserve the exact uploaded bytes. `skills/<id>/` contains the matching extracted files for direct installation. The snapshot also preserves published roles, uploaders, contribution records and download counters. Pending and archived queues were both empty at capture time.
 
-## Platform 2.6.2
-
-The desktop title, inline catalog statistics and AI help controls now share one compact row. The expandable guide remains full width; tablet and phone layouts wrap automatically. Deployed to http://14.103.231.1/ on 2026-10-29. Live keyboard, clipboard, filtering and responsive checks passed at 1366, 768, 390 and 320 pixel widths. Existing packages and submission data were preserved.
-
-## Platform 2.6.3
-
-Skill cards use a 64px decorative header and tighter content spacing. Descriptions show two lines with full text on the detail page; role, uploader, author and download metadata remain visible. Deployed 2026-10-29; the current 16-skill catalog was tested at desktop, tablet and phone widths. Live skills, submissions and configuration were preserved.
+For recovery, copy `platform/restore-data/` into the deployment data directory, create the server's administrator configuration separately, then start the service using the deployment instructions. Verify package hashes against the manifest before restoring. This is a manual snapshot; later uploads require another backup.
