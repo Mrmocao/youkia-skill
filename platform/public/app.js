@@ -1,5 +1,5 @@
-import { ROLE_OPTIONS, rolesFor, historyFor } from "./roles.js?v=2.6.0";
-import { profileFor, renderSkillHelp, renderHelpCenter, clientInstructions } from "./onboarding.js?v=2.6.0";
+import { ROLE_OPTIONS, rolesFor, historyFor } from "./roles.js?v=2.6.1";
+import { profileFor, renderSkillHelp, renderHelpCenter, clientInstructions } from "./onboarding.js?v=2.6.1";
 
 const state = {
   skills: [],
@@ -895,6 +895,20 @@ document.addEventListener("click", async (event) => {
 
   const actionTarget = event.target.closest("[data-action]");
   const action = actionTarget?.dataset.action;
+  if (action === "toggle-home-help") {
+    const panel = document.querySelector('#home-help-content');
+    panel.hidden = !panel.hidden;
+    actionTarget.setAttribute('aria-expanded', String(!panel.hidden));
+    actionTarget.querySelector('span').textContent = panel.hidden ? '展开指南' : '收起指南';
+  }
+  if (action === "copy-install-help") {
+    try {
+      await copyText(`请先读取 ${location.origin}/agent-guide.md，帮我从 ${location.origin}/ 选择并安装合适的技能。先了解我想完成的任务和使用的 Agent 客户端，再根据平台实时目录选择技能、检查技能包并安装。账号与密钥只在本机配置，最后验证是否可用。`);
+      toast("安装指令已复制，粘贴给 Codex、OpenCode 等 AI 助手即可");
+    } catch {
+      toast("复制失败，可把本页网址发给 AI 助手并说明安装需求", "error");
+    }
+  }
   if (action === "open-submit") openSubmission();
   if (action === "improve-skill") openSubmission(state.currentSkill);
   if (action === "open-mcp") {

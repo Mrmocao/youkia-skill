@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "锦鲤云公共技能平台 Agent API",
-    "version": "2.6.0",
+    "version": "2.6.1",
     "description": "先读取 /agent-guide.md。公开读取与投稿无需管理员登录；投稿进入莫超审核队列。MCP 等价入口为 /mcp。"
   },
   "servers": [

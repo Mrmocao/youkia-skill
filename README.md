@@ -38,3 +38,7 @@ Never commit local credentials, browser profiles, job records, generated output 
 ## Platform 2.6.0
 
 Independent multi-select job roles can be combined with skill categories and tags. Web and MCP submissions require an uploader name; approved releases retain contributor/version history. Administrators can edit roles and complete missing names on legacy pending submissions before approval. Historical unknown names are shown explicitly and are not inferred.
+
+## Platform 2.6.1
+
+The home page now uses a compact, initially collapsed help bar so skill search, filters and cards appear sooner. Users can copy an AI installation prompt or expand installation steps, contribution guidance and help links. Keyboard, clipboard and responsive layout checks passed locally; production deployment is pending.

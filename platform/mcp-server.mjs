@@ -53,7 +53,7 @@ export async function createSkillMcpServer({ baseUrl, clientAddress, readSkills,
   const server = new McpServer({
     name: "jinli-cloud-skill-platform",
     title: "天上友嘉 · 锦鲤云公共技能平台",
-    version: "2.6.0",
+    version: "2.6.1",
   }, {
     instructions: "这是公司的共享 Agent 技能平台，用于发现、读取和提交技能。鼓励大家提交更好的提示词、配置、脚本和教程共同迭代；所有提交都会进入审核队列，由莫超统一审批更新，不会直接公开。MCP 用户只有搜索、读取和投稿权限，不拥有管理员审核或发布权限。",
   });

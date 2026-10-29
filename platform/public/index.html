@@ -6,8 +6,8 @@
     <meta name="description" content="天上友嘉锦鲤云公共技能平台" />
     <title>天上友嘉 · 锦鲤云公共技能平台</title>
     <link rel="describedby" href="/agent-guide.md" type="text/markdown" />
-    <link rel="icon" href="/favicon.svg?v=2.6.0" type="image/svg+xml" />
-    <link rel="stylesheet" href="/styles.css?v=2.6.0" />
+    <link rel="icon" href="/favicon.svg?v=2.6.1" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css?v=2.6.1" />
   </head>
   <body>
     <header class="topbar">
@@ -58,45 +58,24 @@
           </dl>
         </header>
 
-        <section class="quick-start" aria-labelledby="quick-start-title">
-          <div class="quick-start-head">
-            <div>
-              <p class="eyebrow">START HERE</p>
-              <h2 id="quick-start-title">第一次使用？把网址交给 AI 助手</h2>
+        <section class="home-help" aria-label="使用与协作指南">
+          <div class="home-help-bar">
+            <div class="home-help-intro"><i data-lucide="bot" aria-hidden="true"></i><div><strong>把技能交给 AI，安装更简单</strong><span>将网址发给 Codex、OpenCode 等助手即可开始。</span></div></div>
+            <div class="home-help-actions">
+              <button class="button button-secondary button-small" type="button" data-action="copy-install-help"><i data-lucide="copy" aria-hidden="true"></i>让 AI 帮我安装</button>
+              <button class="home-help-toggle" type="button" data-action="toggle-home-help" aria-expanded="false" aria-controls="home-help-content"><span>展开指南</span><i data-lucide="chevron-down" aria-hidden="true"></i></button>
             </div>
-            <button class="button button-secondary button-small" type="button" data-action="open-guide"><i data-lucide="book-open"></i>查看完整指南</button>
           </div>
-          <div class="quick-start-grid">
-            <article class="quick-start-item">
-              <span class="quick-start-number">01</span>
-              <div><strong>把网址交给 AI</strong><p>把平台或技能详情网址发给 Codex、OpenCode 等 Agent，说清你想完成的任务。</p></div>
-            </article>
-            <article class="quick-start-item">
-              <span class="quick-start-number">02</span>
-              <div><strong>让 AI 安装</strong><p>Agent 会读取说明、下载 ZIP、定位本机目录并检查 <code>SKILL.md</code>。</p></div>
-            </article>
-            <article class="quick-start-item">
-              <span class="quick-start-number">03</span>
-              <div><strong>配置后开始使用</strong><p>只在本机完成账号配置，Agent 验证通过后，直接描述任务即可。</p></div>
-            </article>
+          <div id="home-help-content" class="home-help-content" hidden>
+            <div class="quick-start-grid">
+              <article class="quick-start-item"><span class="quick-start-number">01</span><div><strong>把网址交给 AI</strong><p>粘贴平台或技能详情网址，告诉助手你想完成的任务。</p></div></article>
+              <article class="quick-start-item"><span class="quick-start-number">02</span><div><strong>让 AI 安装</strong><p>助手读取说明、下载技能包，检查后安装到对应客户端。</p></div></article>
+              <article class="quick-start-item"><span class="quick-start-number">03</span><div><strong>配置后使用</strong><p>在本机完成账号配置，验证通过后直接描述任务即可。</p></div></article>
+            </div>
+            <div class="home-help-community"><div><strong>一起维护公司的共享技能库</strong><p>欢迎提交技能、脚本或教程优化，也可把网址和本地目录交给 AI 代为投稿。提交后联系莫超并提供审核编号，审批通过后发布。</p></div><button class="button button-secondary button-small" type="button" data-action="open-submit">提交优化</button></div>
+            <nav class="help-shortcuts" aria-label="快速帮助"><a href="#guide/understand">技能怎么选</a><a href="#guide/install">安装与配置</a><a href="#guide/maintain">维护与协作</a><a href="#guide/share">上传与审批</a><a href="#guide/faq">常见问题</a><a href="/agent-guide.md">AI 操作说明</a></nav>
           </div>
         </section>
-
-        <p class="guide-copy">不想自己安装或上传？把本页网址交给 AI，并告诉它要安装的技能或要提交的本地目录。<a href="/agent-guide.md">AI 操作说明</a> · <a href="/llms.txt">AI 入口</a> · <a href="#guide/share">让 AI 帮我投稿</a></p>
-        <section class="collaboration-banner" aria-labelledby="collaboration-title">
-          <div class="collaboration-mark"><i data-lucide="users-round"></i></div>
-          <div class="collaboration-copy">
-            <p class="eyebrow">KEEP BUILDING TOGETHER</p>
-            <h2 id="collaboration-title">一起维护公司的共享技能库</h2>
-            <p>这里是公司的共享技能平台，每一位同事都可以参与维护。改进了技能的用法、配置、脚本或教程，欢迎自主提交新版本；提交后联系莫超并提供审核编号，审批通过后更新发布。优化建议也可以直接反馈给莫超。</p>
-          </div>
-          <div class="collaboration-actions">
-            <button class="button button-primary" type="button" data-action="open-submit"><i data-lucide="upload-cloud"></i>提交优化</button>
-            <a class="button button-secondary" href="#guide/maintain">查看协作规则</a>
-          </div>
-        </section>
-
-        <nav class="help-shortcuts" aria-label="快速帮助"><a href="#guide/understand">技能怎么选？</a><a href="#guide/install">安装与配置</a><a href="#guide/maintain">更新与回退</a><a href="#guide/share">上传与审批</a><a href="#guide/faq">常见问题与反馈</a></nav>
 
         <div class="catalog-toolbar">
           <label class="search-control" for="search-input">
@@ -359,6 +338,6 @@
     <div id="toast-region" class="toast-region" aria-live="assertive"></div>
 
     <script src="/vendor/lucide.min.js"></script>
-    <script type="module" src="/app.js?v=2.6.0"></script>
+    <script type="module" src="/app.js?v=2.6.1"></script>
   </body>
 </html>

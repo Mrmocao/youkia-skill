@@ -228,6 +228,37 @@ svg {
   min-width: 0;
 }
 
+.home-help { margin: 16px 0; border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--surface); }
+.home-help-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 16px; }
+.home-help-intro { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.home-help-intro > svg { width: 22px; height: 22px; flex-shrink: 0; color: var(--primary); }
+.home-help-intro strong { font-size: 14px; }
+.home-help-intro span { margin-left: 14px; font-size: 13px; color: var(--ink-muted); }
+.home-help-actions { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+.home-help-toggle { display: inline-flex; align-items: center; gap: 6px; padding: 8px 0; border: 0; background: none; font-size: 13px; color: var(--ink-soft); }
+.home-help-toggle svg { width: 16px; height: 16px; }
+.home-help-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+.home-help-toggle:hover { color: var(--primary); }
+.home-help-toggle:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; border-radius: 2px; }
+.home-help-content { border-top: 1px solid var(--line); padding: 20px; }
+.home-help-content .quick-start-grid { margin-top: 0; }
+.home-help-community { display: flex; align-items: center; gap: 24px; margin-top: 20px; padding: 16px 0 0; border-top: 1px solid var(--line); }
+.home-help-community > div { flex: 1; }
+.home-help-community strong { font-size: 14px; }
+.home-help-community p { margin: 6px 0 0; color: var(--ink-soft); font-size: 13px; line-height: 1.8; }
+.home-help-community .button { flex-shrink: 0; }
+.home-help-content .help-shortcuts { margin: 12px 0 0; gap: 6px 16px; }
+.home-help-content .help-shortcuts a { font-size: 13px; margin-right: 0; }
+@media (max-width: 1150px) {
+  .home-help-intro span { display: block; margin: 4px 0 0; }
+}
+@media (max-width: 600px) {
+  .home-help-bar { align-items: stretch; flex-direction: column; gap: 10px; padding: 12px; }
+  .home-help-actions { justify-content: space-between; }
+  .home-help-content { padding: 16px; }
+  .home-help-community { align-items: flex-start; flex-direction: column; gap: 12px; }
+}
+
 .quick-start {
   margin-top: 22px;
   padding: 22px;
