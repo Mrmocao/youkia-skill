@@ -2,6 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { readFile } from "node:fs/promises";
 import * as z from "zod/v4";
+import { ROLE_OPTIONS, rolesFor, historyFor } from "./public/roles.js";
 
 const MAX_PACKAGE_BASE64_LENGTH = Math.ceil((30 * 1024 * 1024) / 3) * 4 + 4;
 const SKILL_ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -27,6 +28,8 @@ function toolError(error) {
 function skillWithLinks(skill, baseUrl) {
   return {
     ...skill,
+    roles: rolesFor(skill),
+    contributions: historyFor(skill),
     detail_url: `${baseUrl}/#skill/${encodeURIComponent(skill.id)}`,
     download_url: `${baseUrl}/api/skills/${encodeURIComponent(skill.id)}/download`,
   };
@@ -50,7 +53,7 @@ export async function createSkillMcpServer({ baseUrl, clientAddress, readSkills,
   const server = new McpServer({
     name: "jinli-cloud-skill-platform",
     title: "天上友嘉 · 锦鲤云公共技能平台",
-    version: "2.5.0",
+    version: "2.6.0",
   }, {
     instructions: "这是公司的共享 Agent 技能平台，用于发现、读取和提交技能。鼓励大家提交更好的提示词、配置、脚本和教程共同迭代；所有提交都会进入审核队列，由莫超统一审批更新，不会直接公开。MCP 用户只有搜索、读取和投稿权限，不拥有管理员审核或发布权限。",
   });
@@ -61,6 +64,8 @@ export async function createSkillMcpServer({ baseUrl, clientAddress, readSkills,
     inputSchema: {
       query: z.string().trim().max(200).optional().describe("技能名称、用途、作者或标签关键词"),
       category: z.string().trim().max(40).optional().describe("可选分类，例如媒体生成、开发工具、数据分析"),
+      role: z.enum(ROLE_OPTIONS).optional().describe("适用工种，独立于分类和标签"),
+      uploader: z.string().trim().max(80).optional().describe("按上传人或历史维护人姓名搜索"),
       limit: z.number().int().min(1).max(100).default(30).describe("最多返回多少条，默认 30"),
     },
     annotations: {
@@ -69,10 +74,12 @@ export async function createSkillMcpServer({ baseUrl, clientAddress, readSkills,
       idempotentHint: true,
       openWorldHint: false,
     },
-  }, async ({ query = "", category = "", limit = 30 }) => {
+  }, async ({ query = "", category = "", role = "", uploader = "", limit = 30 }) => {
     const normalizedQuery = query.toLowerCase();
     const skills = (await readSkills())
       .filter((skill) => !category || skill.category === category)
+      .filter((skill) => !role || rolesFor(skill).includes(role))
+      .filter((skill) => !uploader || [skill.uploaderName, ...historyFor(skill).map(item => item.name)].join(" ").toLowerCase().includes(uploader.toLowerCase()))
       .filter((skill) => {
         if (!normalizedQuery) return true;
         return [skill.name, skill.description, skill.category, skill.author, ...(skill.tags || [])]
@@ -132,7 +139,8 @@ export async function createSkillMcpServer({ baseUrl, clientAddress, readSkills,
       category: z.string().trim().min(1).max(40).default("其他").describe("技能分类"),
       description: z.string().trim().min(1).max(1000).describe("一句话说明用途和适用场景"),
       author: z.string().trim().min(1).max(80).describe("作者或团队"),
-      uploader_name: z.string().trim().max(80).optional().describe("上传人员名称，可选，显示在技能详情页"),
+      uploader_name: z.string().trim().min(1).max(80).describe("必填：实际上传人员姓名，公开展示并记录版本维护；不得代填原作者身份"),
+      roles: z.array(z.enum(ROLE_OPTIONS)).min(1).max(ROLE_OPTIONS.length).describe("适用工种，可多选，与 category 和 tags 独立"),
       submitter: z.string().trim().min(1).max(80).describe("提交人"),
       contact: z.string().trim().min(1).max(160).describe("钉钉、邮箱或企业微信等审核联系方式"),
       base_version: z.string().trim().max(40).optional().describe("优化已有技能时，填写 get_skill 返回的当前版本号；版本过期将拒绝提交"),
@@ -166,6 +174,7 @@ export async function createSkillMcpServer({ baseUrl, clientAddress, readSkills,
         description: input.description,
         author: input.author,
         uploaderName: input.uploader_name,
+        roles: input.roles,
         submitter: input.submitter,
         contact: input.contact,
         baseVersion: input.base_version,

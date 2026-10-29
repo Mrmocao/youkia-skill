@@ -6,8 +6,8 @@
     <meta name="description" content="天上友嘉锦鲤云公共技能平台" />
     <title>天上友嘉 · 锦鲤云公共技能平台</title>
     <link rel="describedby" href="/agent-guide.md" type="text/markdown" />
-    <link rel="icon" href="/favicon.svg?v=2.5.0" type="image/svg+xml" />
-    <link rel="stylesheet" href="/styles.css?v=2.5.0" />
+    <link rel="icon" href="/favicon.svg?v=2.6.0" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css?v=2.6.0" />
   </head>
   <body>
     <header class="topbar">
@@ -101,7 +101,7 @@
         <div class="catalog-toolbar">
           <label class="search-control" for="search-input">
             <i data-lucide="search"></i>
-            <input id="search-input" type="search" placeholder="搜索技能、用途或标签" autocomplete="off" />
+            <input id="search-input" type="search" placeholder="搜索技能、标签、上传人或维护人" autocomplete="off" />
           </label>
           <label class="sort-control" for="sort-select">
             <span>排序方式</span>
@@ -115,7 +115,7 @@
         </div>
 
         <div class="catalog-content">
-          <div id="category-tabs" class="category-tabs" role="tablist" aria-label="技能分类"></div>
+          <div class="role-filter-row"><strong>适用工种</strong><div id="role-filters" role="group" aria-label="按工种筛选"></div></div><p class="guide-copy">工种与技能分类、标签相互独立，可组合筛选；搜索支持上传人及历史维护人姓名。</p><div id="category-tabs" class="category-tabs" role="tablist" aria-label="技能分类"></div>
           <div id="results-meta" class="results-meta"></div>
           <div id="skills-grid" class="skills-grid"></div>
           <div id="empty-state" class="empty-state" hidden>
@@ -206,9 +206,9 @@
               <small>技能归属和维护方，用于详情页展示。</small>
             </label>
             <label class="field">
-              <span>上传人员 <em>（选填）</em></span>
-              <input name="uploaderName" placeholder="用于技能详情页展示" maxlength="80" />
-              <small>本次上传或整理技能的同事，可不填写。</small>
+              <span>上传人员姓名 <em>（必填）</em></span>
+              <input name="uploaderName" required pattern=".*\S.*" placeholder="用于技能详情页展示" maxlength="80" />
+              <small>填写本次上传或维护的同事姓名，审批后公开展示并记录版本贡献。</small>
             </label>
             <label class="field">
               <span>标签</span>
@@ -217,6 +217,7 @@
           </div>
         </fieldset>
 
+        <fieldset class="form-section"><legend>适用工种（可多选）</legend><div class="role-choices" data-role-choices></div><small>选择面向哪些工种，与技能分类和标签分别保存；至少选择一项。</small></fieldset>
         <fieldset class="form-section">
           <legend>教程与配置</legend>
           <button class="button button-secondary button-small tutorial-template" type="button" data-action="tutorial-template">填入教程填写模板</button>
@@ -345,10 +346,10 @@
           <label class="field"><span>版本</span><input name="version" value="1.0.0" required maxlength="40" /></label>
           <label class="field"><span>分类</span><select name="category"><option>开发工具</option><option>媒体生成</option><option>数据分析</option><option>内容生产</option><option>团队效率</option><option>其他</option></select></label>
           <label class="field"><span>作者 / 团队</span><input name="author" maxlength="80" /></label>
-          <label class="field"><span>上传人员 <em>（选填）</em></span><input name="uploaderName" maxlength="80" /></label>
+          <label class="field"><span>上传人员姓名 <em>（必填）</em></span><input name="uploaderName" required pattern=".*\S.*" maxlength="80" /></label>
         </div>
         <label class="field"><span>一句话简介</span><textarea name="description" rows="3" required maxlength="1000"></textarea></label>
-        <label class="field"><span>标签</span><input name="tags" maxlength="300" placeholder="Node.js, 图片生成, API" /></label>
+        <fieldset class="form-section"><legend>适用工种（可多选）</legend><div class="role-choices" data-role-choices></div></fieldset><label class="field"><span>标签</span><input name="tags" maxlength="300" placeholder="Node.js, 图片生成, API" /></label>
         <label class="checkbox-field"><input name="featured" type="checkbox" /><span>推荐技能（显示在推荐优先排序前列）</span></label>
         <label class="dropzone admin-package-field" for="admin-package-input"><input id="admin-package-input" name="package" type="file" accept=".zip,application/zip" /><i data-lucide="package-plus"></i><strong>选择完整技能 ZIP 包</strong><span id="admin-package-label">新增技能必填；编辑时可留空</span></label>
         <div class="dialog-actions dialog-actions-end"><button class="button button-secondary" type="button" data-action="close-dialog">取消</button><button class="button button-primary" type="submit"><i data-lucide="save"></i>保存</button></div>
@@ -358,6 +359,6 @@
     <div id="toast-region" class="toast-region" aria-live="assertive"></div>
 
     <script src="/vendor/lucide.min.js"></script>
-    <script type="module" src="/app.js?v=2.5.0"></script>
+    <script type="module" src="/app.js?v=2.6.0"></script>
   </body>
 </html>

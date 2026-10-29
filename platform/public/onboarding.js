@@ -6,7 +6,7 @@ export function agentTaskPrompt(task = "install") {
   const origin = window.location.origin;
   const goals = {
     install: "我想使用这个平台的技能。请根据我的需求选择合适技能，帮我安装、完成配置检查，并教我如何开始使用。我的需求：[填写想完成的任务或技能名称]。",
-    submit: "请帮我把本地技能整理、打包并提交到这个平台审核。本地技能路径：[填写路径]。请检查内容、补齐教程，缺少的提交人和联系方式再问我。已有技能按优化版本提交，完成后给我审核编号。",
+    submit: "请帮我把本地技能整理、打包并提交到这个平台审核。本地技能路径：[填写路径]。请检查内容、补齐教程，缺少的上传人姓名、提交人和联系方式再问我，按技能用途选择适用工种（可多选）。已有技能按优化版本提交，完成后给我审核编号。",
     maintain: "请检查我已安装的技能是否有更新，备份个人配置后完成必要更新和验证。需要检查的技能：[填写名称或本地路径]。",
   };
   return `${origin}/\n${goals[task] || goals.install}\n先读取 ${origin}/agent-guide.md，按其中流程执行。已连接平台 MCP 就使用相应工具；否则直接调用文档中的 HTTP API，无需让我手工配置 MCP 或填写网页表单。请基于实际结果报告完成状态。`;
@@ -93,7 +93,7 @@ export function renderHelpCenter(topic, escapeHtml, codeBlock) {
       <p class="guide-copy">先在临时目录解压。包里已有技能同名文件夹时复制整个文件夹；包根目录直接是 SKILL.md 时，先创建以技能 ID 命名的目录再放入内容。最终必须是 <code>技能目录/技能ID/SKILL.md</code>。</p><p class="guide-copy">解压后先阅读说明，再决定是否安装依赖或运行脚本。网页不会自动获知你的安装状态。</p>`,
     maintain: `<h2>更新、回退与共同维护</h2><ol class="help-list numbered"><li><strong>查当前版本。</strong>查看平台详情的版本和日期，请 Agent 定位本地实际使用的副本。版本无法确认时，对照文件，不猜测。</li><li><strong>先备份。</strong>把旧技能目录、config.local.json、state 和个人修改备份到技能扫描目录之外，避免两个同名技能被同时加载。</li><li><strong>独立检查新包。</strong>在临时目录解压，阅读新配置要求。确认后更新脚本，并按新结构迁移个人配置；不要用空示例覆盖密钥。</li><li><strong>重载并验收。</strong>检查客户端实际读取的是新版。失败时恢复旧目录和配置，再反馈问题。</li></ol><h3>我优化了一个已有技能</h3><p class="guide-copy">打开原技能详情 → “提交此技能优化” → 沿用原 ID、填写新版本 → 说明改动和验证结果 → 上传完整新包 → 联系莫超审批。若其他人已经更新，请先合并最新版本再投稿。</p><p class="guide-copy">管理员可维护页面信息及下架、恢复技能。下架会停止平台上的公开获取，但不会自动移除同事电脑上的已安装文件。</p><a class="button button-primary" href="#guide/share">查看投稿步骤</a>`,
     share: `<h2>上传前，让别人能独立用起来</h2><ol class="help-list numbered"><li><strong>整理技能包。</strong>包含 SKILL.md、必要脚本和参考文件；保留原作者、许可证与来源说明。</li><li><strong>补齐教程。</strong>写清用途、适用系统、依赖、安装路径、配置方式、首次验证及常见问题；配置示例只用占位符。</li><li><strong>选择提交方式。</strong>会用网页就点击“上传技能”；已连接平台 MCP 的同事可让 Agent 直接投稿。</li><li><strong>等待审批。</strong>保存审核编号，联系莫超。审批前公共目录不会出现该技能，投稿不会授予管理员权限。</li></ol>
-      <h3>三个名字如何填写？</h3><dl class="help-definitions"><dt>作者 / 团队</dt><dd>原作者或维护团队，保留来源。</dd><dt>上传人员（选填）</dt><dd>本次整理上传的同事，审批后显示在详情页。</dd><dt>提交人 + 联系方式</dt><dd>供管理员审核沟通，不会作为公开联系方式展示。</dd></dl>
+      <h3>三个名字如何填写？</h3><dl class="help-definitions"><dt>作者 / 团队</dt><dd>原作者或维护团队，保留来源。</dd><dt>上传人员姓名（必填）</dt><dd>本次整理上传或维护的同事姓名；每次投稿都要填写，审批后公开展示并保留版本记录。</dd><dt>提交人 + 联系方式</dt><dd>供管理员审核沟通，不会作为公开联系方式展示。</dd></dl>
       <div class="help-actions"><button class="button button-secondary" type="button" data-action="open-submit">开始上传</button><a class="button button-secondary" href="#mcp">可选：连接平台 MCP</a></div>`,
     faq: `<h2>常见问题</h2><p class="guide-copy">点击问题展开。无法解决时，请从对应技能详情复制反馈模板，联系维护方或莫超。</p>${questions.map(([question, answer]) => `<details class="help-disclosure"><summary>${escapeHtml(question)}</summary><p class="guide-copy">${escapeHtml(answer)}</p></details>`).join("")}`,
   };

@@ -4,7 +4,7 @@ Shared Codex skills and the company skill platform source snapshot.
 
 ## Skills
 
-Snapshot: 2026-10-27. Published skills and the company platform recovery snapshot are synchronized here. Grok 1.2.0 is now promoted and published.
+Snapshot: 2026-10-29. Published skills and the company platform recovery snapshot are synchronized here. Grok 1.2.0 is now promoted and published.
 
 | Skill | Version | Company platform status |
 | --- | --- | --- |
@@ -34,3 +34,7 @@ Never commit local credentials, browser profiles, job records, generated output 
 ## Platform recovery
 
 `platform/` contains the latest platform source, including the AI-first `/agent-guide.md`, `/llms.txt`, `/openapi.json` and MCP guide. `platform/restore-data/` is a sanitized recovery snapshot of the eight published catalog entries and ZIP packages; it excludes `.env`, administrator passwords, pending contact metadata and runtime secrets. After a server reset, copy the platform source, restore `platform/restore-data` as `data`, set a new `ADMIN_PASSWORD`, and run the documented Node/Nginx or Docker deployment.
+
+## Platform 2.6.0
+
+Independent multi-select job roles can be combined with skill categories and tags. Web and MCP submissions require an uploader name; approved releases retain contributor/version history. Administrators can edit roles and complete missing names on legacy pending submissions before approval. Historical unknown names are shown explicitly and are not inferred.

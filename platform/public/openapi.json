@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "锦鲤云公共技能平台 Agent API",
-    "version": "2.5.0",
+    "version": "2.6.0",
     "description": "先读取 /agent-guide.md。公开读取与投稿无需管理员登录；投稿进入莫超审核队列。MCP 等价入口为 /mcp。"
   },
   "servers": [
@@ -43,7 +43,33 @@
               }
             }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "role",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "适用工种"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "技能分类"
+          },
+          {
+            "name": "uploader",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "上传人或历史维护人姓名"
+          }
+        ]
       }
     },
     "/api/skills/{id}": {
@@ -291,7 +317,9 @@
           "uploaderName": {
             "type": "string",
             "maxLength": 80,
-            "description": "选填的公开上传人姓名"
+            "description": "必填实际上传人员姓名，审批后公开展示并记录版本维护",
+            "minLength": 1,
+            "pattern": ".*\\S.*"
           },
           "submitter": {
             "type": "string",
@@ -400,6 +428,26 @@
             "maxLength": 41943040,
             "minLength": 4,
             "description": "ZIP 的纯 Base64；ZIP 最大 30 MiB，无 data: 前缀"
+          },
+          "roles": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 9,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "美术",
+                "客户端",
+                "大数据",
+                "后端",
+                "人事",
+                "策划",
+                "测试",
+                "运营",
+                "通用"
+              ]
+            }
           }
         },
         "required": [
@@ -411,7 +459,9 @@
           "submitter",
           "contact",
           "tutorial",
-          "packageBase64"
+          "packageBase64",
+          "uploaderName",
+          "roles"
         ]
       },
       "Error": {
@@ -464,7 +514,9 @@
           "uploaderName": {
             "type": "string",
             "maxLength": 80,
-            "description": "选填的公开上传人姓名"
+            "description": "必填实际上传人员姓名，审批后公开展示并记录版本维护",
+            "minLength": 1,
+            "pattern": ".*\\S.*"
           },
           "tags": {
             "type": "array",
@@ -567,6 +619,46 @@
               "type": "string"
             },
             "maxItems": 30
+          },
+          "roles": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 9,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "美术",
+                "客户端",
+                "大数据",
+                "后端",
+                "人事",
+                "策划",
+                "测试",
+                "运营",
+                "通用"
+              ]
+            }
+          },
+          "contributions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "version": {
+                  "type": "string"
+                },
+                "date": {
+                  "type": "string"
+                },
+                "kind": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }

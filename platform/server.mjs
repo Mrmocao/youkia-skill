@@ -5,6 +5,7 @@ import { createServer } from "node:http";
 import { basename, extname, join, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { handleSkillMcpRequest } from "./mcp-server.mjs";
+import { ROLE_OPTIONS, rolesFor, historyFor } from "./public/roles.js";
 
 const ROOT = resolve(fileURLToPath(new URL(".", import.meta.url)));
 const PUBLIC_DIR = join(ROOT, "public");
@@ -106,8 +107,8 @@ async function writeCollection(filePath, items) {
   await rename(tempFile, filePath);
 }
 
-function readSkills() {
-  return readCollection(SKILLS_FILE);
+async function readSkills() {
+  return (await readCollection(SKILLS_FILE)).map(skill => ({ ...skill, roles: rolesFor(skill), contributions: historyFor(skill) }));
 }
 
 function writeSkills(skills) {
@@ -229,6 +230,14 @@ function structuredItems(value, fields, limit = 20) {
 }
 
 function sanitizeSkill(body, packageFilename, existing) {
+  const uploaderName = String(body.uploaderName || "").trim();
+  if (!uploaderName || uploaderName.length > 80) {
+    throw Object.assign(new Error("请填写上传人员姓名（1–80 字），用于公开展示上传与维护记录"), { statusCode: 400 });
+  }
+  const roles = body.roles === undefined ? rolesFor(existing || body) : body.roles;
+  if (!Array.isArray(roles) || !roles.length || roles.length > ROLE_OPTIONS.length || roles.some(role => !ROLE_OPTIONS.includes(role))) {
+    throw Object.assign(new Error("请选择有效的适用工种，可多选"), { statusCode: 400 });
+  }
   const id = slug(body.id || body.name);
   const name = String(body.name || "").trim().slice(0, 100);
   const description = String(body.description || "").trim().slice(0, 1000);
@@ -246,7 +255,9 @@ function sanitizeSkill(body, packageFilename, existing) {
     category: String(body.category || "其他").trim().slice(0, 40),
     tags: strings(body.tags, 12),
     author: String(body.author || "内部贡献者").trim().slice(0, 80),
-    uploaderName: String(body.uploaderName || "").trim().slice(0, 80),
+    uploaderName,
+    roles: [...new Set(roles)],
+    contributions: existing ? historyFor(existing) : [],
     version,
     updatedAt,
     featured: Boolean(body.featured),
@@ -444,7 +455,12 @@ async function handleApi(request, response, url) {
   }
 
   if (request.method === "GET" && url.pathname === "/api/skills") {
-    const skills = await readSkills();
+    const role = url.searchParams.get("role") || "";
+    const category = url.searchParams.get("category") || "";
+    const uploader = (url.searchParams.get("uploader") || "").trim().toLowerCase();
+    const skills = (await readSkills()).filter(skill => (!role || rolesFor(skill).includes(role))
+      && (!category || skill.category === category)
+      && (!uploader || [skill.uploaderName, ...historyFor(skill).map(item => item.name)].join(" ").toLowerCase().includes(uploader)));
     sendJson(response, 200, { success: true, skills: skills.map(publicSkill) });
     return true;
   }
@@ -595,6 +611,7 @@ async function handleApi(request, response, url) {
   const submissionApproveMatch = url.pathname.match(/^\/api\/admin\/submissions\/([a-f0-9]{24})\/approve$/);
   if (request.method === "POST" && submissionApproveMatch) {
     if (!requireAdmin(request, response)) return true;
+    const approval = await readJson(request);
     const result = await withDataMutation(async () => {
       const submissions = await readSubmissions();
       const submissionIndex = submissions.findIndex((item) => item.id === submissionApproveMatch[1]);
@@ -612,7 +629,9 @@ async function handleApi(request, response, url) {
         throw Object.assign(new Error("此投稿基于旧版本，原技能已有更新。请联系提交人合并最新内容后重新投稿，避免覆盖其他人的优化"), { statusCode: 409 });
       }
       const packageFilename = `${submission.skill.id}.zip`;
-      const skill = sanitizeSkill({ ...submission.skill, files }, packageFilename, existing);
+      const uploaderName = submission.skill.uploaderName?.trim() || approval.uploaderName;
+      const skill = sanitizeSkill({ ...submission.skill, uploaderName, files }, packageFilename, existing);
+      skill.contributions = [...skill.contributions, { name: skill.uploaderName, version: skill.version, date: new Date().toISOString(), kind: existing ? "更新发布" : "首次发布" }];
       skill.featured = Boolean(existing?.featured);
       skill.files = files.slice(0, 100);
       await writeFile(join(PACKAGES_DIR, packageFilename), packageBytes);
@@ -656,6 +675,7 @@ async function handleApi(request, response, url) {
       const existing = existingIndex >= 0 ? skills[existingIndex] : null;
       const packageFilename = `${id}.zip`;
       const skill = sanitizeSkill({ ...body, files }, packageFilename, existing);
+      skill.contributions = [...skill.contributions, { name: skill.uploaderName, version: skill.version, date: new Date().toISOString(), kind: existing ? "更新发布" : "首次发布" }];
       skill.files = files.slice(0, 100);
       await writeFile(join(PACKAGES_DIR, packageFilename), packageBytes);
       if (existingIndex >= 0) skills[existingIndex] = skill;
@@ -676,7 +696,7 @@ async function handleApi(request, response, url) {
       const index = skills.findIndex((item) => item.id === adminSkillMatch[1]);
       if (index < 0) throw Object.assign(new Error("未找到该已发布技能"), { statusCode: 404 });
       const existing = skills[index];
-      const allowed = ["name", "description", "category", "tags", "author", "uploaderName", "version", "featured"];
+      const allowed = ["name", "description", "category", "roles", "tags", "author", "uploaderName", "version", "featured"];
       const changes = Object.fromEntries(allowed.filter((key) => Object.hasOwn(body, key)).map((key) => [key, body[key]]));
       const skill = sanitizeSkill({ ...existing, ...changes, files: existing.files, tutorial: existing.tutorial, config: existing.config, examples: existing.examples, notes: existing.notes }, existing.package, existing);
       skill.downloads = Number(existing.downloads || 0);

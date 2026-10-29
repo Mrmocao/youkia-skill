@@ -2440,3 +2440,17 @@ pre {
     transition-duration: 0.01ms !important;
   }
 }
+
+.role-filter-row { margin-top: 18px; display: flex; align-items: baseline; gap: 20px; }
+#role-filters { display: flex; flex-wrap: wrap; gap: 8px; }
+#role-filters .category-tab { padding: 10px 12px; border: 1px solid #d9e3ef; border-radius: 6px; background: white; }
+#role-filters .is-active { background: #edf5ff; border-color: #1677ff; color: #1677ff; }
+.role-filter-row > strong { flex-shrink: 0; font-size: 14px; }
+.role-choices { display: flex; flex-wrap: wrap; gap: 12px 20px; }
+.role-choices label { display: flex; align-items: center; gap: 6px; font-size: 14px; }
+.role-choices input { width: 17px; height: 17px; }
+.card-roles, .card-uploader { font-size: 12px; line-height: 1.7; color: #52667f; margin: 8px 0 0; }
+.contribution-list { padding: 0; list-style: none; }
+.contribution-list li { display: flex; flex-wrap: wrap; gap: 10px; padding: 10px 0; border-bottom: 1px solid #e1e8f0; }
+.contribution-list span { color: #52667f; }
+@media (max-width: 600px) { .role-filter-row { flex-direction: column; gap: 8px; } }

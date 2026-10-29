@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27",
+  "generatedAt": "2026-10-29",
   "source": "GitHub backup plus local published package",
   "publishedVersions": [
     {
@@ -54,5 +54,6 @@
   "notes": [
     "Grok 1.2.0 is now promoted from the previous review candidate per user request.",
     "Submissions and archives were unavailable in GitHub backup and remain empty after reset."
-  ]
+  ],
+  "platformVersion": "2.6.0"
 }

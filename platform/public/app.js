@@ -1,4 +1,5 @@
-import { profileFor, renderSkillHelp, renderHelpCenter, clientInstructions } from "./onboarding.js?v=2.5.0";
+import { ROLE_OPTIONS, rolesFor, historyFor } from "./roles.js?v=2.6.0";
+import { profileFor, renderSkillHelp, renderHelpCenter, clientInstructions } from "./onboarding.js?v=2.6.0";
 
 const state = {
   skills: [],
@@ -7,6 +8,7 @@ const state = {
   archivedSkills: [],
   query: "",
   category: "全部",
+  role: "全部",
   sort: "featured",
   currentView: "library",
   currentSkill: null,
@@ -135,6 +137,7 @@ function categories() {
 }
 
 function renderCategories() {
+  document.querySelector('#role-filters').innerHTML = ["全部", ...ROLE_OPTIONS].map(role => `<button type="button" class="category-tab${state.role === role ? ' is-active' : ''}" data-role="${role}" aria-pressed="${state.role === role}">${role}<span>${role === "全部" ? state.skills.length : state.skills.filter(skill => rolesFor(skill).includes(role)).length}</span></button>`).join('');
   categoryTabs.innerHTML = categories().map((category) => `
     <button type="button" class="category-tab${state.category === category ? " is-active" : ""}" data-category="${escapeAttribute(category)}" role="tab" aria-selected="${state.category === category}">
       ${escapeHtml(category)}
@@ -147,8 +150,9 @@ function filteredSkills() {
   const query = state.query.trim().toLowerCase();
   const filtered = state.skills.filter((skill) => {
     if (state.category !== "全部" && skill.category !== state.category) return false;
+    if (state.role !== "全部" && !rolesFor(skill).includes(state.role)) return false;
     if (!query) return true;
-    const haystack = [skill.name, skill.description, skill.category, skill.author, profileFor(skill).purpose, ...(skill.tags || [])].join(" ").toLowerCase();
+    const haystack = [skill.name, skill.description, skill.category, skill.author, skill.uploaderName, ...historyFor(skill).map(item => item.name), ...rolesFor(skill), profileFor(skill).purpose, ...(skill.tags || [])].join(" ").toLowerCase();
     return haystack.includes(query);
   });
 
@@ -186,7 +190,7 @@ function renderCard(skill) {
         </div>
         <p class="card-description">${escapeHtml(skill.description)}</p>
         <div class="tags">${tags || `<span class="tag">${escapeHtml(skill.category || "其他")}</span>`}</div>
-        <p class="card-start-label">查看用途 · 安装 · 配置与反馈 →</p>
+        <p class="card-roles">适用工种：${escapeHtml(rolesFor(skill).join(" · "))}</p><p class="card-uploader">上传人：${escapeHtml(skill.uploaderName || "历史未记录")}</p><p class="card-start-label">查看用途 · 安装 · 配置与反馈 →</p>
         <div class="card-footer">
           <span class="card-author"><i data-lucide="user-round"></i>${escapeHtml(skill.author || "内部贡献者")}</span>
           <span class="card-metric"><i data-lucide="download"></i>${formatNumber(skill.downloads)}</span>
@@ -198,7 +202,7 @@ function renderCard(skill) {
 
 function renderLibrary() {
   const items = filteredSkills();
-  resultMeta.textContent = state.query || state.category !== "全部"
+  resultMeta.textContent = state.query || state.category !== "全部" || state.role !== "全部"
     ? `找到 ${formatNumber(items.length)} 个匹配技能`
     : `全部技能 · ${formatNumber(items.length)} 个`;
   emptyState.hidden = items.length !== 0;
@@ -316,12 +320,12 @@ function renderDetail(skill) {
     <div class="detail-band">
       <div class="detail-layout">
         <div class="detail-main">
-          <section class="detail-section"><h2>安装与使用</h2><div class="steps">${tutorial || '<p class="guide-copy">暂无教程，请联系发布者补充。</p>'}</div></section>
+          ${contributionSection(skill)}<section class="detail-section"><h2>安装与使用</h2><div class="steps">${tutorial || '<p class="guide-copy">暂无教程，请联系发布者补充。</p>'}</div></section>
           <section class="detail-section"><h2>配置方案</h2><p class="guide-copy">具体以包内 SKILL.md 为准；有些技能通过本机登录窗口或 state 保存配置。</p>${skill.config?.example && skill.config.example !== "{}" && skill.config?.path ? `<p class="guide-copy">发布者提供的配置位置：<code>${escapeHtml(skill.config.path)}</code></p>` : ""}${configTable}${skill.config?.example && skill.config.example !== "{}" ? codeBlock("配置示例", skill.config.example) : '<p class="guide-copy">未提供通用配置示例，请按上方教程完成配置或登录。</p>'}</section>
           <section class="detail-section"><h2>常用命令</h2>${examples || '<p class="guide-copy">暂无命令示例。</p>'}</section>
         </div>
         <aside class="detail-aside">
-          <div class="side-panel"><h3>技能信息</h3><dl class="metadata-list"><div class="metadata-row"><dt>技能 ID</dt><dd><code>${escapeHtml(skill.id)}</code></dd></div><div class="metadata-row"><dt>下载次数</dt><dd>${formatNumber(skill.downloads)}</dd></div>${skill.uploaderName ? `<div class="metadata-row"><dt>上传人员</dt><dd>${escapeHtml(skill.uploaderName)}</dd></div>` : ""}<div class="metadata-row"><dt>标签</dt><dd>${escapeHtml((skill.tags || []).join(" · ") || "未设置")}</dd></div></dl></div>
+          <div class="side-panel"><h3>技能信息</h3><dl class="metadata-list"><div class="metadata-row"><dt>适用工种</dt><dd>${escapeHtml(rolesFor(skill).join(" · "))}</dd></div><div class="metadata-row"><dt>技能 ID</dt><dd><code>${escapeHtml(skill.id)}</code></dd></div><div class="metadata-row"><dt>下载次数</dt><dd>${formatNumber(skill.downloads)}</dd></div>${skill.uploaderName ? `<div class="metadata-row"><dt>上传人员</dt><dd>${escapeHtml(skill.uploaderName)}</dd></div>` : ""}<div class="metadata-row"><dt>标签</dt><dd>${escapeHtml((skill.tags || []).join(" · ") || "未设置")}</dd></div></dl></div>
           <div class="side-panel"><h3>包内文件</h3><ul class="file-list">${files || "<li>未登记文件清单</li>"}</ul></div>
           <div class="side-panel"><h3>发布须知</h3><ul class="note-list">${notes || "<li>请先阅读技能包内的 SKILL.md。</li>"}</ul></div>
           <div class="side-panel"><h3>一起迭代</h3><p class="guide-copy">欢迎改进脚本、提示词与教程。沿用技能 ID、提高版本号并填写优化说明，提交后联系莫超，提供审核编号，由莫超审批更新。</p></div>
@@ -465,8 +469,17 @@ function fileToBase64(file) {
   });
 }
 
+function renderRoleChoices(form, skill) {
+  const selected = skill ? rolesFor(skill) : [];
+  form.querySelector('[data-role-choices]').innerHTML = ROLE_OPTIONS.map(role => `<label><input type="checkbox" name="roles" value="${role}" ${selected.includes(role) ? 'checked' : ''} />${role}</label>`).join('');
+}
+function contributionSection(skill) {
+  const entries = historyFor(skill).slice().reverse();
+  return `<section class="detail-section"><h2>上传与维护记录</h2><p class="guide-copy">当前上传人：${escapeHtml(skill.uploaderName || '历史未记录')}。姓名由提交人填写，经管理员审批后展示。</p>${entries.length ? `<ul class="contribution-list">${entries.map(entry => `<li><strong>${escapeHtml(entry.name)}</strong><span>${escapeHtml(entry.kind)} · v${escapeHtml(entry.version)} · ${escapeHtml(formatDate(entry.date))}</span></li>`).join('')}</ul>` : '<p class="guide-copy">历史记录未填写人员姓名；后续版本发布时记录上传与维护人员。</p>'}</section>`;
+}
 function openSubmission(skill = null) {
   submissionForm.reset();
+  renderRoleChoices(submissionForm, skill);
   submissionPackageLabel.textContent = "最大 30 MB，包内必须包含 SKILL.md";
   submissionForm._originalConfig = skill?.config || null;
   submissionForm._originalNotes = skill?.notes || [];
@@ -497,6 +510,8 @@ function openSubmission(skill = null) {
 async function submitContribution(event) {
   event.preventDefault();
   const form = new FormData(submissionForm);
+  if (!String(form.get("uploaderName") || "").trim()) return toast("请填写上传人员姓名", "error");
+  if (!form.getAll("roles").length) return toast("请至少选择一个适用工种", "error");
   const file = submissionPackageInput.files?.[0];
   if (!file) return toast("请选择技能 ZIP 包", "error");
   if (file.size > 30 * 1024 * 1024) return toast("技能包不能超过 30 MB", "error");
@@ -514,7 +529,7 @@ async function submitContribution(event) {
       category: form.get("category"),
       description: form.get("description"),
       author: form.get("author"),
-      uploaderName: form.get("uploaderName"),
+      uploaderName: String(form.get("uploaderName") || "").trim(), roles: form.getAll("roles"),
       submitter: form.get("submitter"),
       contact: form.get("contact"),
       tags: String(form.get("tags") || "").split(/[,，]/).map((item) => item.trim()).filter(Boolean),
@@ -587,14 +602,16 @@ function renderSubmission(submission) {
       <p class="review-description">${escapeHtml(skill.description)}</p>
       <p class="review-description"><strong>贡献说明：</strong>${escapeHtml(submission.changeSummary || "旧投稿未填写，请联系提交人确认")}</p>
       <dl class="review-metadata">
-        <div><dt>技能 ID</dt><dd><code>${escapeHtml(skill.id)}</code></dd></div>
+        <div><dt>适用工种</dt><dd>${escapeHtml(rolesFor(skill).join(" · "))}</dd></div><div class="metadata-row"><dt>技能 ID</dt><dd><code>${escapeHtml(skill.id)}</code></dd></div>
         <div><dt>基线版本</dt><dd>${escapeHtml(submission.baseVersion || "新技能 / 未记录")}</dd></div>
         <div><dt>提交人</dt><dd>${escapeHtml(submission.submitter)}</dd></div>
+        <div><dt>上传人员</dt><dd>${escapeHtml(skill.uploaderName || "历史未记录，需补充后发布")}</dd></div>
         <div><dt>联系方式</dt><dd>${escapeHtml(submission.contact)}</dd></div>
         <div><dt>提交时间</dt><dd>${escapeHtml(formatDate(submission.submittedAt, true))}</dd></div>
         <div><dt>技能包</dt><dd>${escapeHtml(formatBytes(submission.packageSize))}</dd></div>
       </dl>
       <div class="review-files">${files || "<span>未读取到文件清单</span>"}</div>
+      ${!skill.uploaderName?.trim() ? '<label class="field"><span>补充旧投稿的上传姓名（发布前必填，请联系提交人确认）</span><input name="legacyUploaderName" maxlength="80" placeholder="实际上传人员姓名" /></label>' : ''}
       <footer class="review-actions">
         <a class="button button-secondary button-small" href="/api/admin/submissions/${encodeURIComponent(submission.id)}/download">
           <i data-lucide="download"></i>下载检查
@@ -643,9 +660,10 @@ function renderPublishedSkill(skill) {
       </header>
       <p class="review-description">${escapeHtml(skill.description)}</p>
       <dl class="review-metadata">
-        <div><dt>技能 ID</dt><dd><code>${escapeHtml(skill.id)}</code></dd></div>
+        <div><dt>适用工种</dt><dd>${escapeHtml(rolesFor(skill).join(" · "))}</dd></div><div class="metadata-row"><dt>技能 ID</dt><dd><code>${escapeHtml(skill.id)}</code></dd></div>
         <div><dt>作者 / 团队</dt><dd>${escapeHtml(skill.author || "内部贡献者")}</dd></div>
-        <div><dt>上传人员</dt><dd>${escapeHtml(skill.uploaderName || "未填写")}</dd></div>
+        <div><dt>历史上传 / 维护人员</dt><dd>${escapeHtml([...new Set(historyFor(skill).map(entry => entry.name))].join("、") || "历史未记录")}</dd></div>
+        <div><dt>上传人员</dt><dd>${escapeHtml(skill.uploaderName || "历史未记录")}</dd></div>
         <div><dt>下载次数</dt><dd>${formatNumber(skill.downloads)}</dd></div>
         <div><dt>状态</dt><dd>${skill.featured ? "推荐" : "正常发布"}</dd></div>
       </dl>
@@ -665,7 +683,7 @@ function renderArchivedSkill(skill) {
     <article class="review-item catalog-review-item is-archived" data-admin-id="${escapeAttribute(skill.id)}">
       <header class="review-item-head"><div><span class="review-category">${escapeHtml(skill.category || "其他")}</span><h3>${escapeHtml(skill.name)}</h3></div><span class="review-version">已归档</span></header>
       <p class="review-description">${escapeHtml(skill.description)}</p>
-      <dl class="review-metadata"><div><dt>技能 ID</dt><dd><code>${escapeHtml(skill.id)}</code></dd></div><div><dt>版本</dt><dd>v${escapeHtml(skill.version || "1.0.0")}</dd></div><div><dt>上传人员</dt><dd>${escapeHtml(skill.uploaderName || "未填写")}</dd></div><div><dt>归档时间</dt><dd>${escapeHtml(formatDate(skill.archivedAt, true))}</dd></div></dl>
+      <dl class="review-metadata"><div><dt>适用工种</dt><dd>${escapeHtml(rolesFor(skill).join(" · "))}</dd></div><div class="metadata-row"><dt>技能 ID</dt><dd><code>${escapeHtml(skill.id)}</code></dd></div><div><dt>版本</dt><dd>v${escapeHtml(skill.version || "1.0.0")}</dd></div><div><dt>上传人员</dt><dd>${escapeHtml(skill.uploaderName || "历史未记录")}</dd></div><div><dt>归档时间</dt><dd>${escapeHtml(formatDate(skill.archivedAt, true))}</dd></div></dl>
       <footer class="review-actions"><span class="review-files">技能包已保留，可恢复上架</span><button class="button button-secondary button-small" type="button" data-admin-action="restore" data-admin-id="${escapeAttribute(skill.id)}"><i data-lucide="undo-2"></i>恢复上架</button></footer>
     </article>
   `;
@@ -692,6 +710,7 @@ async function loadAdminCatalog() {
 
 function openAdminSkillEditor(skill = null) {
   adminSkillForm.reset();
+  renderRoleChoices(adminSkillForm, skill);
   adminSkillForm.elements.mode.value = skill ? "edit" : "create";
   adminSkillForm.elements.originalId.value = skill?.id || "";
   adminSkillDialogTitle.textContent = skill ? `编辑：${skill.name}` : "新增技能";
@@ -714,6 +733,8 @@ function openAdminSkillEditor(skill = null) {
 async function submitAdminSkill(event) {
   event.preventDefault();
   const form = new FormData(adminSkillForm);
+  if (!String(form.get("uploaderName") || "").trim()) return toast("请填写上传人员姓名", "error");
+  if (!form.getAll("roles").length) return toast("请至少选择一个适用工种", "error");
   const mode = form.get("mode");
   const id = String(form.get("originalId") || form.get("id") || "");
   const file = adminPackageInput.files?.[0];
@@ -727,7 +748,7 @@ async function submitAdminSkill(event) {
   try {
     const common = {
       name: form.get("name"), version: form.get("version"), category: form.get("category"),
-      description: form.get("description"), author: form.get("author"), uploaderName: form.get("uploaderName"),
+      description: form.get("description"), author: form.get("author"), uploaderName: String(form.get("uploaderName") || "").trim(), roles: form.getAll("roles"),
       tags: String(form.get("tags") || "").split(/[,，]/).map((item) => item.trim()).filter(Boolean),
       featured: form.get("featured") === "on",
     };
@@ -771,6 +792,11 @@ async function adminCatalogAction(id, action, button) {
 async function reviewSubmission(id, action, button) {
   const submission = state.submissions.find((item) => item.id === id);
   if (!submission) return;
+  const approval = {};
+  if (action === "approve" && !submission.skill.uploaderName?.trim()) {
+    approval.uploaderName = button.closest('.review-item').querySelector('[name="legacyUploaderName"]').value.trim();
+    if (!approval.uploaderName) return toast("请先确认并补充这条旧投稿的上传人员姓名", "error");
+  }
   const actionName = action === "approve" ? "批准发布" : "驳回并删除";
   if (!window.confirm(`确定要${actionName}“${submission.skill.name}”吗？`)) return;
 
@@ -779,7 +805,7 @@ async function reviewSubmission(id, action, button) {
   button.innerHTML = '<i data-lucide="loader-circle"></i>处理中';
   refreshIcons();
   try {
-    await api(`/api/admin/submissions/${encodeURIComponent(id)}/${action}`, { method: "POST", body: "{}" });
+    await api(`/api/admin/submissions/${encodeURIComponent(id)}/${action}`, { method: "POST", body: JSON.stringify(approval) });
     toast(action === "approve" ? `“${submission.skill.name}”已发布` : `“${submission.skill.name}”已驳回`);
     await loadSubmissions();
     if (action === "approve") await loadSkills();
@@ -832,6 +858,8 @@ document.addEventListener("click", async (event) => {
     renderHelpClient();
     return;
   }
+  const role = event.target.closest("[data-role]");
+  if (role) { state.role = role.dataset.role; renderCategories(); renderLibrary(); return; }
   const category = event.target.closest("[data-category]");
   if (category) {
     state.category = category.dataset.category;
@@ -893,6 +921,7 @@ document.addEventListener("click", async (event) => {
   if (action === "clear-filters") {
     state.query = "";
     state.category = "全部";
+    state.role = "全部";
     searchInput.value = "";
     renderCategories();
     renderLibrary();

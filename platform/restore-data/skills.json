@@ -15,7 +15,7 @@
     "version": "1.2.0",
     "updatedAt": "2026-10-27",
     "featured": true,
-    "downloads": 11,
+    "downloads": 12,
     "package": "grok-imagine-subapi.zip",
     "files": [
       "grok-imagine-subapi/.gitignore",
@@ -90,6 +90,19 @@
       "图片模型固定为 grok-imagine-image。",
       "视频模型固定为 grok-imagine-video，duration 支持 1–15 秒。",
       "不要上传 config.local.json、任务记录、生成媒体或含密钥的日志。"
+    ],
+    "roles": [
+      "美术",
+      "策划",
+      "运营"
+    ],
+    "contributions": [
+      {
+        "name": "mochao",
+        "version": "1.2.0",
+        "date": "2026-10-27",
+        "kind": "历史记录"
+      }
     ]
   },
   {
@@ -111,7 +124,7 @@
     "version": "0.3.1",
     "updatedAt": "2026-10-15",
     "featured": false,
-    "downloads": 10,
+    "downloads": 11,
     "package": "sub2api-4k-image-generator-ts.zip",
     "files": [
       "agents/openai.yaml",
@@ -174,7 +187,11 @@
         "command": "node .\\dist\\openai_4k_image_generator.js \"test prompt\" --dry-run"
       }
     ],
-    "notes": []
+    "notes": [],
+    "roles": [
+      "美术"
+    ],
+    "contributions": []
   },
   {
     "id": "svn-windows-powershell",
@@ -192,7 +209,7 @@
     "version": "1.0.0",
     "updatedAt": "2026-10-10",
     "featured": false,
-    "downloads": 6,
+    "downloads": 7,
     "package": "svn-windows-powershell.zip",
     "files": [
       "svn-windows-powershell/SKILL.md",
@@ -236,7 +253,14 @@
       "适用于 Windows PowerShell 与 SVN 1.14.x。",
       "references/svn-handbook.md 包含项目手册原文和项目特定约定。",
       "技能不包含 SVN 账号、密码或服务器私密配置。"
-    ]
+    ],
+    "roles": [
+      "客户端",
+      "后端",
+      "策划",
+      "测试"
+    ],
+    "contributions": []
   },
   {
     "id": "youkia-gm",
@@ -251,7 +275,7 @@
     "version": "0.1.2",
     "updatedAt": "2026-10-15",
     "featured": false,
-    "downloads": 1,
+    "downloads": 2,
     "package": "youkia-gm.zip",
     "files": [
       "youkia-gm/README.md",
@@ -335,7 +359,13 @@
         "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\gm.ps1 select-server --project P --version V --cluster C --server S"
       }
     ],
-    "notes": []
+    "notes": [],
+    "roles": [
+      "策划",
+      "测试",
+      "后端"
+    ],
+    "contributions": []
   },
   {
     "id": "youkia-midjourney-mcp",
@@ -356,7 +386,7 @@
     "version": "1.0.0",
     "updatedAt": "2026-10-15",
     "featured": false,
-    "downloads": 1,
+    "downloads": 6,
     "package": "youkia-midjourney-mcp.zip",
     "files": [
       "agents/openai.yaml",
@@ -424,7 +454,11 @@
         "command": "使用 $youkia-midjourney-mcp 查询上次任务并下载已完成结果，不重新生成。"
       }
     ],
-    "notes": []
+    "notes": [],
+    "roles": [
+      "美术"
+    ],
+    "contributions": []
   },
   {
     "id": "youkia-local-server",
@@ -438,7 +472,7 @@
     "version": "0.1.0",
     "updatedAt": "2026-10-20",
     "featured": false,
-    "downloads": 1,
+    "downloads": 2,
     "package": "youkia-local-server.zip",
     "files": [
       "youkia-local-server/SKILL.md",
@@ -514,7 +548,13 @@
         "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\server.ps1 status"
       }
     ],
-    "notes": []
+    "notes": [],
+    "roles": [
+      "客户端",
+      "后端",
+      "测试"
+    ],
+    "contributions": []
   },
   {
     "id": "youkia-jira",
@@ -530,7 +570,7 @@
     "version": "0.1.0",
     "updatedAt": "2026-10-20",
     "featured": false,
-    "downloads": 1,
+    "downloads": 2,
     "package": "youkia-jira.zip",
     "files": [
       "youkia-jira/agents/openai.yaml",
@@ -625,7 +665,14 @@
         "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\jira.ps1 pending-bugs --project DFW"
       }
     ],
-    "notes": []
+    "notes": [],
+    "roles": [
+      "客户端",
+      "后端",
+      "策划",
+      "测试"
+    ],
+    "contributions": []
   },
   {
     "id": "youkia-image-codex",
@@ -646,7 +693,7 @@
     "version": "1.0.0",
     "updatedAt": "2026-10-20",
     "featured": false,
-    "downloads": 2,
+    "downloads": 3,
     "package": "youkia-image-codex.zip",
     "files": [
       "agents/openai.yaml",
@@ -713,6 +760,11 @@
         "command": "node .\\\\dist\\\\generate-image.js \"test prompt\" --dry-run"
       }
     ],
-    "notes": []
+    "notes": [],
+    "roles": [
+      "美术",
+      "策划"
+    ],
+    "contributions": []
   }
 ]
