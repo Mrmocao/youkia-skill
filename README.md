@@ -46,3 +46,7 @@ The home page now uses a compact, initially collapsed help bar so skill search, 
 ## Platform 2.6.2
 
 The desktop title, inline catalog statistics and AI help controls now share one compact row. The expandable guide remains full width; tablet and phone layouts wrap automatically. Deployed to http://14.103.231.1/ on 2026-10-29. Live keyboard, clipboard, filtering and responsive checks passed at 1366, 768, 390 and 320 pixel widths. Existing packages and submission data were preserved.
+
+## Platform 2.6.3
+
+Skill cards use a 64px decorative header and tighter content spacing. Descriptions show two lines with full text on the detail page; role, uploader, author and download metadata remain visible. Deployed 2026-10-29; the current 16-skill catalog was tested at desktop, tablet and phone widths. Live skills, submissions and configuration were preserved.

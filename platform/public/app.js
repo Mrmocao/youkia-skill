@@ -1,5 +1,5 @@
-import { ROLE_OPTIONS, rolesFor, historyFor } from "./roles.js?v=2.6.2";
-import { profileFor, renderSkillHelp, renderHelpCenter, clientInstructions } from "./onboarding.js?v=2.6.2";
+import { ROLE_OPTIONS, rolesFor, historyFor } from "./roles.js?v=2.6.3";
+import { profileFor, renderSkillHelp, renderHelpCenter, clientInstructions } from "./onboarding.js?v=2.6.3";
 
 const state = {
   skills: [],
